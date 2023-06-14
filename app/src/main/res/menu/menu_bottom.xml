@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/menu_home"
+        android:title="Home"
+        android:icon="@drawable/ic_home"/>
+    <item android:id="@+id/menu_settings"
+        android:title="Settings"
+        android:icon="@drawable/ic_baseline_settings_24" />
+
+    <item android:id="@+id/menu_sell"
+        android:icon="@drawable/ic_baseline_add_24"
+        android:title="Sell"
+        android:enabled="false"/>
+    <item android:id="@+id/menu_my_ads"
+        android:icon="@drawable/ic_baseline_favorite_24"
+        android:title="My Ads" />
+    <item android:id="@+id/menu_account"
+        android:title="Account"
+        android:icon="@drawable/ic_person"/>
+
+
+</menu>
