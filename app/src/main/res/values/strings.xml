@@ -2,4 +2,20 @@
     <string name="app_name">CampusOLX</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password ?</string>
+    <string name="log_in">Log In</string>
+    <string name="already_have_an_account">Already have an account ?</string>
+    <string name="register">Register</string>
+    <string name="select_profile_picture">Select Profile Picture</string>
+    <string name="password2">Password</string>
+    <string name="email2">Email</string>
+    <string name="contact_number">Contact Number</string>
+    <string name="semester">Semester</string>
+    <string name="enrollment_number">Enrollment Number</string>
+    <string name="name">Name</string>
+    <string name="create_account">Create Account</string>
+    <string name="branch_eg_it_ece_mtech">Branch (eg. IT/ECE/MTech)</string>
+    <string name="register2">Register</string>
 </resources>
