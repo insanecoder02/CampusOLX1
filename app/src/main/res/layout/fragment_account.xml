@@ -1,13 +1,283 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".AccountFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content">
+        
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profileTv"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@color/gray"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_person"
+            android:tint="@color/white"
+            app:shapeAppearanceOverlay="@style/ImageStyle_CIrcle"/>
 
-</FrameLayout>
+        <TextView
+
+            android:id="@+id/nameLabelTv"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profileTv"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="20dp"
+            android:text="Name" />
+
+        <TextView
+            android:id="@+id/nameTv"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profileTv"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="17dp"
+            android:text="Full Name" />
+
+        <TextView
+            android:id="@+id/rollNoLabelTv"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameLabelTv"
+            android:layout_marginTop="17dp"
+            android:layout_marginStart="20dp"
+            android:text="Enrollment No." />
+
+        <TextView
+            android:id="@+id/rollNoTv"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameLabelTv"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="17dp"
+            android:text="Roll Number" />
+        <TextView
+            android:id="@+id/SemesterLabelTv"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rollNoLabelTv"
+            android:layout_marginTop="17dp"
+            android:layout_marginStart="20dp"
+            android:text="Semester" />
+        <TextView
+            android:id="@+id/semesterTv"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rollNoLabelTv"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="17dp"
+            android:text="Semester" />
+        <TextView
+            android:id="@+id/BranchLabelTv"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/SemesterLabelTv"
+            android:layout_marginTop="17dp"
+            android:layout_marginStart="20dp"
+            android:text="Branch" />
+        <TextView
+            android:id="@+id/BranchTv"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/SemesterLabelTv"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="17dp"
+            android:text="Branch" />
+        <TextView
+            android:id="@+id/ContactLabelTv"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/BranchLabelTv"
+            android:layout_marginTop="17dp"
+            android:layout_marginStart="20dp"
+            android:text="Contact No." />
+        <TextView
+            android:id="@+id/ContactTv"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/BranchLabelTv"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="17dp"
+            android:text="Contact No." />
+        <TextView
+            android:id="@+id/EmailLabelTv"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ContactLabelTv"
+            android:layout_marginTop="17dp"
+            android:layout_marginStart="20dp"
+            android:text="Email Address" />
+        <TextView
+            android:id="@+id/EmailTv"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ContactTv"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="17dp"
+            android:text="Email" />
+        <TextView
+            android:id="@+id/PassLabelTv"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/EmailLabelTv"
+            android:layout_marginTop="17dp"
+            android:layout_marginStart="20dp"
+            android:text="Password" />
+        <TextView
+            android:id="@+id/PassTv"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/EmailLabelTv"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="17dp"
+            android:text="Password" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/PassLabelTv"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Preferences"
+                android:layout_marginStart="20dp"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/logoutCv"
+                android:layout_margin="2dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
+                app:cardCornerRadius="10dp"
+                app:contentPadding="10dp">
+                <TextView
+                    android:drawableTint="@color/gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Logout"
+                    android:gravity="center_vertical"
+                    android:drawableStart="@drawable/ic_power"
+                    android:drawableEnd="@drawable/ic_next"
+                    android:drawablePadding="15dp"></TextView>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editProfileCv"
+                android:layout_margin="2dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
+                app:cardCornerRadius="10dp"
+                app:contentPadding="10dp">
+                <TextView
+                    android:drawableTint="@color/gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Edit Profile"
+                    android:gravity="center_vertical"
+                    android:drawableStart="@drawable/ic_person"
+                    android:drawableEnd="@drawable/ic_next"
+                    android:drawablePadding="15dp"></TextView>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/changePasswordCv"
+                android:layout_margin="2dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
+                app:cardCornerRadius="10dp"
+                app:contentPadding="10dp">
+                <TextView
+                    android:drawableTint="@color/gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Change Password"
+                    android:gravity="center_vertical"
+                    android:drawableStart="@drawable/pass_icon"
+                    android:drawableEnd="@drawable/ic_next"
+                    android:drawablePadding="15dp"></TextView>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/verifyAccount"
+                android:layout_margin="2dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
+                app:cardCornerRadius="10dp"
+                app:contentPadding="10dp">
+                <TextView
+                    android:drawableTint="@color/gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Verify Account"
+                    android:gravity="center_vertical"
+                    android:drawableStart="@drawable/baseline_beenhere_24"
+                    android:drawableEnd="@drawable/ic_next"
+                    android:drawablePadding="15dp"></TextView>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/deleteAccount"
+                android:layout_margin="2dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
+                app:cardCornerRadius="10dp"
+                app:contentPadding="10dp">
+                <TextView
+                    android:drawableTint="@color/gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Delete Account"
+                    android:gravity="center_vertical"
+                    android:drawableStart="@drawable/baseline_block_24"
+                    android:drawableEnd="@drawable/ic_next"
+                    android:drawablePadding="15dp"></TextView>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+
+
+
+    </RelativeLayout>
+
+</ScrollView>
