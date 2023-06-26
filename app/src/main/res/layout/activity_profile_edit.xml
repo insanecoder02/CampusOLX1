@@ -12,6 +12,7 @@
         android:layout_height="55dp">
 
         <ImageButton
+            android:tint="@color/gray"
             android:id="@+id/toolBarBackBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,7 +48,6 @@
                 android:layout_centerHorizontal="true"
                 android:layout_height="120dp">
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:tint="@color/white"
                     android:id="@+id/profileTv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -165,6 +165,7 @@
 
             </RelativeLayout>
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/updateBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/phoneInputRL"

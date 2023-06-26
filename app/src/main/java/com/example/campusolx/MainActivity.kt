@@ -1,7 +1,9 @@
 package com.example.campusolx
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import com.example.campusolx.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -10,6 +12,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.hide()
+
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
 
         binding.bottomNavigationView.setOnItemSelectedListener{item->
             when(item.itemId){
@@ -29,6 +38,10 @@ true
                 R.id.menu_settings->{
                     showSettingsFragment()
 true
+                }
+                R.id.menu_sell->{
+                    startActivity(Intent(this, AdCreateActivity::class.java))
+                    true
                 }
                 else->{
                     false

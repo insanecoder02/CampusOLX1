@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="55dp">
         <ImageButton
+            android:tint="@color/gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/toolBarBackBtn"
@@ -27,6 +28,7 @@
             style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_centerInParent="true"/>
         <ImageButton
+            android:tint="@color/gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/addImage"
