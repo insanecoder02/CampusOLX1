@@ -10,7 +10,7 @@
         android:id="@+id/registerButton"
         android:layout_width="300dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginTop="24dp"
         android:backgroundTint="@color/app_theme"
         android:text="@string/register2"
         app:cornerRadius="32dp"
@@ -18,8 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_password"
-        app:layout_constraintVertical_bias="0.943" />
+        app:layout_constraintTop_toBottomOf="@+id/upi_id" />
 
     <EditText
         android:id="@+id/branch"
@@ -29,7 +28,6 @@
         android:background="@drawable/edit_text_background"
         android:ems="10"
         android:hint="@string/branch_eg_it_ece_mtech"
-        android:inputType="phone"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,14 +44,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintVertical_bias="0.0"
         tools:text="Create Account" />
 
     <EditText
         android:id="@+id/userName"
         android:layout_width="300dp"
         android:layout_height="48dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/edit_text_background"
         android:ems="10"
         android:hint="@string/name"
@@ -62,7 +60,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
         android:id="@+id/enrollNo"
@@ -75,7 +73,7 @@
         android:inputType="text"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userName" />
 
@@ -90,7 +88,7 @@
         android:inputType="number"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enrollNo" />
 
@@ -105,7 +103,7 @@
         android:inputType="phone"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/branch" />
 
@@ -120,7 +118,7 @@
         android:inputType="textEmailAddress"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contact" />
 
@@ -135,21 +133,36 @@
         android:inputType="textPassword"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_email" />
+
+    <EditText
+        android:id="@+id/upi_id"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edit_text_background"
+        android:ems="10"
+        android:hint="@string/upi_id"
+        android:inputType="text"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_password" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toTopOf="@+id/userName"
         app:layout_constraintEnd_toStartOf="@+id/textView2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.583"
+        app:layout_constraintVertical_bias="0.5"
         app:srcCompat="@drawable/baseline_arrow_back_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

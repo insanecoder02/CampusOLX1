@@ -18,4 +18,5 @@
     <string name="create_account">Create Account</string>
     <string name="branch_eg_it_ece_mtech">Branch (eg. IT/ECE/MTech)</string>
     <string name="register2">Register</string>
+    <string name="upi_id">UPI Id</string>
 </resources>

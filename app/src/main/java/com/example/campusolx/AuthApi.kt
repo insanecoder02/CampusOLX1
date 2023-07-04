@@ -12,39 +12,21 @@ interface AuthApi {
     @POST("api/user/login")
     fun login(@Body request: LoginRequest): Call<AuthTokenResponse>
 
-    @FormUrlEncoded
-    @POST("api/user/register")
-    fun register(
-        @Field("name") name: String,
-        @Field("enrollmentNo") enrollmentNo: String,
-        @Field("semester") semester: Int,
-        @Field("upiId") upiId: String,
-        @Field("branch") branch: String,
-        @Field("contact") contact: String,
-        @Field("email") email: String,
-        @Field("password") password: String
-    ): Call<Void>
+    @Headers("Accept: application/json")
+    @POST("api/user")
+    fun register(@Body request: RegisterRequest): Call<Void>
 
-    @FormUrlEncoded
+    @Headers("Accept: application/json")
     @POST("api/user/verify")
-    fun verify(
-        @Field("email") code: String,
-        @Field("code") email: String
-    ): Call<Void>
+    fun verify(@Body request: VerifyRequest): Call<Void>
 
-    @FormUrlEncoded
+    @Headers("Accept: application/json")
     @POST("api/user/forgotpassword")
-    fun forgotPassword(
-        @Field("email") email: String
-    ): Call<Void>
+    fun forgotPassword(@Body request: ForgotPasswordRequest): Call<Void>
 
-    @FormUrlEncoded
+    @Headers("Accept: application/json")
     @POST("api/user/reset")
-    fun resetPassword(
-        @Field("email") email: String,
-        @Field("token") token: String,
-        @Field("newPassword") newPassword: String
-    ): Call<Void>
+    fun resetPassword(@Body request: ResetPasswordRequest): Call<Void>
 
     @POST("api/user/logout")
     fun logout(): Call<Void>

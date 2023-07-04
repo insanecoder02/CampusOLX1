@@ -41,6 +41,9 @@ class LoginActivity : AppCompatActivity() {
         binding.registerLink.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
+        binding.forgotPassword.setOnClickListener {
+            startActivity(Intent(this, ForgotPassActivity::class.java))
+        }
         binding.loginButton.setOnClickListener {
             validateData()
         }
