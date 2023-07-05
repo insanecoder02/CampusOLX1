@@ -1,6 +1,7 @@
 package com.example.campusolx.activites
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -73,19 +74,38 @@ class LoginActivity : AppCompatActivity() {
 
     private fun loginUser() {
         progressDialog.show()
-//        val nEmail = "\"$email\""
-//        val nPassword = "\"$password\""
-//        val request = authApi.login(nEmail, nPassword)
-//        Log.d("Request URL", request.request().url.toString()) // Log the request URL
-//        Log.d("Request Headers", request.request().toString()) // Log the request
-//        authApi.login(nEmail, nPassword).enqueue(object : Callback<AuthTokenResponse> {
+
         val request = LoginRequest(email, password)
-        authApi.login(request).enqueue(object : Callback<AuthTokenResponse>{
+        authApi.login(request).enqueue(object : Callback<AuthTokenResponse> {
             override fun onResponse(call: Call<AuthTokenResponse>, response: Response<AuthTokenResponse>) {
                 progressDialog.dismiss()
 
                 if (response.isSuccessful) {
                     val authToken = response.body()?.token
+                    val name = response.body()?.name
+                    val enrollmentNo = response.body()?.enrollmentNo
+                    val semester = response.body()!!.semester
+                    val branch = response.body()?.branch
+                    val contact = response.body()?.contact
+                    val upiId = response.body()?.upiId
+                    val email = response.body()?.email
+                    val profilePictureUrl = response.body()?.profilePictureResponse?.url
+
+                    val sharedPreference = getSharedPreferences("Account_Details", Context.MODE_PRIVATE)
+                    val editor = sharedPreference.edit()
+
+                    editor.putString("accessToken", authToken)
+                    editor.putString("name", name)
+                    editor.putString("enrollmentNo", enrollmentNo)
+                    editor.putInt("semester", semester)
+                    editor.putString("branch", branch)
+                    editor.putString("contact", contact)
+                    editor.putString("upiId", upiId)
+                    editor.putString("email", email)
+                    editor.putString("profilePictureUrl", profilePictureUrl)
+
+                    editor.apply()
+
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                     finishAffinity()
@@ -107,6 +127,7 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this@LoginActivity, "Unsuccessful: $errorMessage", Toast.LENGTH_LONG).show()
                 }
             }
+
             override fun onFailure(call: Call<AuthTokenResponse>, t: Throwable) {
                 progressDialog.dismiss()
                 val errorMessage = t.message

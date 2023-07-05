@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
         
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profileTv"
+            android:id="@+id/profileTvAcc"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_centerHorizontal="true"
@@ -24,137 +24,137 @@
 
         <TextView
 
-            android:id="@+id/nameLabelTv"
+            android:id="@+id/nameLabelTvAcc"
             style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/profileTv"
+            android:layout_below="@id/profileTvAcc"
             android:layout_marginTop="30dp"
             android:layout_marginStart="20dp"
             android:text="Name" />
 
         <TextView
-            android:id="@+id/nameTv"
+            android:id="@+id/nameTvAcc"
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/profileTv"
+            android:layout_below="@id/profileTvAcc"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="17dp"
             android:text="Full Name" />
 
         <TextView
-            android:id="@+id/rollNoLabelTv"
+            android:id="@+id/rollNoLabelTvAcc"
             style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/nameLabelTv"
+            android:layout_below="@id/nameLabelTvAcc"
             android:layout_marginTop="17dp"
             android:layout_marginStart="20dp"
             android:text="Enrollment No." />
 
         <TextView
-            android:id="@+id/rollNoTv"
+            android:id="@+id/rollNoTvAcc"
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/nameLabelTv"
+            android:layout_below="@id/nameLabelTvAcc"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="22dp"
             android:layout_marginEnd="17dp"
             android:text="Roll Number" />
         <TextView
-            android:id="@+id/SemesterLabelTv"
+            android:id="@+id/SemesterLabelTvAcc"
             style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rollNoLabelTv"
+            android:layout_below="@id/rollNoLabelTvAcc"
             android:layout_marginTop="17dp"
             android:layout_marginStart="20dp"
             android:text="Semester" />
         <TextView
-            android:id="@+id/semesterTv"
+            android:id="@+id/semesterTvAcc"
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rollNoLabelTv"
+            android:layout_below="@id/rollNoLabelTvAcc"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="22dp"
             android:layout_marginEnd="17dp"
             android:text="Semester" />
         <TextView
-            android:id="@+id/BranchLabelTv"
+            android:id="@+id/BranchLabelTvAcc"
             style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/SemesterLabelTv"
+            android:layout_below="@id/SemesterLabelTvAcc"
             android:layout_marginTop="17dp"
             android:layout_marginStart="20dp"
             android:text="Branch" />
         <TextView
-            android:id="@+id/BranchTv"
+            android:id="@+id/BranchTvAcc"
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/SemesterLabelTv"
+            android:layout_below="@id/SemesterLabelTvAcc"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="22dp"
             android:layout_marginEnd="17dp"
             android:text="Branch" />
         <TextView
-            android:id="@+id/ContactLabelTv"
+            android:id="@+id/ContactLabelTvAcc"
             style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/BranchLabelTv"
+            android:layout_below="@id/BranchLabelTvAcc"
             android:layout_marginTop="17dp"
             android:layout_marginStart="20dp"
             android:text="Contact No." />
         <TextView
-            android:id="@+id/ContactTv"
+            android:id="@+id/ContactTvAcc"
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/BranchLabelTv"
+            android:layout_below="@id/BranchLabelTvAcc"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="22dp"
             android:layout_marginEnd="17dp"
             android:text="Contact No." />
         <TextView
-            android:id="@+id/EmailLabelTv"
+            android:id="@+id/EmailLabelTvAcc"
             style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ContactLabelTv"
+            android:layout_below="@id/ContactLabelTvAcc"
             android:layout_marginTop="17dp"
             android:layout_marginStart="20dp"
             android:text="Email Address" />
         <TextView
-            android:id="@+id/EmailTv"
+            android:id="@+id/EmailTvAcc"
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ContactTv"
+            android:layout_below="@id/ContactTvAcc"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="22dp"
             android:layout_marginEnd="17dp"
             android:text="Email" />
         <TextView
-            android:id="@+id/PassLabelTv"
+            android:id="@+id/PassLabelTvAcc"
             style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/EmailLabelTv"
+            android:layout_below="@id/EmailLabelTvAcc"
             android:layout_marginTop="17dp"
             android:layout_marginStart="20dp"
             android:text="Password" />
         <TextView
-            android:id="@+id/PassTv"
+            android:id="@+id/PassTvAcc"
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/EmailLabelTv"
+            android:layout_below="@id/EmailLabelTvAcc"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="22dp"
             android:layout_marginEnd="17dp"
@@ -162,7 +162,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/PassLabelTv"
+            android:layout_below="@id/PassLabelTvAcc"
             android:layout_marginTop="20dp"
             android:orientation="vertical">
 
@@ -176,7 +176,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/logoutCv"
+                android:id="@+id/logoutCvAcc"
                 android:layout_margin="2dp"
                 android:clickable="true"
                 android:focusable="true"
@@ -196,7 +196,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/editProfileCv"
+                android:id="@+id/editProfileCvAcc"
                 android:layout_margin="2dp"
                 android:clickable="true"
                 android:focusable="true"
@@ -216,7 +216,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/changePasswordCv"
+                android:id="@+id/changePasswordCvAcc"
                 android:layout_margin="2dp"
                 android:clickable="true"
                 android:focusable="true"
@@ -236,7 +236,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/verifyAccount"
+                android:id="@+id/verifyAccountAcc"
                 android:layout_margin="2dp"
                 android:clickable="true"
                 android:focusable="true"
@@ -256,7 +256,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/deleteAccount"
+                android:id="@+id/deleteAccountAcc"
                 android:layout_margin="2dp"
                 android:clickable="true"
                 android:focusable="true"
