@@ -23,35 +23,38 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ResetPasswordActivity"
+            android:name=".activites.AdDetailsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activites.ResetPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".VerifyAccountActivity"
+            android:name=".activites.VerifyAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".AdCreateActivity"
+            android:name=".activites.AdCreateActivity"
             android:exported="true" />
         <activity
-            android:name=".DeleteActivity"
+            android:name=".activites.DeleteActivity"
             android:exported="true" />
         <activity
-            android:name=".ForgotPassActivity"
+            android:name=".activites.ForgotPassActivity"
             android:exported="true" />
         <activity
-            android:name=".ProfileEditActivity"
+            android:name=".activites.ProfileEditActivity"
             android:exported="true" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activites.RegisterActivity"
             android:exported="true" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activites.LoginActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".SplashActivity"
+            android:name=".activites.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -64,7 +67,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activites.MainActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"

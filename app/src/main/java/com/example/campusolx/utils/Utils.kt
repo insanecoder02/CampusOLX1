@@ -1,8 +1,8 @@
-package com.example.campusolx
+package com.example.campusolx.utils
 
 import android.content.Context
-import android.os.Message
 import android.widget.Toast
+import com.example.campusolx.R
 
 object Utils {
 

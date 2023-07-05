@@ -1,9 +1,14 @@
-package com.example.campusolx
+package com.example.campusolx.activites
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
+import com.example.campusolx.fragments.AccountFragment
+import com.example.campusolx.fragments.HomeFragment
+import com.example.campusolx.fragments.MyAdsFragment
+import com.example.campusolx.R
+import com.example.campusolx.fragments.SettingsFragment
 import com.example.campusolx.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -22,24 +27,24 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.setOnItemSelectedListener{item->
             when(item.itemId){
-                R.id.menu_home->{
+                R.id.menu_home ->{
                     showHomeFragment()
                     true
                 }
-                R.id.menu_account->{
+                R.id.menu_account ->{
                     showAccountFragment()
 true
                 }
 
-                R.id.menu_my_ads->{
+                R.id.menu_my_ads ->{
                     showMyAdsFragment()
 true
                 }
-                R.id.menu_settings->{
+                R.id.menu_settings ->{
                     showSettingsFragment()
 true
                 }
-                R.id.menu_sell->{
+                R.id.menu_sell ->{
                     startActivity(Intent(this, AdCreateActivity::class.java))
                     true
                 }

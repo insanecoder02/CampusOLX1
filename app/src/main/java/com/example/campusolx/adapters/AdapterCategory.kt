@@ -1,17 +1,15 @@
-package com.example.campusolx
+package com.example.campusolx.adapters
 
 import android.content.Context
 import android.graphics.Color
-import android.view.Display.Mode
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.example.campusolx.databinding.FragmentAccountBinding
+import com.example.campusolx.models.ModelCategory
+import com.example.campusolx.interfaces.RvListenerCategory
 import com.example.campusolx.databinding.RowCategoryBinding
-import kotlin.random.Random
 
 class AdapterCategory(
     private val context: Context,

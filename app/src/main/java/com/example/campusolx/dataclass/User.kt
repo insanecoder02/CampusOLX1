@@ -1,4 +1,6 @@
-package com.example.campusolx
+package com.example.campusolx.dataclass
+
+import com.example.campusolx.dataclass.ProfilePicture
 
 data class User(
     val __v: Int,

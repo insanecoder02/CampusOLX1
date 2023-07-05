@@ -1,4 +1,4 @@
-package com.example.campusolx
+package com.example.campusolx.dataclass
 
 import com.google.gson.annotations.SerializedName
 

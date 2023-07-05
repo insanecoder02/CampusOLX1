@@ -1,13 +1,13 @@
-package com.example.campusolx
+package com.example.campusolx.fragments
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat.finishAffinity
+import com.example.campusolx.activites.ForgotPassActivity
+import com.example.campusolx.activites.ProfileEditActivity
 import com.example.campusolx.databinding.FragmentAccountBinding
 
 

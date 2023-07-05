@@ -1,4 +1,4 @@
-package com.example.campusolx
+package com.example.campusolx.activites
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -8,7 +8,9 @@ import android.util.Log
 import android.util.Patterns
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import com.example.campusolx.interfaces.AuthApi
+import com.example.campusolx.dataclass.RegisterRequest
+import com.example.campusolx.RetrofitInstance
 import com.example.campusolx.databinding.ActivityRegisterBinding
 import org.json.JSONException
 import org.json.JSONObject

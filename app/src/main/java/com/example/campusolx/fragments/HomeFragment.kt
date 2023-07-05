@@ -1,4 +1,4 @@
-package com.example.campusolx
+package com.example.campusolx.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -6,6 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.campusolx.adapters.AdapterCategory
+import com.example.campusolx.models.ModelCategory
+import com.example.campusolx.interfaces.RvListenerCategory
+import com.example.campusolx.utils.Utils
 import com.example.campusolx.databinding.FragmentHomeBinding
 
 
@@ -36,7 +40,8 @@ class HomeFragment : Fragment() {
             val modelCategory = ModelCategory(Utils.categories[i], Utils.categoryIcons[i])
             categoryArrayList.add(modelCategory)
         }
-        val adapterCategory = AdapterCategory(mContext, categoryArrayList, object : RvListenerCategory {
+        val adapterCategory = AdapterCategory(mContext, categoryArrayList, object :
+            RvListenerCategory {
             override fun onCategoryClick(modelCategory: ModelCategory) {
 
             }

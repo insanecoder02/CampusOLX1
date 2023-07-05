@@ -1,4 +1,4 @@
-package com.example.campusolx
+package com.example.campusolx.activites
 
 import android.app.Activity
 import android.content.ContentValues
@@ -6,7 +6,6 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import android.os.Build.VERSION_CODES.P
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -16,9 +15,10 @@ import android.view.WindowManager
 import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
 import com.bumptech.glide.Glide
+import com.example.campusolx.R
+import com.example.campusolx.utils.Utils
 import com.example.campusolx.databinding.ActivityProfileEditBinding
 import java.lang.Exception
-import java.util.jar.Manifest
 
 class ProfileEditActivity : AppCompatActivity() {
     private lateinit var binding : ActivityProfileEditBinding
@@ -103,7 +103,7 @@ class ProfileEditActivity : AppCompatActivity() {
         if(areAllGranted){
             pickImageCamera()
         } else{
-            Utils.toast(this,"Camera or Storage or both permissions denied")
+            Utils.toast(this, "Camera or Storage or both permissions denied")
 
         }
 
@@ -115,7 +115,7 @@ class ProfileEditActivity : AppCompatActivity() {
             pickImageGallery()
         }
         else{
-            Utils.toast(this,"Storage Permission Denied")
+            Utils.toast(this, "Storage Permission Denied")
 
         }
     }
@@ -147,7 +147,7 @@ class ProfileEditActivity : AppCompatActivity() {
             }
         }
         else{
-            Utils.toast(this,"Cancelled")
+            Utils.toast(this, "Cancelled")
         }
     }
     private val galleryActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){result->

@@ -1,4 +1,4 @@
-package com.example.campusolx
+package com.example.campusolx.activites
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

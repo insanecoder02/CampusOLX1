@@ -1,4 +1,4 @@
-package com.example.campusolx
+package com.example.campusolx.dataclass
 
 data class ForgotPasswordRequest(
     val email: String
