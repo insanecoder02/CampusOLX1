@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/toolBarDeleteBtn"
-            android:src="@drawable/baseline_delete_24"
+            android:src="@drawable/baseline_close_24"
             android:layout_toStartOf="@id/toolBarEditBtn"
             android:background="@android:color/transparent"
             android:layout_centerVertical="true"/>
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/toolBarEditBtn"
-            android:src="@drawable/baseline_edit_24"
+            android:src="@drawable/baseline_bed_24"
             android:layout_toStartOf="@id/toolbarFavBtn"
             android:background="@android:color/transparent"
             android:layout_centerVertical="true"/>
