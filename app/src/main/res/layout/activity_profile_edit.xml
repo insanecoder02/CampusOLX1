@@ -12,14 +12,14 @@
         android:layout_height="55dp">
 
         <ImageButton
-            android:tint="@color/gray"
             android:id="@+id/toolBarBackBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_back"
             android:background="@android:color/transparent"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            app:tint="@color/gray" />
         <TextView
             android:id="@+id/toolbarTitleTv"
             android:layout_width="wrap_content"
