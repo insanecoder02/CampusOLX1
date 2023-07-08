@@ -19,21 +19,9 @@ import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.campusolx.RetrofitInstance
 import com.example.campusolx.databinding.ActivityAdCreateBinding
-import com.example.campusolx.dataclass.CreateProductRequest
-import com.example.campusolx.dataclass.CreateProductResponse
-import com.example.campusolx.dataclass.EditProductRequest
-import com.example.campusolx.dataclass.ProductResponse
-import com.example.campusolx.dataclass.UploadProductImageResponse
 import com.example.campusolx.interfaces.ProductApi
 import com.example.campusolx.models.ModelImagePicked
 import com.example.campusolx.utils.Utils
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.io.File
 
 
 class AdCreateActivity : AppCompatActivity() {
@@ -236,105 +224,105 @@ class AdCreateActivity : AppCompatActivity() {
         }
     }
 
-    private fun postAd() {
-        progressDialog.setMessage("Publishing Ad")
-        progressDialog.show()
-
-        val adData = CreateProductRequest(
-            name = title,
-            description = description,
-            category = category,
-            prices = price.toInt(),
-            images = emptyList()
-        )
-
-        productApi.createProduct(accessToken = accessToken, adData).enqueue(object :
-            Callback<CreateProductResponse> {
-            override fun onResponse(call: Call<CreateProductResponse>, response: Response<CreateProductResponse>) {
-                progressDialog.dismiss()
-                if (response.isSuccessful) {
-                    val adId = response.body()?.product?.id
-                    if (adId != null) {
-                        uploadImages(adId)
-                    } else {
-                        Utils.toast(this@AdCreateActivity, "Failed to get Ad ID")
-                    }
-                } else {
-                    Utils.toast(this@AdCreateActivity, "Failed to post ad")
-                }
-            }
-
-
-            override fun onFailure(call: Call<CreateProductResponse>, t: Throwable) {
-                progressDialog.dismiss()
-                Utils.toast(this@AdCreateActivity, "Failed to post ad: ${t.message}")
-            }
-        })}
-
-    private fun uploadImages(adId: String) {
-        for (modelImagePicked in imagePickedArrayList) {
-            val imageUri = modelImagePicked.imageUri
-            if (imageUri != null) {
-                val imageFile = File(imageUri.path)
-                val requestBody = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
-                val imagePart = MultipartBody.Part.createFormData("image", imageFile.name, requestBody)
-
-                productApi.uploadProductImage(accessToken, imagePart).enqueue(object : Callback<UploadProductImageResponse> {
-                    override fun onResponse(call: Call<UploadProductImageResponse>, response: Response<UploadProductImageResponse>) {
-                        // Handle the image upload response
-                        if (response.isSuccessful) {
-                            val uploadedImages = response.body()?.images
-                            if (uploadedImages != null) {
-                                // Update the ad data with the uploaded image URLs
-                                val adData = CreateProductRequest(
-                                    name = title,
-                                    description = description,
-                                    category = category,
-                                    prices = price.toInt(),
-                                    images = uploadedImages.map { image ->
-                                        com.example.campusolx.dataclass.Image(url = image.url)
-                                    }
-                                )
-                                updateAdWithImages(adId, adData)
-                            } else {
-                                Utils.toast(this@AdCreateActivity, "Failed to upload images")
-                            }
-                        } else {
-                            Utils.toast(this@AdCreateActivity, "Failed to upload images")
-                        }
-                    }
-
-                    override fun onFailure(call: Call<UploadProductImageResponse>, t: Throwable) {
-                        // Handle the image upload failure
-                        Utils.toast(this@AdCreateActivity, "Failed to upload images: ${t.message}")
-                    }
-                })
-            }
-        }
-    }
-
-    private fun updateAdWithImages(adId: String, adData: EditProductRequest) {
-        productApi.updateProduct(accessToken, adId, adData).enqueue(object : Callback<ProductResponse> {
-            override fun onResponse(
-                call: Call<ProductResponse>,
-                response: Response<ProductResponse>
-            ) {
-// Handle the    response for updating the ad with images
-
-                progressDialog.dismiss()
-                if (response.isSuccessful) {
-                    Utils.toast(this@AdCreateActivity, "Ad posted successfully")
-// Clear the form and go back to the previous activity
-                    onBackPressed()
-                } else {
-                    Utils.toast(this@AdCreateActivity, "Failed to update ad with images")
-                }
-            }
-            override fun onFailure(call: Call<ProductResponse>, t: Throwable) {
-                progressDialog.dismiss()
-                Utils.toast(this@AdCreateActivity, "Failed to update ad with images: ${t.message}")
-            }
-        })}
+//    private fun postAd() {
+//        progressDialog.setMessage("Publishing Ad")
+//        progressDialog.show()
+//
+//        val adData = CreateProductRequest(
+//            name = title,
+//            description = description,
+//            category = category,
+//            prices = price.toInt(),
+//            images = emptyList()
+//        )
+//
+//        productApi.createProduct(accessToken = accessToken, adData).enqueue(object :
+//            Callback<CreateProductResponse> {
+//            override fun onResponse(call: Call<CreateProductResponse>, response: Response<CreateProductResponse>) {
+//                progressDialog.dismiss()
+//                if (response.isSuccessful) {
+//                    val adId = response.body()?.product?.id
+//                    if (adId != null) {
+//                        uploadImages(adId)
+//                    } else {
+//                        Utils.toast(this@AdCreateActivity, "Failed to get Ad ID")
+//                    }
+//                } else {
+//                    Utils.toast(this@AdCreateActivity, "Failed to post ad")
+//                }
+//            }
+//
+//
+//            override fun onFailure(call: Call<CreateProductResponse>, t: Throwable) {
+//                progressDialog.dismiss()
+//                Utils.toast(this@AdCreateActivity, "Failed to post ad: ${t.message}")
+//            }
+//        })}
+//
+//    private fun uploadImages(adId: String) {
+//        for (modelImagePicked in imagePickedArrayList) {
+//            val imageUri = modelImagePicked.imageUri
+//            if (imageUri != null) {
+//                val imageFile = File(imageUri.path)
+//                val requestBody = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
+//                val imagePart = MultipartBody.Part.createFormData("image", imageFile.name, requestBody)
+//
+//                productApi.uploadProductImage(accessToken, imagePart).enqueue(object : Callback<UploadProductImageResponse> {
+//                    override fun onResponse(call: Call<UploadProductImageResponse>, response: Response<UploadProductImageResponse>) {
+//                        // Handle the image upload response
+//                        if (response.isSuccessful) {
+//                            val uploadedImages = response.body()?.images
+//                            if (uploadedImages != null) {
+//                                // Update the ad data with the uploaded image URLs
+//                                val adData = CreateProductRequest(
+//                                    name = title,
+//                                    description = description,
+//                                    category = category,
+//                                    prices = price.toInt(),
+//                                    images = uploadedImages.map { image ->
+//                                        com.example.campusolx.dataclass.Image(url = image.url)
+//                                    }
+//                                )
+//                                updateAdWithImages(adId, adData)
+//                            } else {
+//                                Utils.toast(this@AdCreateActivity, "Failed to upload images")
+//                            }
+//                        } else {
+//                            Utils.toast(this@AdCreateActivity, "Failed to upload images")
+//                        }
+//                    }
+//
+//                    override fun onFailure(call: Call<UploadProductImageResponse>, t: Throwable) {
+//                        // Handle the image upload failure
+//                        Utils.toast(this@AdCreateActivity, "Failed to upload images: ${t.message}")
+//                    }
+//                })
+//            }
+//        }
+//    }
+//
+//    private fun updateAdWithImages(adId: String, adData: EditProductRequest) {
+//        productApi.updateProduct(accessToken, adId, adData).enqueue(object : Callback<ProductResponse> {
+//            override fun onResponse(
+//                call: Call<ProductResponse>,
+//                response: Response<ProductResponse>
+//            ) {
+//// Handle the    response for updating the ad with images
+//
+//                progressDialog.dismiss()
+//                if (response.isSuccessful) {
+//                    Utils.toast(this@AdCreateActivity, "Ad posted successfully")
+//// Clear the form and go back to the previous activity
+//                    onBackPressed()
+//                } else {
+//                    Utils.toast(this@AdCreateActivity, "Failed to update ad with images")
+//                }
+//            }
+//            override fun onFailure(call: Call<ProductResponse>, t: Throwable) {
+//                progressDialog.dismiss()
+//                Utils.toast(this@AdCreateActivity, "Failed to update ad with images: ${t.message}")
+//            }
+//        })}
     }
 
 

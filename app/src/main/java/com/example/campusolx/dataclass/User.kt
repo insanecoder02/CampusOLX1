@@ -1,7 +1,5 @@
 package com.example.campusolx.dataclass
 
-import com.example.campusolx.dataclass.ProfilePicture
-
 data class User(
     val __v: Int,
     val _id: String,
@@ -12,7 +10,7 @@ data class User(
     val isVerified: Boolean,
     val name: String,
     val password: String,
-    val profilePicture: ProfilePicture,
+    val profilePicture: Image,
     val semester: Int,
     val upiId: String
 )

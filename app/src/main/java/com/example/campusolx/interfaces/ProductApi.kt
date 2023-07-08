@@ -1,8 +1,7 @@
 package com.example.campusolx.interfaces
 
-import com.example.campusolx.dataclass.CreateProductRequest
-import com.example.campusolx.dataclass.CreateProductResponse
-import com.example.campusolx.dataclass.EditProductRequest
+import com.example.campusolx.dataclass.Product
+import com.example.campusolx.dataclass.ProductRequest
 import com.example.campusolx.dataclass.ProductResponse
 import com.example.campusolx.dataclass.UploadProductImageResponse
 import okhttp3.MultipartBody
@@ -25,19 +24,25 @@ interface ProductApi {
     @GET("api/products/user")
     fun getAllProductsOfUser(@Header("Authorization") accessToken: String): Call<ProductResponse>
 
+    @GET("api/products/{id}")
+    fun getProductById(
+        @Header("Authorization") accessToken: String,
+        @Path("id") productId: String
+    ): Call<Product>
+
     @Headers("Accept: application/json")
     @POST("api/products/create")
     fun createProduct(
         @Header("Authorization") accessToken: String,
-        @Body request: CreateProductRequest
-    ): Call<CreateProductResponse>
+        @Body request: ProductRequest
+    ): Call<Product>
 
     @PUT("api/products/{id}")
     fun updateProduct(
         @Header("Authorization") accessToken: String,
         @Path("id") id: String,
-        @Body request: EditProductRequest
-    ): Call<ProductResponse>
+        @Body request: ProductRequest
+    ): Call<Product>
 
     @DELETE("api/products/{id}")
     fun deleteProduct(

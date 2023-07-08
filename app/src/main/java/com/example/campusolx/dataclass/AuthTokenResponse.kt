@@ -10,7 +10,7 @@ data class AuthTokenResponse(
     @SerializedName("contact") val contact: String,
     @SerializedName("upiId") val upiId: String,
     @SerializedName("email") val email: String,
-    @SerializedName("profilePicture") val profilePictureResponse: ProfilePicture?,
+    @SerializedName("profilePicture") val profilePictureResponse: Image?,
     @SerializedName("token") val token: String
 )
 

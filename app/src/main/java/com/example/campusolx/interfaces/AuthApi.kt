@@ -32,6 +32,8 @@ interface AuthApi {
     @POST("api/user/reset")
     fun resetPassword(@Body request: ResetPasswordRequest): Call<Void>
 
+    
+
     @POST("api/user/logout")
     fun logout(): Call<Void>
 }
