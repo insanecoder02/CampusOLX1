@@ -1,5 +1,5 @@
 package com.example.campusolx.dataclass
 
 data class CreateProductResponse(
-    val product: Product
+    val product: ProductResponse
 )

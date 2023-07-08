@@ -21,6 +21,7 @@ import com.example.campusolx.RetrofitInstance
 import com.example.campusolx.databinding.ActivityAdCreateBinding
 import com.example.campusolx.dataclass.CreateProductRequest
 import com.example.campusolx.dataclass.CreateProductResponse
+import com.example.campusolx.dataclass.EditProductRequest
 import com.example.campusolx.dataclass.ProductResponse
 import com.example.campusolx.dataclass.UploadProductImageResponse
 import com.example.campusolx.interfaces.ProductApi
@@ -33,6 +34,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
+
 
 class AdCreateActivity : AppCompatActivity() {
 
@@ -246,7 +248,7 @@ class AdCreateActivity : AppCompatActivity() {
             images = emptyList()
         )
 
-        ProductApi.createProduct(accessToken = accessToken, adData).enqueue(object :
+        productApi.createProduct(accessToken = accessToken, adData).enqueue(object :
             Callback<CreateProductResponse> {
             override fun onResponse(call: Call<CreateProductResponse>, response: Response<CreateProductResponse>) {
                 progressDialog.dismiss()
@@ -261,6 +263,7 @@ class AdCreateActivity : AppCompatActivity() {
                     Utils.toast(this@AdCreateActivity, "Failed to post ad")
                 }
             }
+
 
             override fun onFailure(call: Call<CreateProductResponse>, t: Throwable) {
                 progressDialog.dismiss()
@@ -310,7 +313,7 @@ class AdCreateActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateAdWithImages(adId: String, adData: CreateProductRequest) {
+    private fun updateAdWithImages(adId: String, adData: EditProductRequest) {
         productApi.updateProduct(accessToken, adId, adData).enqueue(object : Callback<ProductResponse> {
             override fun onResponse(
                 call: Call<ProductResponse>,
@@ -322,7 +325,6 @@ class AdCreateActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     Utils.toast(this@AdCreateActivity, "Ad posted successfully")
 // Clear the form and go back to the previous activity
-                    clearForm()
                     onBackPressed()
                 } else {
                     Utils.toast(this@AdCreateActivity, "Failed to update ad with images")
@@ -334,7 +336,7 @@ class AdCreateActivity : AppCompatActivity() {
             }
         })}
     }
-}
+
 
     // Make sure to replace `accessToken` with the actual access token for authorization. Also, modify the `clearForm` function according to your implementation.
 //
