@@ -6,10 +6,16 @@ import com.example.campusolx.dataclass.ForgotPasswordRequest
 import com.example.campusolx.dataclass.LoginRequest
 import com.example.campusolx.dataclass.RegisterRequest
 import com.example.campusolx.dataclass.ResetPasswordRequest
+import com.example.campusolx.dataclass.User
+import com.example.campusolx.dataclass.UserRequest
 import com.example.campusolx.dataclass.VerifyRequest
 import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface AuthApi {
     @Headers("Accept: application/json")
@@ -32,7 +38,18 @@ interface AuthApi {
     @POST("api/user/reset")
     fun resetPassword(@Body request: ResetPasswordRequest): Call<Void>
 
-    
+    @PUT("api/users/{id}")
+    fun updateUser(
+        @Header("Authorization") accessToken: String,
+        @Path("id") id: String,
+        @Body request: UserRequest
+    ): Call<User>
+
+    @DELETE("api/users/{id}")
+    fun deleteUser(
+        @Header("Authorization") accessToken: String,
+        @Path("id") userId: String
+    ): Call<Void>
 
     @POST("api/user/logout")
     fun logout(): Call<Void>
