@@ -58,6 +58,6 @@ interface ProductApi {
     @POST("api/product/upload")
     fun uploadProductImage(
         @Header("Authorization") accessToken: String,
-        @Part image: MultipartBody.Part
+        @Part image: List<MultipartBody.Part>
     ): Call<UploadProductImageResponse>
 }
