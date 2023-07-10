@@ -1,6 +1,6 @@
 package com.example.campusolx.dataclass
 
-data class ProductRequest(
+data class CreateProductRequest(
     val name: String,
     val description: String,
     val category: String,

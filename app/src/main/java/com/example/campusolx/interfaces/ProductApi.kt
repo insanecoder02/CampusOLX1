@@ -1,8 +1,8 @@
 package com.example.campusolx.interfaces
 
 import com.example.campusolx.dataclass.Product
-import com.example.campusolx.dataclass.ProductRequest
-import com.example.campusolx.dataclass.ProductResponse
+import com.example.campusolx.dataclass.CreateProductRequest
+import com.example.campusolx.dataclass.CreateProductResponse
 import com.example.campusolx.dataclass.UploadProductImageResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -19,10 +19,10 @@ import retrofit2.http.Path
 
 interface ProductApi {
     @GET("api/products")
-    fun getAllProducts(@Header("Authorization") accessToken: String): Call<ProductResponse>
+    fun getAllProducts(@Header("Authorization") accessToken: String): Call<CreateProductResponse>
 
     @GET("api/products/user")
-    fun getAllProductsOfUser(@Header("Authorization") accessToken: String): Call<ProductResponse>
+    fun getAllProductsOfUser(@Header("Authorization") accessToken: String): Call<CreateProductResponse>
 
     @GET("api/products/{id}")
     fun getProductById(
@@ -30,18 +30,22 @@ interface ProductApi {
         @Path("id") productId: String
     ): Call<Product>
 
-    @Headers("Accept: application/json")
-    @POST("api/products/create")
+    @Headers(
+        "accept: */*",
+        "accept-encoding: gzip, deflate, br",
+        "content-type: application/json",
+    )
+    @POST("api/products")
     fun createProduct(
         @Header("Authorization") accessToken: String,
-        @Body request: ProductRequest
+        @Body request: CreateProductRequest
     ): Call<Product>
 
     @PUT("api/products/{id}")
     fun updateProduct(
         @Header("Authorization") accessToken: String,
         @Path("id") id: String,
-        @Body request: ProductRequest
+        @Body request: CreateProductRequest
     ): Call<Product>
 
     @DELETE("api/products/{id}")

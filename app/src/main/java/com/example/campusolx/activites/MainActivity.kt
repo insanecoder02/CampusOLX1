@@ -56,6 +56,9 @@ true
 
 
         }
+        binding.button.setOnClickListener {
+            startActivity(Intent(this, AdCreateActivity::class.java))
+        }
 
     }
     private fun showHomeFragment(){
