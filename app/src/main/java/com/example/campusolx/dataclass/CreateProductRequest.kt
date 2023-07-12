@@ -5,5 +5,5 @@ data class CreateProductRequest(
     val description: String,
     val category: String,
     val prices: Int,
-    val images: List<Image>
+    var images: List<Image>
 )

@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
@@ -34,10 +35,14 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Response
+import java.io.Console
 import java.io.File
-
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
 
 class AdCreateActivity : AppCompatActivity() {
 
@@ -47,7 +52,7 @@ class AdCreateActivity : AppCompatActivity() {
     private var imageUri: Uri? = null
     private lateinit var imagePickedArrayList: ArrayList<ModelImagePicked>
     private lateinit var adapterImagePicked: AdapterImagePicked
-    lateinit var accessToken: String
+    private lateinit var accessToken: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +92,6 @@ class AdCreateActivity : AppCompatActivity() {
         }
 
         binding.postAdBtn.setOnClickListener {
-            validateData()
             uploadImages()
         }
     }
@@ -138,29 +142,27 @@ class AdCreateActivity : AppCompatActivity() {
         }
     }
 
-    private val requestStoragePermission = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
-        if (isGranted) {
-            pickImageGallery()
-        } else {
-            Utils.toast(this, "Storage Permission Denied")
+    private val requestStoragePermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                pickImageGallery()
+            } else {
+                Utils.toast(this, "Storage Permission Denied")
+            }
         }
-    }
 
-    private val requestCameraPermission = registerForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions()
-    ) { result ->
-        var areAllGranted = true
-        for (isGranted in result.values) {
-            areAllGranted = areAllGranted && isGranted
+    private val requestCameraPermission =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
+            var areAllGranted = true
+            for (isGranted in result.values) {
+                areAllGranted = areAllGranted && isGranted
+            }
+            if (areAllGranted) {
+                pickImageCamera()
+            } else {
+                Utils.toast(this, "Camera or Storage Permissions Both Denied")
+            }
         }
-        if (areAllGranted) {
-            pickImageCamera()
-        } else {
-            Utils.toast(this, "Camera or Storage Permissions Both Denied")
-        }
-    }
 
     private fun pickImageGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -178,49 +180,41 @@ class AdCreateActivity : AppCompatActivity() {
         cameraActivityResultLauncher.launch(intent)
     }
 
-    private val galleryActivityResultLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val data = result.data
-            imageUri = data!!.data
-            val timestamp = "${Utils.getTimestamp()}"
-            val modelImagePicked = ModelImagePicked(timestamp, imageUri, null, false)
-            imagePickedArrayList.add(modelImagePicked)
-            loadImages()
-        } else {
-            Utils.toast(this, "Cancelled..!")
+    private val galleryActivityResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data = result.data
+                imageUri = data?.data
+                Log.d("AdCreateActivity", "Gallery Image URI: $imageUri") // Log the gallery image URI
+                val timestamp = "${Utils.getTimestamp()}"
+                val modelImagePicked = ModelImagePicked(timestamp, imageUri, null, false)
+                imagePickedArrayList.add(modelImagePicked)
+                adapterImagePicked.notifyDataSetChanged()
+            } else {
+                Utils.toast(this, "Cancelled..!")
+            }
         }
-    }
 
-    private val cameraActivityResultLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            Log.d("AdCreate", "cameraActivityResultLauncher: imageUri $imageUri")
-            val timestamp = "${Utils.getTimestamp()}"
-            val modelImagePicked = ModelImagePicked(timestamp, imageUri, null, false)
-            imagePickedArrayList.add(modelImagePicked)
-            loadImages()
-        } else {
-            Utils.toast(this, "Cancelled!")
+    private val cameraActivityResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                Log.d("AdCreateActivity", "Camera Image URI: $imageUri") // Log the camera image URI
+                val timestamp = "${Utils.getTimestamp()}"
+                val modelImagePicked = ModelImagePicked(timestamp, imageUri, null, false)
+                imagePickedArrayList.add(modelImagePicked)
+                adapterImagePicked.notifyDataSetChanged()
+            } else {
+                Utils.toast(this, "Cancelled!")
+            }
         }
-    }
 
-    private var brand = ""
-    private var category = ""
-    private var price = ""
-    private var title = ""
-    private var description = ""
-    private var latitude = 0.0
-    private var longitude = 0.0
 
     private fun validateData() {
-        brand = binding.brandEt.text.toString().trim()
-        category = binding.categoryAct.text.toString().trim()
-        price = binding.priceEt.text.toString().trim()
-        title = binding.titleEt.text.toString().trim()
-        description = binding.descEt.text.toString().trim()
+        val brand = binding.brandEt.text.toString().trim()
+        val category = binding.categoryAct.text.toString().trim()
+        val price = binding.priceEt.text.toString().trim()
+        val title = binding.titleEt.text.toString().trim()
+        val description = binding.descEt.text.toString().trim()
 
         if (category.isEmpty()) {
             binding.categoryAct.error = "Choose Category"
@@ -232,7 +226,7 @@ class AdCreateActivity : AppCompatActivity() {
             binding.descEt.error = "Enter Description"
             binding.descEt.requestFocus()
         } else {
-            uploadImages()
+            // Handle the validation logic here
         }
     }
 
@@ -242,10 +236,26 @@ class AdCreateActivity : AppCompatActivity() {
         for (modelImagePicked in imagePickedArrayList) {
             val imageUri = modelImagePicked.imageUri
             if (imageUri != null) {
-                val imageFile = File(imageUri.path)
-                val requestBody = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
-                val imagePart = MultipartBody.Part.createFormData("image", imageFile.name, requestBody)
-                imageParts.add(imagePart)
+                contentResolver.openInputStream(imageUri)?.use { inputStream ->
+                    val tempFile = createTempFile(this, "temp_image", "jpg")
+                    copyStreamToFile(inputStream, tempFile)
+
+                    val requestFile: RequestBody = tempFile.asRequestBody("image/*".toMediaTypeOrNull())
+                    val imagePart = MultipartBody.Part.createFormData(
+                        "image",
+                        tempFile.name,
+                        requestFile
+                    )
+                    imageParts.add(imagePart)
+
+                    // Log image details
+                    Log.d("UploadImages", "Image URI: $imageUri")
+                    Log.d("UploadImages", "Image File Type: image/*")
+                    Log.d("UploadImages", "Image File Size: ${tempFile.length() / 1024} KB")
+
+                    // Delete the temporary file
+                    tempFile.delete()
+                } ?: Log.e("UploadImages", "Failed to open image input stream")
             }
         }
 
@@ -264,15 +274,10 @@ class AdCreateActivity : AppCompatActivity() {
                                     Image(imageResponse.publicId, imageResponse.url)
                                 }
                                 if (uploadedImages.isNotEmpty()) {
-                                    val adData = CreateProductRequest(
-                                        name = title,
-                                        description = description,
-                                        category = category,
-                                        prices = price.toInt(),
-                                        images = uploadedImages
-                                    )
-                                    Toast.makeText(this@AdCreateActivity, "Affirmative", Toast.LENGTH_LONG).show()
-                                    createAd(adData)
+                                    // Handle the case of successful image upload
+                                    // You can perform further actions with the uploaded images
+                                    Log.d("W", "Successful")
+
                                 } else {
                                     Log.e("UploadImages", "Failed to upload images")
                                 }
@@ -280,54 +285,45 @@ class AdCreateActivity : AppCompatActivity() {
                                 Log.e("UploadImages", "Failed to parse response body")
                             }
                         } else {
-                            Log.e("UploadImages", "Failed to upload images")
+                            Log.e(
+                                "UploadImages",
+                                "Failed to upload images. Response code: ${response.code()}"
+                            )
                         }
                     }
-
 
                     override fun onFailure(call: Call<UploadProductImageResponse>, t: Throwable) {
                         Log.e("UploadImages", "Failed to upload images: ${t.message}")
                     }
                 })
+        } else {
+            // Handle the case where no images were selected
+            Log.e("UploadImages", "No images selected for upload")
         }
     }
 
-
-    private fun createAd(adData: CreateProductRequest) {
-        progressDialog.setMessage("Publishing Ad")
-        progressDialog.show()
-
-        productApi.createProduct(accessToken = accessToken, request = adData).enqueue(object :
-            Callback<Product> {
-            override fun onResponse(call: Call<Product>, response: Response<Product>) {
-                progressDialog.dismiss()
-                if (response.isSuccessful) {
-                    // API request successful, process the response
-                    Utils.toast(this@AdCreateActivity, "Ad created successfully")
-                } else {
-                    // API request failed, handle the error
-                    val errorBody = response.errorBody()?.string()
-                    val errorMessage = if (errorBody.isNullOrEmpty()) {
-                        response.message()
-                    } else {
-                        // Parse the error body to extract the specific error message
-                        // Use appropriate JSON parsing library like Gson or Moshi
-                        // Example: val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
-                        //         val errorMessage = errorResponse.message
-                        // Replace ErrorResponse with your actual error response data class
-                        "Failed to post ad: $errorBody"
-                    }
-                    Utils.toast(this@AdCreateActivity, errorMessage)
-                }
-            }
-
-            override fun onFailure(call: Call<Product>, t: Throwable) {
-                progressDialog.dismiss()
-                Utils.toast(this@AdCreateActivity, "Failed to post ad: ${t.message}")
-            }
-        })
+    @Throws(IOException::class)
+    private fun createTempFile(context: Context, fileName: String, extension: String): File {
+        val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
+        return File(storageDir, "$fileName.$extension")
     }
 
+    private fun copyStreamToFile(inputStream: InputStream, outputFile: File) {
+        inputStream.use { input ->
+            val outputStream = FileOutputStream(outputFile)
+            outputStream.use { output ->
+                val buffer = ByteArray(4 * 1024) // buffer size
+                while (true) {
+                    val byteCount = input.read(buffer)
+                    if (byteCount < 0) break
+                    output.write(buffer, 0, byteCount)
+                }
+                output.flush()
+            }
+        }
+    }
+
+}
 
 //    private fun postAd() {
 //        progressDialog.setMessage("Publishing Ad")
@@ -459,7 +455,7 @@ class AdCreateActivity : AppCompatActivity() {
 //            }
 //        })
 //}
-    }
+//    }
 
 
 

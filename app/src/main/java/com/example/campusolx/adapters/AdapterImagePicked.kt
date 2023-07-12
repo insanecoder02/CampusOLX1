@@ -29,6 +29,8 @@ class AdapterImagePicked(
             Glide.with(context)
                 .load(imageUri)
                 .placeholder(R.drawable.baseline_image_24)
+                .error(com.google.android.material.R.drawable.mtrl_ic_error) // Add an error image if needed
+                .centerCrop()
                 .into(holder.binding.imageTv)
         } catch (e: Exception) {
             Log.e("IMAGES_TAG", "onBindViewHolder", e)
@@ -47,7 +49,8 @@ class AdapterImagePicked(
         return imagesPickedArrayList.size
     }
 
-    inner class HolderImagePicked(val binding: RowImagesPickedBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class HolderImagePicked(val binding: RowImagesPickedBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
                 val position = adapterPosition
@@ -66,3 +69,4 @@ class AdapterImagePicked(
         this.onImageLoadedListener = listener
     }
 }
+
