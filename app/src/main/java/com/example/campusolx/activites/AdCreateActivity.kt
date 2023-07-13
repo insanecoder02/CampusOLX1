@@ -117,25 +117,26 @@ class AdCreateActivity : AppCompatActivity() {
         popupMenu.show()
 
         popupMenu.setOnMenuItemClickListener { item ->
-            val itemId = item.itemId
-
-            if (itemId == 1) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    val cameraPermissions = arrayOf(Manifest.permission.CAMERA)
-                    requestCameraPermission.launch(cameraPermissions)
-                } else {
-                    val cameraPermissions = arrayOf(
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    )
-                    requestCameraPermission.launch(cameraPermissions)
+            when (item.itemId) {
+                1 -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        val cameraPermissions = arrayOf(Manifest.permission.CAMERA)
+                        requestCameraPermission.launch(cameraPermissions)
+                    } else {
+                        val cameraPermissions = arrayOf(
+                            Manifest.permission.CAMERA,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        )
+                        requestCameraPermission.launch(cameraPermissions)
+                    }
                 }
-            } else if (itemId == 2) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    pickImageGallery()
-                } else {
-                    val storagePermission = Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    requestStoragePermission.launch(storagePermission)
+                2 -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        pickImageGallery()
+                    } else {
+                        val storagePermission = Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        requestStoragePermission.launch(storagePermission)
+                    }
                 }
             }
             true
@@ -207,6 +208,7 @@ class AdCreateActivity : AppCompatActivity() {
                 Utils.toast(this, "Cancelled!")
             }
         }
+
 
 
     private fun validateData() {
@@ -304,9 +306,10 @@ class AdCreateActivity : AppCompatActivity() {
 
     @Throws(IOException::class)
     private fun createTempFile(context: Context, fileName: String, extension: String): File {
-        val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
-        return File(storageDir, "$fileName.$extension")
+        val cacheDir = context.cacheDir
+        return File.createTempFile(fileName, ".$extension", cacheDir)
     }
+
 
     private fun copyStreamToFile(inputStream: InputStream, outputFile: File) {
         inputStream.use { input ->
