@@ -13,6 +13,7 @@ import com.example.campusolx.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -25,68 +26,69 @@ class MainActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-        binding.bottomNavigationView.setOnItemSelectedListener{item->
-            when(item.itemId){
-                R.id.menu_home ->{
+        binding.bottomNavigationView.setOnItemSelectedListener{ item ->
+            when(item.itemId) {
+                R.id.menu_home -> {
                     showHomeFragment()
                     true
                 }
-                R.id.menu_account ->{
+                R.id.menu_account -> {
                     showAccountFragment()
-true
+                    true
                 }
-
-                R.id.menu_my_ads ->{
+                R.id.menu_my_ads -> {
                     showMyAdsFragment()
-true
+                    true
                 }
-                R.id.menu_settings ->{
+                R.id.menu_settings -> {
                     showSettingsFragment()
-true
+                    true
                 }
-                R.id.menu_sell ->{
+                R.id.menu_sell -> {
                     startActivity(Intent(this, AdCreateActivity::class.java))
                     true
                 }
-                else->{
-                    false
-                }
-
+                else -> false
             }
-
-
         }
+
         binding.button.setOnClickListener {
             startActivity(Intent(this, AdCreateActivity::class.java))
         }
 
+        // Show the HomeFragment by default
+        showHomeFragment()
     }
-    private fun showHomeFragment(){
-        binding.toolbarTitle.text="Home"
+
+    private fun showHomeFragment() {
+        binding.toolbarTitle.text = "Home"
         val fragment = HomeFragment()
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(binding.fragmentsFl.id,fragment,"HomeFragment")
+        fragmentTransaction.replace(binding.fragmentsFl.id, fragment, "HomeFragment")
         fragmentTransaction.commit()
     }
-    private fun showAccountFragment(){
-        binding.toolbarTitle.text="Account"
+
+    private fun showAccountFragment() {
+        binding.toolbarTitle.text = "Account"
         val fragment = AccountFragment()
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(binding.fragmentsFl.id,fragment,"AccountFragment")
+        fragmentTransaction.replace(binding.fragmentsFl.id, fragment, "AccountFragment")
         fragmentTransaction.commit()
     }
-    private fun showMyAdsFragment(){
-        binding.toolbarTitle.text="My Ads"
+
+    private fun showMyAdsFragment() {
+        binding.toolbarTitle.text = "My Ads"
         val fragment = MyAdsFragment()
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(binding.fragmentsFl.id,fragment,"MyAdsFragment")
+        fragmentTransaction.replace(binding.fragmentsFl.id, fragment, "MyAdsFragment")
         fragmentTransaction.commit()
     }
-    private fun showSettingsFragment(){
-        binding.toolbarTitle.text="Settings"
+
+    private fun showSettingsFragment() {
+        binding.toolbarTitle.text = "Settings"
         val fragment = SettingsFragment()
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(binding.fragmentsFl.id,fragment,"SettingsFragment")
+        fragmentTransaction.replace(binding.fragmentsFl.id, fragment, "SettingsFragment")
         fragmentTransaction.commit()
     }
 }
