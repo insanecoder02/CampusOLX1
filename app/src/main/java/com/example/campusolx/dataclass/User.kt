@@ -10,7 +10,7 @@ data class User(
     val isVerified: Boolean,
     val name: String,
     val password: String,
-    val profilePicture: String,
+    val profilePicture: String?,
     val semester: Int,
     val upiId: String
 )
