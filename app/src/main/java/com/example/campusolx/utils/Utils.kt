@@ -3,6 +3,9 @@ package com.example.campusolx.utils
 import android.content.Context
 import android.widget.Toast
 import com.example.campusolx.R
+import java.text.DateFormat
+import java.util.Calendar
+import java.util.Locale
 
 object Utils {
 
@@ -33,5 +36,11 @@ object Utils {
 
     fun toast(context: Context, message: String){
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun formatTimestampDate(timestamp : Long) : String{
+        val calendar = Calendar.getInstance(Locale.ENGLISH)
+        calendar.timeInMillis = timestamp
+        return android.text.format.DateFormat.format("dd/MM/yyyy",calendar).toString()
     }
 }
