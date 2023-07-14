@@ -7,7 +7,7 @@ data class Product(
     val createdAt: String,
     val createdBy: String,
     val description: String,
-    val images: List<Image>,
+    val images: List<String>?,
     val isSold: Boolean,
     val name: String,
     val price: Int

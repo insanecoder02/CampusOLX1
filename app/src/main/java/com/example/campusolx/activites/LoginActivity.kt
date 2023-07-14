@@ -89,7 +89,7 @@ class LoginActivity : AppCompatActivity() {
                     val contact = response.body()?.contact
                     val upiId = response.body()?.upiId
                     val email = response.body()?.email
-                    val profilePictureUrl = response.body()?.profilePictureResponse?.url
+                    val profilePictureUrl = response.body()?.profilePicture
 
                     val sharedPreference = getSharedPreferences("Account_Details", Context.MODE_PRIVATE)
                     val editor = sharedPreference.edit()

@@ -3,7 +3,7 @@ package com.example.campusolx.interfaces
 import com.example.campusolx.dataclass.Product
 import com.example.campusolx.dataclass.CreateProductRequest
 import com.example.campusolx.dataclass.CreateProductResponse
-import com.example.campusolx.dataclass.UploadProductImageResponse
+//import com.example.campusolx.dataclass.UploadProductImageResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -54,10 +54,10 @@ interface ProductApi {
         @Path("id") id: String
     ): Call<Void>
 
-    @Multipart
-    @POST("api/product/upload")
-    fun uploadProductImage(
-        @Header("Authorization") accessToken: String,
-        @Part image: List<MultipartBody.Part>
-    ): Call<UploadProductImageResponse>
+//    @Multipart
+//    @POST("api/product/upload")
+//    fun uploadProductImage(
+//        @Header("Authorization") accessToken: String,
+//        @Part image: List<MultipartBody.Part>
+//    ): Call<UploadProductImageResponse>
 }

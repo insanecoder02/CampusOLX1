@@ -23,12 +23,17 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.campusolx.RetrofitInstance
 import com.example.campusolx.databinding.ActivityAdCreateBinding
+import com.example.campusolx.dataclass.CreateProductRequest
+import com.example.campusolx.dataclass.Product
 import com.example.campusolx.interfaces.ProductApi
 import com.example.campusolx.models.ModelImagePicked
 import com.example.campusolx.utils.Utils
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 
 class AdCreateActivity : AppCompatActivity() {
@@ -54,10 +59,6 @@ class AdCreateActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-        binding.toolBarBackBtn.setOnClickListener {
-            onBackPressed()
-        }
-
         progressDialog = ProgressDialog(this)
         progressDialog.setTitle("Please Wait")
         progressDialog.setCanceledOnTouchOutside(false)
@@ -67,10 +68,6 @@ class AdCreateActivity : AppCompatActivity() {
 
         val sharedPreference = getSharedPreferences("Account_Details", Context.MODE_PRIVATE)
         accessToken = "Bearer " + sharedPreference.getString("accessToken", "") ?: ""
-
-        binding.toolBarBackBtn.setOnClickListener {
-            onBackPressed()
-        }
 
         initializeFirebaseStorage()
         setupImageRecyclerView()
@@ -103,7 +100,8 @@ class AdCreateActivity : AppCompatActivity() {
         })
 
         binding.imagesRv.apply {
-            layoutManager = LinearLayoutManager(this@AdCreateActivity, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(this@AdCreateActivity, LinearLayoutManager.HORIZONTAL, false)
             adapter = adapterImagePicked
         }
     }
@@ -212,54 +210,86 @@ class AdCreateActivity : AppCompatActivity() {
         }
 
     private fun postAd() {
-        // Check if an image is selected
+        // Validate the input fields
+        val brand = binding.brandEt.text.toString()
+        val category = binding.categoryAct.text.toString()
+        val price = binding.priceEt.text.toString()
+        val title = binding.titleEt.text.toString()
+        val description = binding.descEt.text.toString()
+
         if (imageUri != null) {
-            progressDialog.setMessage("Uploading Image...")
-            progressDialog.show()
+            if (brand.isNotEmpty() && category.isNotEmpty() && price.isNotEmpty() && title.isNotEmpty() && description.isNotEmpty()) {
+                progressDialog.setMessage("Uploading Image...")
+                progressDialog.show()
 
-            // Generate a unique file name for the image
-            val fileName = UUID.randomUUID().toString()
-
-            // Get the reference to the Firebase Storage location where the image will be uploaded
-            val imageRef = storageReference.child("images/$fileName.jpg")
-
-            // Upload the image to Firebase Storage
-            val uploadTask = imageRef.putFile(imageUri!!)
-
-            // Register callbacks to track the upload progress and handle success/failure
-            uploadTask.addOnSuccessListener { taskSnapshot ->
-                // Image upload successful
-                progressDialog.dismiss()
-
-                // Get the download URL of the uploaded image
-                val downloadUrlTask = taskSnapshot.storage.downloadUrl
-                downloadUrlTask.addOnSuccessListener { downloadUri ->
-                    // Handle the download URL here
-                    val imageUrl = downloadUri.toString()
-                    // You can use the image URL to save it in your database or perform any further actions
-
-                    // TODO: Add your code here to handle the uploaded image URL as required
-                    // For example, you can pass the imageUrl to another function or store it in a database
-                    handleUploadedImageUrl(imageUrl)
+                val uploadedImageUrls = ArrayList<String>()
+                val fileNames = ArrayList<String>()
+                for (modelImagePicked in imagePickedArrayList) {
+                    val fileName = UUID.randomUUID().toString()
+                    fileNames.add(fileName)
                 }
-            }.addOnFailureListener { exception ->
-                // Image upload failed
-                progressDialog.dismiss()
-                Toast.makeText(this, "Image upload failed: ${exception.message}", Toast.LENGTH_SHORT).show()
-            }.addOnProgressListener { taskSnapshot ->
-                // Update the progress of the image upload
-                val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toInt()
-                progressDialog.setMessage("Uploading Image... $progress%")
+
+                for (i in 0 until imagePickedArrayList.size) {
+                    val imageUri = imagePickedArrayList[i].imageUri
+                    val fileName = fileNames[i]
+                    val imageRef = storageReference.child("images/$fileName.jpg")
+                    val uploadTask = imageRef.putFile(imageUri!!)
+
+                    uploadTask.addOnSuccessListener { taskSnapshot ->
+                        progressDialog.setMessage("Uploading Image... ${i + 1}/${imagePickedArrayList.size}")
+
+                        val downloadUrlTask = taskSnapshot.storage.downloadUrl
+                        downloadUrlTask.addOnSuccessListener { downloadUri ->
+                            val imageUrl = downloadUri.toString()
+                            uploadedImageUrls.add(imageUrl)
+
+                            if (uploadedImageUrls.size == imagePickedArrayList.size) {
+                                val createProductRequest = CreateProductRequest(
+                                    name = title,
+                                    description = description,
+                                    category = category,
+                                    prices = price.toInt(),
+                                    images = uploadedImageUrls
+                                )
+
+                                createProduct(createProductRequest)
+                            }
+                        }
+                    }.addOnFailureListener { exception ->
+                        progressDialog.dismiss()
+                        Toast.makeText(this, "Image upload failed: ${exception.message}", Toast.LENGTH_SHORT).show()
+                    }.addOnProgressListener { taskSnapshot ->
+                        val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toInt()
+                        progressDialog.setMessage("Uploading Image... $progress%")
+                    }
+                }
+            } else {
+                Toast.makeText(this, "Please fill in all the fields", Toast.LENGTH_SHORT).show()
             }
         } else {
-            // No image selected
             Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun handleUploadedImageUrl(imageUrl: String) {
-        // TODO: Implement your logic to handle the uploaded image URL
-        // You can pass it to another function, store it in a database, or use it as needed
-        Toast.makeText(this, "Image uploaded successfully: $imageUrl", Toast.LENGTH_SHORT).show()
+    private fun createProduct(createProductRequest: CreateProductRequest) {
+        val call = productApi.createProduct(accessToken, createProductRequest)
+
+        call.enqueue(object : Callback<Product> {
+            override fun onResponse(call: Call<Product>, response: Response<Product>) {
+                progressDialog.dismiss()
+                if (response.isSuccessful) {
+                    val product = response.body()
+                    Toast.makeText(this@AdCreateActivity, "Product created successfully", Toast.LENGTH_SHORT).show()
+                } else {
+                    val errorMessage = response.errorBody()?.string()
+                    Toast.makeText(this@AdCreateActivity, "Product creation failed: $errorMessage", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Product>, t: Throwable) {
+                progressDialog.dismiss()
+                Toast.makeText(this@AdCreateActivity, "Product creation failed: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }
