@@ -20,38 +20,26 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.campusolx.RetrofitInstance
 import com.example.campusolx.databinding.ActivityAdCreateBinding
-import com.example.campusolx.dataclass.CreateProductRequest
-import com.example.campusolx.dataclass.CreateProductResponse
-import com.example.campusolx.dataclass.Image
-import com.example.campusolx.dataclass.Product
-import com.example.campusolx.dataclass.UploadProductImageResponse
 import com.example.campusolx.interfaces.ProductApi
 import com.example.campusolx.models.ModelImagePicked
 import com.example.campusolx.utils.Utils
-import retrofit2.Callback
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
-import retrofit2.Call
-import retrofit2.Response
-import java.io.Console
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.InputStream
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import java.util.*
 
 class AdCreateActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAdCreateBinding
     private lateinit var progressDialog: ProgressDialog
     private lateinit var productApi: ProductApi
+    private lateinit var storageReference: StorageReference
     private var imageUri: Uri? = null
-    private lateinit var imagePickedArrayList: ArrayList<ModelImagePicked>
     private lateinit var adapterImagePicked: AdapterImagePicked
+    private lateinit var imagePickedArrayList: ArrayList<ModelImagePicked>
     private lateinit var accessToken: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,19 +72,26 @@ class AdCreateActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        imagePickedArrayList = ArrayList()
-        loadImages()
+        initializeFirebaseStorage()
+        setupImageRecyclerView()
 
         binding.addImage.setOnClickListener {
             showImagePickOptions()
         }
 
         binding.postAdBtn.setOnClickListener {
-            uploadImages()
+            postAd()
         }
     }
 
-    private fun loadImages() {
+    private fun initializeFirebaseStorage() {
+        FirebaseStorage.getInstance().apply {
+            storageReference = reference
+        }
+    }
+
+    private fun setupImageRecyclerView() {
+        imagePickedArrayList = ArrayList()
         adapterImagePicked = AdapterImagePicked(this, imagePickedArrayList)
 
         adapterImagePicked.setOnImageLoadedListener(object :
@@ -107,7 +102,10 @@ class AdCreateActivity : AppCompatActivity() {
             }
         })
 
-        binding.imagesRv.adapter = adapterImagePicked
+        binding.imagesRv.apply {
+            layoutManager = LinearLayoutManager(this@AdCreateActivity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = adapterImagePicked
+        }
     }
 
     private fun showImagePickOptions() {
@@ -130,6 +128,7 @@ class AdCreateActivity : AppCompatActivity() {
                         requestCameraPermission.launch(cameraPermissions)
                     }
                 }
+
                 2 -> {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         pickImageGallery()
@@ -186,7 +185,10 @@ class AdCreateActivity : AppCompatActivity() {
             if (result.resultCode == Activity.RESULT_OK) {
                 val data = result.data
                 imageUri = data?.data
-                Log.d("AdCreateActivity", "Gallery Image URI: $imageUri") // Log the gallery image URI
+                Log.d(
+                    "AdCreateActivity",
+                    "Gallery Image URI: $imageUri"
+                ) // Log the gallery image URI
                 val timestamp = "${Utils.getTimestamp()}"
                 val modelImagePicked = ModelImagePicked(timestamp, imageUri, null, false)
                 imagePickedArrayList.add(modelImagePicked)
@@ -209,259 +211,55 @@ class AdCreateActivity : AppCompatActivity() {
             }
         }
 
+    private fun postAd() {
+        // Check if an image is selected
+        if (imageUri != null) {
+            progressDialog.setMessage("Uploading Image...")
+            progressDialog.show()
 
+            // Generate a unique file name for the image
+            val fileName = UUID.randomUUID().toString()
 
-    private fun validateData() {
-        val brand = binding.brandEt.text.toString().trim()
-        val category = binding.categoryAct.text.toString().trim()
-        val price = binding.priceEt.text.toString().trim()
-        val title = binding.titleEt.text.toString().trim()
-        val description = binding.descEt.text.toString().trim()
+            // Get the reference to the Firebase Storage location where the image will be uploaded
+            val imageRef = storageReference.child("images/$fileName.jpg")
 
-        if (category.isEmpty()) {
-            binding.categoryAct.error = "Choose Category"
-            binding.categoryAct.requestFocus()
-        } else if (title.isEmpty()) {
-            binding.titleEt.error = "Enter Title"
-            binding.titleEt.requestFocus()
-        } else if (description.isEmpty()) {
-            binding.descEt.error = "Enter Description"
-            binding.descEt.requestFocus()
-        } else {
-            // Handle the validation logic here
-        }
-    }
+            // Upload the image to Firebase Storage
+            val uploadTask = imageRef.putFile(imageUri!!)
 
-    private fun uploadImages() {
-        val imageParts = mutableListOf<MultipartBody.Part>()
+            // Register callbacks to track the upload progress and handle success/failure
+            uploadTask.addOnSuccessListener { taskSnapshot ->
+                // Image upload successful
+                progressDialog.dismiss()
 
-        for (modelImagePicked in imagePickedArrayList) {
-            val imageUri = modelImagePicked.imageUri
-            if (imageUri != null) {
-                contentResolver.openInputStream(imageUri)?.use { inputStream ->
-                    val tempFile = createTempFile(this, "temp_image", "jpg")
-                    copyStreamToFile(inputStream, tempFile)
+                // Get the download URL of the uploaded image
+                val downloadUrlTask = taskSnapshot.storage.downloadUrl
+                downloadUrlTask.addOnSuccessListener { downloadUri ->
+                    // Handle the download URL here
+                    val imageUrl = downloadUri.toString()
+                    // You can use the image URL to save it in your database or perform any further actions
 
-                    val requestFile: RequestBody = tempFile.asRequestBody("image/*".toMediaTypeOrNull())
-                    val imagePart = MultipartBody.Part.createFormData(
-                        "image",
-                        tempFile.name,
-                        requestFile
-                    )
-                    imageParts.add(imagePart)
-
-                    // Log image details
-                    Log.d("UploadImages", "Image URI: $imageUri")
-                    Log.d("UploadImages", "Image File Type: image/*")
-                    Log.d("UploadImages", "Image File Size: ${tempFile.length() / 1024} KB")
-
-                    // Delete the temporary file
-                    tempFile.delete()
-                } ?: Log.e("UploadImages", "Failed to open image input stream")
-            }
-        }
-
-        if (imageParts.isNotEmpty()) {
-            productApi.uploadProductImage(accessToken, imageParts)
-                .enqueue(object : Callback<UploadProductImageResponse> {
-                    override fun onResponse(
-                        call: Call<UploadProductImageResponse>,
-                        response: Response<UploadProductImageResponse>
-                    ) {
-                        if (response.isSuccessful) {
-                            val responseBody = response.body()
-                            if (responseBody != null) {
-                                val imageResponses = responseBody.images
-                                val uploadedImages = imageResponses.map { imageResponse ->
-                                    Image(imageResponse.publicId, imageResponse.url)
-                                }
-                                if (uploadedImages.isNotEmpty()) {
-                                    // Handle the case of successful image upload
-                                    // You can perform further actions with the uploaded images
-                                    Log.d("W", "Successful")
-
-                                } else {
-                                    Log.e("UploadImages", "Failed to upload images")
-                                }
-                            } else {
-                                Log.e("UploadImages", "Failed to parse response body")
-                            }
-                        } else {
-                            Log.e(
-                                "UploadImages",
-                                "Failed to upload images. Response code: ${response.code()}"
-                            )
-                        }
-                    }
-
-                    override fun onFailure(call: Call<UploadProductImageResponse>, t: Throwable) {
-                        Log.e("UploadImages", "Failed to upload images: ${t.message}")
-                    }
-                })
-        } else {
-            // Handle the case where no images were selected
-            Log.e("UploadImages", "No images selected for upload")
-        }
-    }
-
-    @Throws(IOException::class)
-    private fun createTempFile(context: Context, fileName: String, extension: String): File {
-        val cacheDir = context.cacheDir
-        return File.createTempFile(fileName, ".$extension", cacheDir)
-    }
-
-
-    private fun copyStreamToFile(inputStream: InputStream, outputFile: File) {
-        inputStream.use { input ->
-            val outputStream = FileOutputStream(outputFile)
-            outputStream.use { output ->
-                val buffer = ByteArray(4 * 1024) // buffer size
-                while (true) {
-                    val byteCount = input.read(buffer)
-                    if (byteCount < 0) break
-                    output.write(buffer, 0, byteCount)
+                    // TODO: Add your code here to handle the uploaded image URL as required
+                    // For example, you can pass the imageUrl to another function or store it in a database
+                    handleUploadedImageUrl(imageUrl)
                 }
-                output.flush()
+            }.addOnFailureListener { exception ->
+                // Image upload failed
+                progressDialog.dismiss()
+                Toast.makeText(this, "Image upload failed: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }.addOnProgressListener { taskSnapshot ->
+                // Update the progress of the image upload
+                val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toInt()
+                progressDialog.setMessage("Uploading Image... $progress%")
             }
+        } else {
+            // No image selected
+            Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
         }
     }
 
+    private fun handleUploadedImageUrl(imageUrl: String) {
+        // TODO: Implement your logic to handle the uploaded image URL
+        // You can pass it to another function, store it in a database, or use it as needed
+        Toast.makeText(this, "Image uploaded successfully: $imageUrl", Toast.LENGTH_SHORT).show()
+    }
 }
-
-//    private fun postAd() {
-//        progressDialog.setMessage("Publishing Ad")
-//        progressDialog.show()
-//
-//        val adData = CreateProductRequest(
-//            name = title,
-//            description = description,
-//            category = category,
-//            prices = price.toInt(),
-//            images = emptyList()
-//        )
-//
-//        productApi.createProduct(accessToken = accessToken, request = adData).enqueue(object :
-//            Callback<Product> {
-//            override fun onResponse(call: Call<Product>, response: Response<Product>) {
-//                Utils.toast(this@AdCreateActivity, "${accessToken}")
-//                progressDialog.dismiss()
-//                if (response.isSuccessful) {
-//                    // API request successful, process the response
-//                    val adId = response.body()?._id
-//                    if (adId != null) {
-//                        uploadImages(adId)
-//                    } else {
-//                        Utils.toast(this@AdCreateActivity, "Failed to get Ad ID")
-//                    }
-//                } else {
-//                    // API request failed, handle the error
-//                    val errorBody = response.errorBody()?.string()
-//                    val errorMessage = if (errorBody.isNullOrEmpty()) {
-//                        response.message()
-//                    } else {
-//                        // Parse the error body to extract the specific error message
-//                        // Use appropriate JSON parsing library like Gson or Moshi
-//                        // Example: val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
-//                        //         val errorMessage = errorResponse.message
-//                        // Replace ErrorResponse with your actual error response data class
-//                        "Failed to post ad: $errorBody"
-//                    }
-//                    Utils.toast(this@AdCreateActivity, errorMessage)
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<Product>, t: Throwable) {
-//                progressDialog.dismiss()
-//                Utils.toast(this@AdCreateActivity, "Failed to post ad: ${t.message}")
-//            }
-//        })
-//    }
-//
-//
-//
-//
-//    private fun uploadImages(adId: String) {
-//        val uploadedImages = mutableListOf<String>()
-//
-//        for (modelImagePicked in imagePickedArrayList) {
-//            val imageUri = modelImagePicked.imageUri
-//            if (imageUri != null) {
-//                val imageFile = File(imageUri.path)
-//                val requestBody = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
-//                val imagePart =
-//                    MultipartBody.Part.createFormData("image", imageFile.name, requestBody)
-//
-//                // Log the upload image request
-//                Utils.toast(this@AdCreateActivity,"Upload Image Request: adId=$adId, imageFile=${imageFile.name}")
-//
-//                productApi.uploadProductImage(accessToken, imagePart)
-//                    .enqueue(object : Callback<UploadProductImageResponse> {
-//                        override fun onResponse(
-//                            call: Call<UploadProductImageResponse>,
-//                            response: Response<UploadProductImageResponse>
-//                        ) {
-//                            if (response.isSuccessful) {
-//                                val uploadedImage = response.body()?.images?.get(0)
-//                                if (uploadedImage != null) {
-//                                    uploadedImages.add(uploadedImage.url)
-//
-//                                    if (uploadedImages.size == imagePickedArrayList.size) {
-//                                        val adData = CreateProductRequest(
-//                                            name = title,
-//                                            description = description,
-//                                            category = category,
-//                                            prices = price.toInt(),
-//                                            images = uploadedImages.map { url ->
-//                                                Image(publicId = uploadedImage.publicId, url = url)
-//                                            }
-//                                        )
-//                                        updateAdWithImages(adId, adData)
-//                                    }
-//                                } else {
-//                                    Utils.toast(this@AdCreateActivity, "Failed to upload images")
-//                                }
-//                            } else {
-//                                Utils.toast(this@AdCreateActivity, "Failed to upload images")
-//                            }
-//                        }
-//
-//                        override fun onFailure(
-//                            call: Call<UploadProductImageResponse>,
-//                            t: Throwable
-//                        ) {
-//                            Utils.toast(
-//                                this@AdCreateActivity,
-//                                "Failed to upload images: ${t.message}"
-//                            )
-//                        }
-//                    })
-//            }
-//        }
-//    }
-
-
-//    private fun updateAdWithImages(adId: String, adData: CreateProductRequest) {
-//        productApi.updateProduct(accessToken = accessToken, id = adId, request = adData).enqueue(object : Callback<Product> {
-//            override fun onResponse(call: Call<Product>, response: Response<Product>) {
-//                progressDialog.dismiss()
-//                if (response.isSuccessful) {
-//                    Utils.toast(this@AdCreateActivity, "Ad posted successfully")
-//                    onBackPressed()
-//                } else {
-//                    Utils.toast(this@AdCreateActivity, "Failed to update ad with images")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<Product>, t: Throwable) {
-//                progressDialog.dismiss()
-//                Utils.toast(this@AdCreateActivity, "Failed to update ad with images: ${t.message}")
-//            }
-//        })
-//}
-//    }
-
-
-
-    // Make sure to replace `accessToken` with the actual access token for authorization. Also, modify the `clearForm` function according to your implementation.
-//
-//Please note that the code assumes that the image upload and ad update requests are handled correctly by the server, and the API responses are mapped to the respective data classes properly.
