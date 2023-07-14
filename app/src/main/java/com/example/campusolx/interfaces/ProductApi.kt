@@ -21,7 +21,7 @@ interface ProductApi {
         "content-type: application/json",
     )
     @GET("api/products")
-    fun getAllProducts(@Header("Authorization") accessToken: String): Call<CreateProductResponse>
+    fun getAllProducts(@Header("Authorization") accessToken: String): Call<List<Product>>
 
     @Headers(
         "accept: */*",

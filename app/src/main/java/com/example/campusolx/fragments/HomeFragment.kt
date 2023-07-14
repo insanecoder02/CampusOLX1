@@ -2,10 +2,12 @@ package com.example.campusolx.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.campusolx.RetrofitInstance
@@ -14,6 +16,9 @@ import com.example.campusolx.models.ModelAd
 import com.example.campusolx.dataclass.Product
 import com.example.campusolx.interfaces.ProductApi
 import com.example.campusolx.databinding.FragmentHomeBinding
+import com.example.campusolx.dataclass.CreateProductRequest
+import com.example.campusolx.dataclass.CreateProductResponse
+import org.json.JSONArray
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -65,22 +70,22 @@ class HomeFragment : Fragment() {
             override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
                 if (response.isSuccessful) {
                     val productList = response.body()
-                    productList?.let {
+                    productList?.let { products ->
                         adArrayList.clear()
-                        for (product in it) {
+                        for (product in products) {
                             val ad = ModelAd().apply {
-                                id = product.id
-                                uid = product.uid
-                                brand = product.brand
+                                id = product._id
+                                uid = product.createdBy
+                                brand = product.name
                                 category = product.category
-                                price = product.price
-                                title = product.title
+                                price = product.price.toString()
+                                title = product.name
                                 description = product.description
-                                status = product.status
-                                timestamp = product.timestamp
-                                latitude = product.latitude
-                                longitude = product.longitude
-                                imageList = ArrayList(product.imageList)
+                                status = if (product.isSold) "Sold" else "Available"
+                                timestamp = product.createdAt.toLongOrNull() ?: 0L
+                                latitude = 0.0
+                                longitude = 0.0
+                                imageList = ArrayList(product.images)
                             }
                             adArrayList.add(ad)
                         }
@@ -88,14 +93,22 @@ class HomeFragment : Fragment() {
                     }
                 } else {
                     // Handle error case
+                    val errorMessage = response.message()
                     // Show an error message or handle the error response
+                    // For example, you can display a toast message with the error
+                    Log.e("Fetch", "Failed to fetch products: $errorMessage")
+                    Toast.makeText(context, "Error: $errorMessage", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<List<Product>>, t: Throwable) {
                 // Handle failure case
                 // Show an error message or handle the failure
+                // For example, you can display a toast message with the failure
+                Log.e("Fetch", "Failed to fetch products: ${t.message}")
+                Toast.makeText(context, "Failed to fetch products: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
+
 }
