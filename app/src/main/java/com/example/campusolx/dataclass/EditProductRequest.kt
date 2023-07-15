@@ -4,6 +4,6 @@ data class EditProductRequest(
     val name: String?,
     val description: String?,
     val category: String?,
-    val prices: Int?,
+    val price: Int?,
     var images: List<String>?
 )

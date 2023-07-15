@@ -248,7 +248,7 @@ class AdCreateActivity : AppCompatActivity() {
                                     name = title,
                                     description = description,
                                     category = category,
-                                    prices = price.toInt(),
+                                    price = price.toInt(),
                                     images = uploadedImageUrls
                                 )
 

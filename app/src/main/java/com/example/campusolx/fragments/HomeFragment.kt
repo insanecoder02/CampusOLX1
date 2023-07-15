@@ -22,6 +22,7 @@ import org.json.JSONArray
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -82,7 +83,10 @@ class HomeFragment : Fragment() {
                                 title = product.name
                                 description = product.description
                                 status = if (product.isSold) "Sold" else "Available"
-                                timestamp = product.createdAt.toLongOrNull() ?: 0L
+                                timestamp = product.createdAt?.let {
+                                    val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX")
+                                    dateFormat.parse(it)?.time ?: 0L
+                                } ?: 0L
                                 latitude = 0.0
                                 longitude = 0.0
                                 imageList = ArrayList(product.images)
