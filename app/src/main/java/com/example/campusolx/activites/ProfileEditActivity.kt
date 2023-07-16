@@ -104,7 +104,34 @@ class ProfileEditActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.isSuccessful) {
                         // User update successful, handle the response as needed
+//                        val updatedUser = response.body()
                         val updatedUser = response.body()
+
+                        val name = updatedUser?.name
+                        val enrollmentNo = updatedUser?.enrollmentNo
+                        val semester = updatedUser?.semester
+                        val branch = updatedUser?.branch
+                        val contact = updatedUser?.contact
+                        val upiId = updatedUser?.upiId
+                        val email = updatedUser?.email
+                        val profilePictureUrl = updatedUser?.profilePicture
+
+                        val sharedPreference = getSharedPreferences("Account_Details", Context.MODE_PRIVATE)
+                        val editor = sharedPreference.edit()
+
+                        editor.putString("name", name)
+                        editor.putString("enrollmentNo", enrollmentNo)
+                        if (semester != null) {
+                            editor.putInt("semester", semester)
+                        }
+                        editor.putString("branch", branch)
+                        editor.putString("contact", contact)
+                        editor.putString("upiId", upiId)
+                        editor.putString("email", email)
+                        editor.putString("profilePictureUrl", profilePictureUrl)
+
+                        editor.apply()
+
                         // Update the UI or perform any other operations with the updated user data
                     } else {
                         // User update failed, handle the error response

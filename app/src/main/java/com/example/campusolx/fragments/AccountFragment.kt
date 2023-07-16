@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.example.campusolx.activites.ForgotPassActivity
-import com.example.campusolx.activites.ProfileEditActivity
+import com.example.campusolx.activities.ProfileEditActivity
 import com.example.campusolx.databinding.FragmentAccountBinding
 import com.example.campusolx.dataclass.Account
 
