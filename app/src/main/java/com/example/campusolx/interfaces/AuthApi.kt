@@ -44,7 +44,7 @@ interface AuthApi {
         "accept-encoding: gzip, deflate, br",
         "content-type: application/json",
     )
-    @PUT("api/users/{id}")
+    @PUT("api/user/updateProfile/{id}")
     fun updateUser(
         @Header("Authorization") accessToken: String,
         @Path("id") id: String,

@@ -29,7 +29,7 @@ interface ProductApi {
         "content-type: application/json",
     )
     @GET("api/products/user")
-    fun getAllProductsOfUser(@Header("Authorization") accessToken: String): Call<CreateProductResponse>
+    fun getAllProductsOfUser(@Header("Authorization") accessToken: String): Call<List<Product>>
 
     @Headers(
         "accept: */*",

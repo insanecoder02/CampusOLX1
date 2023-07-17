@@ -1,4 +1,4 @@
-package com.example.campusolx.activities
+package com.example.campusolx.activites
 
 import android.app.Activity
 import android.content.ContentValues
@@ -32,6 +32,7 @@ class ProfileEditActivity : AppCompatActivity() {
     private var imageUri: Uri? = null
     private lateinit var authApi: AuthApi
     private lateinit var accessToken: String
+    private lateinit var userId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +62,7 @@ class ProfileEditActivity : AppCompatActivity() {
         }
         val sharedPreference = getSharedPreferences("Account_Details", Context.MODE_PRIVATE)
         accessToken = "Bearer " + sharedPreference.getString("accessToken", "") ?: ""
+        userId = sharedPreference.getString("userId", "") ?: ""
     }
 
     private var name = ""
@@ -73,14 +75,15 @@ class ProfileEditActivity : AppCompatActivity() {
     private var profilePicture = ""
 
     private fun validateData() {
-        name = binding.nameEt.text.toString().trim()
-        rollNo = binding.rollEt.text.toString().trim()
-        email = binding.emailEt.text.toString().trim()
-        semester = 0 // Set the appropriate value for the semester
-        branch = "" // Set the appropriate value for the branch
-        contact = "" // Set the appropriate value for the contact
-        upiId = "" // Set the appropriate value for the UPI ID
-        profilePicture = "" // Set the appropriate value for the profile picture URL
+        val sharedPreferences = getSharedPreferences("Account_Details", Context.MODE_PRIVATE)
+        name = (binding.nameEt.text.toString().trim().takeIf { it.isNotBlank() } ?: sharedPreferences.getString("name", "")) as String
+        rollNo = (binding.rollEt.text.toString().trim().takeIf { it.isNotBlank() } ?: sharedPreferences.getString("enrollmentNo", "")) as String
+        email = (binding.emailEt.text.toString().trim().takeIf { it.isNotBlank() } ?: sharedPreferences.getString("email", "")) as String
+        semester = sharedPreferences.getInt("semesterbinding.branchEt.text.toString().trim().takeIf { it.isNotBlank() } ?: ", 0)
+        branch = sharedPreferences.getString("branch", "").toString()
+        contact = sharedPreferences.getString("contact", "").toString()
+        upiId = sharedPreferences.getString("upiId", "").toString()
+        profilePicture = sharedPreferences.getString("profilePictureUrl", "").toString()
 
         updateUser()
     }
@@ -88,18 +91,16 @@ class ProfileEditActivity : AppCompatActivity() {
     private fun updateUser() {
         val userUpdateRequest = UserUpdateRequest(
             name = name,
-            enrollmentNo = rollNo,
             semester = semester,
             upiId = upiId,
             branch = branch,
             contact = contact,
-            email = email,
             profilePicture = profilePicture
         )
 
 
 
-        authApi.updateUser(accessToken, "user_id", userUpdateRequest)
+        authApi.updateUser(accessToken, userId, userUpdateRequest)
             .enqueue(object : Callback<User> {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.isSuccessful) {

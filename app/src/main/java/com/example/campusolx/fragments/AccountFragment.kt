@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.example.campusolx.activites.ForgotPassActivity
-import com.example.campusolx.activities.ProfileEditActivity
+import com.example.campusolx.activites.ProfileEditActivity
 import com.example.campusolx.databinding.FragmentAccountBinding
 import com.example.campusolx.dataclass.Account
 
@@ -61,13 +61,14 @@ class AccountFragment : Fragment() {
     private fun getAccountData(): Account {
         val sharedPreferences = requireContext().getSharedPreferences("Account_Details", Context.MODE_PRIVATE)
         return Account(
-            sharedPreferences.getString("name", ""),
-            sharedPreferences.getString("enrollmentNo", ""),
+            sharedPreferences.getString("_id", null),
+            sharedPreferences.getString("name", null),
+            sharedPreferences.getString("enrollmentNo", null),
             sharedPreferences.getInt("semester", 0),
-            sharedPreferences.getString("branch", ""),
-            sharedPreferences.getString("email", ""),
-            sharedPreferences.getString("contact", ""),
-            sharedPreferences.getString("profilePictureUrl", "")
+            sharedPreferences.getString("branch", null),
+            sharedPreferences.getString("email", null),
+            sharedPreferences.getString("contact", null),
+            sharedPreferences.getString("profilePictureUrl", null)
         )
     }
 }

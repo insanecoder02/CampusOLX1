@@ -86,6 +86,7 @@ class LoginActivity : AppCompatActivity() {
                     val enrollmentNo = response.body()?.enrollmentNo
                     val semester = response.body()!!.semester
                     val branch = response.body()?.branch
+                    val userId = response.body()?.userId
                     val contact = response.body()?.contact
                     val upiId = response.body()?.upiId
                     val email = response.body()?.email
@@ -102,6 +103,7 @@ class LoginActivity : AppCompatActivity() {
                     editor.putString("contact", contact)
                     editor.putString("upiId", upiId)
                     editor.putString("email", email)
+                    editor.putString("userId", userId)
                     editor.putString("profilePictureUrl", profilePictureUrl)
 
                     editor.apply()

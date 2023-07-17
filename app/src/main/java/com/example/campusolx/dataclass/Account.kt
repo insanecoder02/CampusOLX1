@@ -1,6 +1,7 @@
 package com.example.campusolx.dataclass
 
 data class Account(
+    val _id: String?,
     val name: String?,
     val enrollmentNo: String?,
     val semester: Int?,

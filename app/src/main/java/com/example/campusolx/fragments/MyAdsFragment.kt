@@ -60,60 +60,60 @@ class MyAdsFragment : Fragment() {
         binding.adsRv.adapter = adapterAd
 
         // Fetch and display the products of the current user
-       // fetchMyAds()
+        fetchMyAds()
     }
 
-//    private fun fetchMyAds() {
-//        val call = productApi.getAllProductsOfUser(accessToken)
-//        call.enqueue(object : Callback<List<Product>> {
-//            override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
-//                if (response.isSuccessful) {
-//                    val productList = response.body()
-//                    productList?.let { products ->
-//                        adArrayList.clear()
-//                        for (product in products) {
-//                            val ad = ModelAd().apply {
-//                                id = product._id
-//                                uid = product.createdBy
-//                                brand = product.name
-//                                category = product.category
-//                                price = product.price.toString()
-//                                title = product.name
-//                                description = product.description
-//                                status = if (product.isSold) "Sold" else "Available"
-//                                timestamp = product.createdAt?.let {
-//                                    val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX")
-//                                    dateFormat.parse(it)?.time ?: 0L
-//                                } ?: 0L
-//                                latitude = 0.0
-//                                longitude = 0.0
-//                                imageList = ArrayList(product.images)
-//                            }
-//                            adArrayList.add(ad)
-//                        }
-//                        adapterAd.notifyDataSetChanged()
-//                    }
-//                } else {
-//                    // Handle error case
-//                    val errorMessage = response.message()
-//                    // Show an error message or handle the error response
-//                    // For example, you can display a toast message with the error
-//                    Log.e("Fetch", "Failed to fetch products: $errorMessage")
-//                    Toast.makeText(context, "Error: $errorMessage", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<List<Product>>, t: Throwable) {
-//                // Handle failure case
-//                // Show an error message or handle the failure
-//                // For example, you can display a toast message with the failure
-//                Log.e("Fetch", "Failed to fetch products: ${t.message}")
-//                Toast.makeText(
-//                    context,
-//                    "Failed to fetch products: ${t.message}",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//        })
-//    }
+    private fun fetchMyAds() {
+        val call = productApi.getAllProductsOfUser(accessToken)
+        call.enqueue(object : Callback<List<Product>> {
+            override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
+                if (response.isSuccessful) {
+                    val productList = response.body()
+                    productList?.let { products ->
+                        adArrayList.clear()
+                        for (product in products) {
+                            val ad = ModelAd().apply {
+                                id = product._id
+                                uid = product.createdBy
+                                brand = product.name
+                                category = product.category
+                                price = product.price.toString()
+                                title = product.name
+                                description = product.description
+                                status = if (product.isSold) "Sold" else "Available"
+                                timestamp = product.createdAt?.let {
+                                    val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX")
+                                    dateFormat.parse(it)?.time ?: 0L
+                                } ?: 0L
+                                latitude = 0.0
+                                longitude = 0.0
+                                imageList = ArrayList(product.images)
+                            }
+                            adArrayList.add(ad)
+                        }
+                        adapterAd.notifyDataSetChanged()
+                    }
+                } else {
+                    // Handle error case
+                    val errorMessage = response.message()
+                    // Show an error message or handle the error response
+                    // For example, you can display a toast message with the error
+                    Log.e("Fetch", "Failed to fetch products: $errorMessage")
+                    Toast.makeText(context, "Error: $errorMessage", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<Product>>, t: Throwable) {
+                // Handle failure case
+                // Show an error message or handle the failure
+                // For example, you can display a toast message with the failure
+                Log.e("Fetch", "Failed to fetch products: ${t.message}")
+                Toast.makeText(
+                    context,
+                    "Failed to fetch products: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
 }
