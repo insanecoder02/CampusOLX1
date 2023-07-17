@@ -23,6 +23,7 @@ interface ProductApi {
     @GET("api/products")
     fun getAllProducts(@Header("Authorization") accessToken: String): Call<List<Product>>
 
+
     @Headers(
         "accept: */*",
         "accept-encoding: gzip, deflate, br",

@@ -71,16 +71,12 @@ class ForgotPassActivity : AppCompatActivity() {
                 progressDialog.dismiss()
 
                 if (response.isSuccessful) {
-                    // Forgot password request successful, handle the response as needed
                     Toast.makeText(this@ForgotPassActivity, "Forgot Password Request Successful", Toast.LENGTH_LONG).show()
-
-                    // Transition to ResetPasswordActivity
                     val intent = Intent(this@ForgotPassActivity, ResetPasswordActivity::class.java)
                     intent.putExtra("email", email) // Pass email as extra data
                     startActivity(intent)
                     finish()
-                } else {
-                    // Forgot password request failed, handle the error response
+                } else{
                     val errorBody = response.errorBody()?.string()
                     val errorMessage = if (errorBody.isNullOrEmpty()) {
                         "Unknown error occurred"
