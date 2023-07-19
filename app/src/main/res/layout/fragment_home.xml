@@ -5,8 +5,9 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".fragments.HomeFragment">
-    
+    tools:context=".fragments.HomeFragment"
+    >
+
     <com.google.android.material.card.MaterialCardView
         android:layout_marginTop="100dp"
         android:layout_width="match_parent"
@@ -19,7 +20,7 @@
             android:id="@+id/searchEt"
             android:drawableStart="@drawable/baseline_search_24"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:hint="Search"
             android:padding="10dp"
             android:drawablePadding="10dp"/>
@@ -36,14 +37,14 @@
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
-            android:paddingTop="40dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/categoriesRv"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="horizontal"
-            tools:listitem="@layout/row_category"/>
-    
+        android:id="@+id/categoriesRv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="40dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/row_category" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -166,13 +166,18 @@
         </RelativeLayout>
 
     </androidx.core.widget.NestedScrollView>
+
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/postAdBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/postAdBtn"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:minHeight="50dp"
         android:text="Post Ad"
-        app:cornerRadius="8dp"
-        android:layout_margin="10dp"
-        android:layout_alignParentBottom="true"/>
+        android:backgroundTint="@color/app_theme"
+        app:cornerRadius="8dp" />
 </RelativeLayout>

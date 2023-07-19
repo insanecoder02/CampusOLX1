@@ -99,5 +99,6 @@
         android:layout_marginTop="20dp"
         android:minHeight="50dp"
         android:text="SUBMIT"
+        android:backgroundTint="@color/app_theme"
         app:cornerRadius="8dp" />
 </LinearLayout>
