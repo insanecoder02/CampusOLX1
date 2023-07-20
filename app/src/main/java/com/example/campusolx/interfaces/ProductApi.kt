@@ -29,8 +29,8 @@ interface ProductApi {
         "accept-encoding: gzip, deflate, br",
         "content-type: application/json",
     )
-    @GET("api/products/user")
-    fun getAllProductsOfUser(@Header("Authorization") accessToken: String): Call<List<Product>>
+    @GET("api/products/user/{id}")
+    fun getAllProductsOfUser(@Header("Authorization") accessToken: String, @Path("id") productId: String): Call<List<Product>>
 
     @Headers(
         "accept: */*",

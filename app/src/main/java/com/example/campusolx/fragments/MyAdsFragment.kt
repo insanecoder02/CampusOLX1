@@ -64,7 +64,11 @@ class MyAdsFragment : Fragment() {
     }
 
     private fun fetchMyAds() {
-        val call = productApi.getAllProductsOfUser(accessToken)
+        // Get the user ID from shared preferences (assuming it's stored there)
+        val sharedPreference = mContext.getSharedPreferences("Account_Details", Context.MODE_PRIVATE)
+        val userId = sharedPreference.getString("userId", "") ?: ""
+
+        val call = productApi.getAllProductsOfUser(accessToken, userId)
         call.enqueue(object : Callback<List<Product>> {
             override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
                 if (response.isSuccessful) {
