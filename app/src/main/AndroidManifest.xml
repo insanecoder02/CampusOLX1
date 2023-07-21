@@ -25,6 +25,16 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activites.RegisterLoader"
+            android:exported="false" />
+        <activity
+            android:name=".activites.LoginLoader"
+            android:exported="true">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activites.AdActivity"
             android:exported="false" />
         <activity

@@ -9,11 +9,13 @@ import android.util.Log
 import android.util.Patterns
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.campusolx.interfaces.AuthApi
 import com.example.campusolx.dataclass.AuthTokenResponse
 import com.example.campusolx.dataclass.LoginRequest
 import com.example.campusolx.RetrofitInstance
 import com.example.campusolx.databinding.ActivityLoginBinding
+import com.example.campusolx.utils.LoadingUtils
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -26,11 +28,12 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var authApi: AuthApi
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
-
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
@@ -73,12 +76,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginUser() {
-        progressDialog.show()
+        LoadingUtils.showDialog(this,true)
 
         val request = LoginRequest(email, password)
         authApi.login(request).enqueue(object : Callback<AuthTokenResponse> {
             override fun onResponse(call: Call<AuthTokenResponse>, response: Response<AuthTokenResponse>) {
-                progressDialog.dismiss()
+                LoadingUtils.hideDialog()
 
                 if (response.isSuccessful) {
                     val authToken = response.body()?.token
@@ -131,7 +134,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<AuthTokenResponse>, t: Throwable) {
-                progressDialog.dismiss()
+                LoadingUtils.hideDialog()
                 val errorMessage = t.message
                 Toast.makeText(this@LoginActivity, "Unsuccessful: $errorMessage", Toast.LENGTH_LONG).show()
             }

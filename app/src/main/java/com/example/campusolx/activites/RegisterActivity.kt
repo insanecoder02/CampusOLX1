@@ -8,10 +8,13 @@ import android.util.Log
 import android.util.Patterns
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.campusolx.interfaces.AuthApi
 import com.example.campusolx.dataclass.RegisterRequest
 import com.example.campusolx.RetrofitInstance
 import com.example.campusolx.databinding.ActivityRegisterBinding
+import com.example.campusolx.utils.LoadingUtils
+import com.example.campusolx.utils.RegisterLoadingUtils
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
@@ -29,7 +32,7 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
-
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
@@ -98,12 +101,12 @@ class RegisterActivity : AppCompatActivity() {
         password: String,
         upiId: String
     ) {
-        progressDialog.show()
+        RegisterLoadingUtils.showDialog(this,true)
 
         val request = RegisterRequest(name, rollNo, semester.toInt(), upiId, branch, contact, email, password)
         authApi.register(request).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                progressDialog.dismiss()
+                RegisterLoadingUtils.hideDialog()
 
                 if (response.isSuccessful) {
                     // Registration successful, handle the response as needed
@@ -135,7 +138,7 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                progressDialog.dismiss()
+                RegisterLoadingUtils.hideDialog()
                 val errorMessage = t.message
                 Toast.makeText(this@RegisterActivity, "Registration Failed: $errorMessage", Toast.LENGTH_LONG).show()
             }
