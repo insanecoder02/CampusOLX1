@@ -35,9 +35,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activites.AdActivity"
-            android:exported="false" />
-        <activity
             android:name=".activites.AdDetailsActivity"
             android:exported="true" />
         <activity

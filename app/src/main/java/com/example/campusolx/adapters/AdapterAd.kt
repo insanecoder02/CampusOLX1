@@ -14,7 +14,12 @@ import com.example.campusolx.utils.Utils
 class AdapterAd(private val context: Context, private val adArrayList: List<ModelAd>) :
     RecyclerView.Adapter<AdapterAd.HolderAd>() {
 
+    interface OnAdClickListener {
+        fun onAdClick(productId: String)
+    }
+
     private lateinit var binding: RowAdBinding
+    private var onAdClickListener: OnAdClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HolderAd {
         binding = RowAdBinding.inflate(LayoutInflater.from(context), parent, false)
@@ -34,6 +39,17 @@ class AdapterAd(private val context: Context, private val adArrayList: List<Mode
         holder.descriptionTv.text = description
         holder.priceTv.text = price
         holder.dateTv.text = formattedDate
+
+        holder.itemView.setOnClickListener {
+            val productId = modelAd.id
+            if (productId != null) {
+                onAdClickListener?.onAdClick(productId)
+            }
+        }
+    }
+
+    fun setOnAdClickListener(listener: OnAdClickListener) {
+        this.onAdClickListener = listener
     }
 
     private fun loadAdFirstImage(modelAd: ModelAd, holder: HolderAd) {
