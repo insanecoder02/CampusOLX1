@@ -48,7 +48,7 @@ class AdapterAd(private val context: Context, private val adArrayList: List<Mode
         }
     }
 
-    fun setOnAdClickListener(listener: OnAdClickListener) {
+    fun setOnAdClickListener(listener: OnAdClickListener?) {
         this.onAdClickListener = listener
     }
 
@@ -77,7 +77,6 @@ class AdapterAd(private val context: Context, private val adArrayList: List<Mode
         var imageTv = binding.imageTv
         var titleTv = binding.titleTv
         var descriptionTv = binding.descriptionTv
-//        var favBtn = binding.favBtn
         var priceTv = binding.priceTv
         var dateTv = binding.dateTv
     }

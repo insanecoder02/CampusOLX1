@@ -25,7 +25,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), AdapterAd.OnAdClickListener {
+
     private lateinit var binding: FragmentHomeBinding
     private lateinit var mContext: Context
     private lateinit var productApi: ProductApi
@@ -62,7 +63,9 @@ class HomeFragment : Fragment() {
         binding.adsRv.layoutManager = LinearLayoutManager(mContext)
         binding.adsRv.adapter = adapterAd
 
+        // Set the listener for click events
         adapterAd.setOnAdClickListener(this)
+
         // Fetch and display the products
         fetchProducts()
     }
