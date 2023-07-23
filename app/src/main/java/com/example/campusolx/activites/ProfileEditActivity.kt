@@ -1,3 +1,5 @@
+package com.example.campusolx.activites
+
 import android.app.Activity
 import android.content.ContentValues
 import android.content.ContentValues.TAG

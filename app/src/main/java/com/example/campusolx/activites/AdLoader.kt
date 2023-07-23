@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import com.example.campusolx.R
 
-class LoginLoader : Dialog {
+class AdLoader : Dialog {
 
     constructor(context: Context) : super(context)
 
@@ -15,7 +15,7 @@ class LoginLoader : Dialog {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_jarvis_loader)
+        setContentView(R.layout.activity_ad_loader)
 
         window?.setLayout(
             LinearLayout.LayoutParams.MATCH_PARENT,

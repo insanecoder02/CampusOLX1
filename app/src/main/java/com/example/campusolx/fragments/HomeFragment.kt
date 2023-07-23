@@ -1,5 +1,6 @@
 package com.example.campusolx.fragments
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -17,9 +18,6 @@ import com.example.campusolx.models.ModelAd
 import com.example.campusolx.dataclass.Product
 import com.example.campusolx.interfaces.ProductApi
 import com.example.campusolx.databinding.FragmentHomeBinding
-import com.example.campusolx.dataclass.CreateProductRequest
-import com.example.campusolx.dataclass.CreateProductResponse
-import org.json.JSONArray
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,6 +31,7 @@ class HomeFragment : Fragment(), AdapterAd.OnAdClickListener {
     private lateinit var adapterAd: AdapterAd
     private var adArrayList: ArrayList<ModelAd> = ArrayList()
     private lateinit var accessToken: String
+    private lateinit var mConText: Context
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -78,9 +77,12 @@ class HomeFragment : Fragment(), AdapterAd.OnAdClickListener {
     }
 
     private fun fetchProducts() {
+        com.example.campusolx.utils.AdLoader.showDialog(mConText, isCancelable = true)
         val call = productApi.getAllProducts(accessToken)
         call.enqueue(object : Callback<List<Product>> {
+            @SuppressLint("NewApi")
             override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
+                com.example.campusolx.utils.AdLoader.hideDialog()
                 if (response.isSuccessful) {
                     val productList = response.body()
                     productList?.let { products ->
@@ -118,6 +120,7 @@ class HomeFragment : Fragment(), AdapterAd.OnAdClickListener {
             }
 
             override fun onFailure(call: Call<List<Product>>, t: Throwable) {
+                com.example.campusolx.utils.AdLoader.hideDialog()
                 // Handle failure case
                 // Show an error message or handle the failure
                 // For example, you can display a toast message with the failure
