@@ -76,12 +76,13 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginUser() {
-        LoadingUtils.showDialog(this,true)
+//        LoadingUtils.showDialog(this,true)
+        com.example.campusolx.utils.AdLoader.showDialog(this, isCancelable = true)
 
         val request = LoginRequest(email, password)
         authApi.login(request).enqueue(object : Callback<AuthTokenResponse> {
             override fun onResponse(call: Call<AuthTokenResponse>, response: Response<AuthTokenResponse>) {
-                LoadingUtils.hideDialog()
+                com.example.campusolx.utils.AdLoader.hideDialog()
 
                 if (response.isSuccessful) {
                     val authToken = response.body()?.token
@@ -134,7 +135,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<AuthTokenResponse>, t: Throwable) {
-                LoadingUtils.hideDialog()
+                com.example.campusolx.utils.AdLoader.hideDialog()
                 val errorMessage = t.message
                 Toast.makeText(this@LoginActivity, "Unsuccessful: $errorMessage", Toast.LENGTH_LONG).show()
             }

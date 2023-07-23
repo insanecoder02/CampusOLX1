@@ -31,7 +31,7 @@ class HomeFragment : Fragment(), AdapterAd.OnAdClickListener {
     private lateinit var adapterAd: AdapterAd
     private var adArrayList: ArrayList<ModelAd> = ArrayList()
     private lateinit var accessToken: String
-    private lateinit var mConText: Context
+//    private lateinit var mConText?: Context
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -77,7 +77,7 @@ class HomeFragment : Fragment(), AdapterAd.OnAdClickListener {
     }
 
     private fun fetchProducts() {
-        com.example.campusolx.utils.AdLoader.showDialog(mConText, isCancelable = true)
+        com.example.campusolx.utils.AdLoader.showDialog(mContext, isCancelable = true)
         val call = productApi.getAllProducts(accessToken)
         call.enqueue(object : Callback<List<Product>> {
             @SuppressLint("NewApi")

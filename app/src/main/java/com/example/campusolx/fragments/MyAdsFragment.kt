@@ -65,12 +65,14 @@ class MyAdsFragment : Fragment() {
 
     private fun fetchMyAds() {
         // Get the user ID from shared preferences (assuming it's stored there)
+        com.example.campusolx.utils.AdLoader.showDialog(mContext, isCancelable = true)
         val sharedPreference = mContext.getSharedPreferences("Account_Details", Context.MODE_PRIVATE)
         val userId = sharedPreference.getString("userId", "") ?: ""
 
         val call = productApi.getAllProductsOfUser(accessToken, userId)
         call.enqueue(object : Callback<List<Product>> {
             override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
+                com.example.campusolx.utils.AdLoader.hideDialog()
                 if (response.isSuccessful) {
                     val productList = response.body()
                     productList?.let { products ->
@@ -111,6 +113,7 @@ class MyAdsFragment : Fragment() {
                 // Handle failure case
                 // Show an error message or handle the failure
                 // For example, you can display a toast message with the failure
+                com.example.campusolx.utils.AdLoader.hideDialog()
                 Log.e("Fetch", "Failed to fetch products: ${t.message}")
                 Toast.makeText(
                     context,
