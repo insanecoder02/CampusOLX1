@@ -1,5 +1,3 @@
-package com.example.campusolx.activites
-
 import android.app.Activity
 import android.content.ContentValues
 import android.content.ContentValues.TAG
@@ -23,9 +21,11 @@ import com.example.campusolx.dataclass.User
 import com.example.campusolx.dataclass.UserUpdateRequest
 import com.example.campusolx.interfaces.AuthApi
 import com.example.campusolx.RetrofitInstance
+import com.google.firebase.storage.FirebaseStorage
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 class ProfileEditActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileEditBinding
@@ -45,8 +45,6 @@ class ProfileEditActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-
-
 
         val retrofit = RetrofitInstance.getRetrofitInstance()
         authApi = retrofit.create(AuthApi::class.java)
@@ -79,14 +77,53 @@ class ProfileEditActivity : AppCompatActivity() {
         name = (binding.nameEt.text.toString().trim().takeIf { it.isNotBlank() } ?: sharedPreferences.getString("name", "")) as String
         rollNo = (binding.rollEt.text.toString().trim().takeIf { it.isNotBlank() } ?: sharedPreferences.getString("enrollmentNo", "")) as String
         email = (binding.emailEt.text.toString().trim().takeIf { it.isNotBlank() } ?: sharedPreferences.getString("email", "")) as String
-        semester = sharedPreferences.getInt("semesterbinding.branchEt.text.toString().trim().takeIf { it.isNotBlank() } ?: ", 0)
+        semester = sharedPreferences.getInt("semester", 0)
         branch = sharedPreferences.getString("branch", "").toString()
         contact = sharedPreferences.getString("contact", "").toString()
         upiId = sharedPreferences.getString("upiId", "").toString()
         profilePicture = sharedPreferences.getString("profilePictureUrl", "").toString()
 
-        updateUser()
+        // If a new image is selected, upload it to Firebase Storage
+        if (imageUri != null) {
+            uploadProfilePictureToFirebase()
+        } else {
+            updateUser()
+        }
     }
+
+    private fun uploadProfilePictureToFirebase() {
+        if (imageUri == null) return
+
+        val storageReference = FirebaseStorage.getInstance().reference.child("profile_pictures")
+        val profilePictureRef = storageReference.child(userId)
+
+        val file = File(imageUri?.path)
+        val uploadTask = profilePictureRef.putFile(Uri.fromFile(file))
+
+        uploadTask.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // Image upload to Firebase Storage is successful, get the download URL
+                profilePictureRef.downloadUrl.addOnSuccessListener { downloadUri ->
+                    // The downloadUri contains the URL of the uploaded image
+                    val downloadUrl = downloadUri.toString()
+                    // Update the profilePicture field with the download URL
+                    profilePicture = downloadUrl
+
+                    // Proceed with updating the user data in the backend
+                    updateUser()
+                }.addOnFailureListener { exception ->
+                    // Failed to get the download URL, handle the error
+                    Log.e(TAG, "Failed to get download URL: ${exception.message}")
+                    // You may want to show an error message to the user or handle the failure accordingly
+                }
+            } else {
+                // Image upload to Firebase Storage failed, handle the error
+                Log.e(TAG, "Image upload failed: ${task.exception?.message}")
+                // You may want to show an error message to the user or handle the failure accordingly
+            }
+        }
+    }
+
 
     private fun updateUser() {
         val userUpdateRequest = UserUpdateRequest(
@@ -98,41 +135,12 @@ class ProfileEditActivity : AppCompatActivity() {
             profilePicture = profilePicture
         )
 
-
-
         authApi.updateUser(accessToken, userId, userUpdateRequest)
             .enqueue(object : Callback<User> {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.isSuccessful) {
                         // User update successful, handle the response as needed
-//                        val updatedUser = response.body()
                         val updatedUser = response.body()
-
-                        val name = updatedUser?.name
-                        val enrollmentNo = updatedUser?.enrollmentNo
-                        val semester = updatedUser?.semester
-                        val branch = updatedUser?.branch
-                        val contact = updatedUser?.contact
-                        val upiId = updatedUser?.upiId
-                        val email = updatedUser?.email
-                        val profilePictureUrl = updatedUser?.profilePicture
-
-                        val sharedPreference = getSharedPreferences("Account_Details", Context.MODE_PRIVATE)
-                        val editor = sharedPreference.edit()
-
-                        editor.putString("name", name)
-                        editor.putString("enrollmentNo", enrollmentNo)
-                        if (semester != null) {
-                            editor.putInt("semester", semester)
-                        }
-                        editor.putString("branch", branch)
-                        editor.putString("contact", contact)
-                        editor.putString("upiId", upiId)
-                        editor.putString("email", email)
-                        editor.putString("profilePictureUrl", profilePictureUrl)
-
-                        editor.apply()
-
                         // Update the UI or perform any other operations with the updated user data
                     } else {
                         // User update failed, handle the error response
