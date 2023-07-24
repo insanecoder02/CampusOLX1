@@ -12,6 +12,7 @@ import com.example.campusolx.dataclass.UserUpdateRequest
 import com.example.campusolx.dataclass.VerifyRequest
 import retrofit2.http.Body
 import retrofit2.http.DELETE
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
@@ -61,6 +62,17 @@ interface AuthApi {
         @Header("Authorization") accessToken: String,
         @Path("id") userId: String
     ): Call<Void>
+
+    @Headers(
+        "accept: */*",
+        "accept-encoding: gzip, deflate, br",
+        "content-type: application/json",
+    )
+    @GET("api/users/{id}")
+    fun getUser(
+        @Header("Authorization") accessToken: String,
+        @Path("id") userId: String
+    ): Call<User>
 
     @POST("api/user/logout")
     fun logout(): Call<Void>
