@@ -4,16 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_theme"
+    android:background="@color/background_color"
     tools:context=".activites.LoginActivity">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        app:srcCompat="@drawable/icon"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="29dp" />
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

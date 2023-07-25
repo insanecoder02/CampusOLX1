@@ -57,7 +57,7 @@ interface AuthApi {
         "accept-encoding: gzip, deflate, br",
         "content-type: application/json",
     )
-    @DELETE("api/users/{id}")
+    @DELETE("api/user/{id}")
     fun deleteUser(
         @Header("Authorization") accessToken: String,
         @Path("id") userId: String
@@ -68,7 +68,7 @@ interface AuthApi {
         "accept-encoding: gzip, deflate, br",
         "content-type: application/json",
     )
-    @GET("api/users/{id}")
+    @GET("api/user/{id}")
     fun getUser(
         @Header("Authorization") accessToken: String,
         @Path("id") userId: String

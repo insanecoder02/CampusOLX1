@@ -31,7 +31,6 @@ class HomeFragment : Fragment(), AdapterAd.OnAdClickListener {
     private lateinit var adapterAd: AdapterAd
     private var adArrayList: ArrayList<ModelAd> = ArrayList()
     private lateinit var accessToken: String
-//    private lateinit var mConText?: Context
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
