@@ -11,13 +11,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.airbnb.lottie.utils.Utils
+import com.example.campusolx.R
 import com.example.campusolx.RetrofitInstance
 import com.example.campusolx.activites.AdDetailsActivity
 import com.example.campusolx.adapters.AdapterAd
+import com.example.campusolx.adapters.AdapterCategory
 import com.example.campusolx.models.ModelAd
 import com.example.campusolx.dataclass.Product
 import com.example.campusolx.interfaces.ProductApi
 import com.example.campusolx.databinding.FragmentHomeBinding
+import com.example.campusolx.interfaces.RvListenerCategory
+import com.example.campusolx.models.ModelCategory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -63,7 +68,7 @@ class HomeFragment : Fragment(), AdapterAd.OnAdClickListener {
 
         // Set the listener for click events
         adapterAd.setOnAdClickListener(this)
-
+        loadCategories()
         // Fetch and display the products
         fetchProducts()
     }
@@ -73,6 +78,40 @@ class HomeFragment : Fragment(), AdapterAd.OnAdClickListener {
         val intent = Intent(mContext, AdDetailsActivity::class.java)
         intent.putExtra("product_id", productId)
         startActivity(intent)
+    }
+
+    private fun loadCategories(){
+
+        val categories = arrayOf(
+            "Coolers",
+            "Electronics",
+            "Furniture",
+            "Books",
+            "Sports",
+            "Nitish Bharat",
+            "Fashion",
+            "Girlfriends"
+        )
+        val categoryIcons = arrayOf(
+            R.drawable.ic_phone,
+            R.drawable.baseline_electrical_services_24,
+            R.drawable.baseline_bed_24,
+            R.drawable.ic_book,
+            R.drawable.baseline_sports_handball_24,
+            R.drawable.ic_person,
+            R.drawable.ic_chat,
+            R.drawable.baseline_girl_24
+        )
+
+        val categoryArrayList = ArrayList<ModelCategory>()
+        for(i in 0 until categories.size){
+            val modelCategory = ModelCategory(categories[i], categoryIcons[i])
+            categoryArrayList.add(modelCategory)
+        }
+        val adapterCategory = AdapterCategory(mContext, categoryArrayList, object: RvListenerCategory{
+            override fun onCategoryClick(modelCategory: ModelCategory) {
+            }
+        })
     }
 
     private fun fetchProducts() {

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.campusolx.RetrofitInstance
 import com.example.campusolx.databinding.ActivityAdDetailsBinding
 import com.example.campusolx.dataclass.Product
@@ -104,7 +105,18 @@ class AdDetailsActivity : AppCompatActivity() {
         binding.categoryTv.text = product.category
         binding.titleTv.text = product.name
         binding.descTv.text = product.description
+
+        // Set the first image from the images list to the ImageView
+        if (!product.images.isNullOrEmpty()) {
+            val firstImageUrl = product.images[0]
+            // You may use an image loading library like Glide, Picasso, or Coil to load the image into the ImageView.
+            // Here, I'll show you how to use Glide to load the image.
+            Glide.with(this)
+                .load(firstImageUrl)
+                .into(binding.imageSliderVp)
+        }
     }
+
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

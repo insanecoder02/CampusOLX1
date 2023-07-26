@@ -34,8 +34,11 @@
         android:textColor="@color/gray"
         android:textSize="20sp"
         android:textStyle="bold" />
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <androidx.recyclerview.widget.RecyclerView
+
         android:id="@+id/categoriesRv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,12 +48,13 @@
         tools:listitem="@layout/row_category" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/categoriesRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/adsRv"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/row_ad"/>
-
+</RelativeLayout>
 
 
 
