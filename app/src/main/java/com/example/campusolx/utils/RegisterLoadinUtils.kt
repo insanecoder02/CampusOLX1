@@ -3,12 +3,14 @@ package com.example.campusolx.utils
 import android.content.Context
 import com.example.campusolx.activites.LoginLoader
 
-
+// Utility class for managing the loading dialog during registration
 open class RegisterLoadingUtils {
 
     companion object {
+        // A reference to the loading dialog
         private var RegisterLoader: LoginLoader? = null
 
+        // Function to show the loading dialog
         fun showDialog(
             context: Context?,
             isCancelable: Boolean
@@ -28,6 +30,7 @@ open class RegisterLoadingUtils {
             }
         }
 
+        // Function to hide the loading dialog
         fun hideDialog() {
             try {
                 RegisterLoader?.let { loader ->

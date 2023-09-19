@@ -29,7 +29,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 
+// Define the ProfileEditActivity class
 class ProfileEditActivity : AppCompatActivity() {
+    // Declare variables and UI elements
     private lateinit var binding: ActivityProfileEditBinding
     private var imageUri: Uri? = null
     private lateinit var authApi: AuthApi
@@ -38,19 +40,25 @@ class ProfileEditActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Initialize the view using the layout defined in ActivityProfileEditBinding
         binding = ActivityProfileEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Hide the action bar if it is present
         supportActionBar?.hide()
 
+        // Set flags to display the activity in full-screen mode
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
+        // Initialize Retrofit API instance
         val retrofit = RetrofitInstance.getRetrofitInstance()
         authApi = retrofit.create(AuthApi::class.java)
 
+        // Set click listeners for UI elements
         binding.toolBarBackBtn.setOnClickListener {
             onBackPressed()
         }
@@ -60,11 +68,14 @@ class ProfileEditActivity : AppCompatActivity() {
         binding.updateBtn.setOnClickListener {
             validateData()
         }
+
+        // Retrieve user data from SharedPreferences
         val sharedPreference = getSharedPreferences("Account_Details", Context.MODE_PRIVATE)
         accessToken = "Bearer " + sharedPreference.getString("accessToken", "") ?: ""
         userId = sharedPreference.getString("userId", "") ?: ""
     }
 
+    // Declare variables to store user data
     private var name = ""
     private var rollNo = ""
     private var email = ""
@@ -75,6 +86,7 @@ class ProfileEditActivity : AppCompatActivity() {
     private var profilePicture = ""
 
     private fun validateData() {
+        // Retrieve user data from EditText fields or SharedPreferences if not changed
         val sharedPreferences = getSharedPreferences("Account_Details", Context.MODE_PRIVATE)
         name = (binding.nameEt.text.toString().trim().takeIf { it.isNotBlank() } ?: sharedPreferences.getString("name", "")) as String
         rollNo = (binding.rollEt.text.toString().trim().takeIf { it.isNotBlank() } ?: sharedPreferences.getString("enrollmentNo", "")) as String
@@ -93,13 +105,18 @@ class ProfileEditActivity : AppCompatActivity() {
         }
     }
 
+    // Function to upload a profile picture to Firebase Storage
     private fun uploadProfilePictureToFirebase() {
         if (imageUri == null) return
 
+        // Define the Firebase Storage reference
         val storageReference = FirebaseStorage.getInstance().reference.child("profile_pictures")
         val profilePictureRef = storageReference.child(userId)
 
+        // Create a File object from the selected image URI
         val file = File(imageUri?.path)
+
+        // Upload the image to Firebase Storage
         val uploadTask = profilePictureRef.putFile(Uri.fromFile(file))
 
         uploadTask.addOnCompleteListener { task ->
@@ -126,7 +143,7 @@ class ProfileEditActivity : AppCompatActivity() {
         }
     }
 
-
+    // Function to update user data in the backend
     private fun updateUser() {
         val userUpdateRequest = UserUpdateRequest(
             name = name,
@@ -157,6 +174,7 @@ class ProfileEditActivity : AppCompatActivity() {
             })
     }
 
+    // Function to display an image pick dialog
     private fun imagePickDialog() {
         val popupMenu = PopupMenu(this, binding.profileImagePickFab)
         popupMenu.menu.add(Menu.NONE, 1, 1, "Camera")
@@ -188,6 +206,7 @@ class ProfileEditActivity : AppCompatActivity() {
         }
     }
 
+    // Register permission requests for camera and storage access
     private val requestCameraPermission =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
             var areAllGranted = true
@@ -210,6 +229,7 @@ class ProfileEditActivity : AppCompatActivity() {
             }
         }
 
+    // Function to pick an image from the camera
     private fun pickImageCamera() {
         val contentValues = ContentValues()
         contentValues.put(MediaStore.Images.Media.TITLE, "Temp_image_title")
@@ -222,12 +242,14 @@ class ProfileEditActivity : AppCompatActivity() {
         cameraActivityResultLauncher.launch(intent)
     }
 
+    // Function to pick an image from the gallery
     private fun pickImageGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         galleryActivityResultLauncher.launch(intent)
     }
 
+    // Register activity result launcher for camera
     private val cameraActivityResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -244,6 +266,7 @@ class ProfileEditActivity : AppCompatActivity() {
             }
         }
 
+    // Register activity result launcher for gallery
     private val galleryActivityResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
