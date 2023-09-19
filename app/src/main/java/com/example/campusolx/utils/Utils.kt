@@ -7,8 +7,9 @@ import java.text.DateFormat
 import java.util.Calendar
 import java.util.Locale
 
+// Utility class for commonly used functions and constants
 object Utils {
-
+    // Array of category names
     val categories = arrayOf(
         "Coolers",
         "Electronics",
@@ -19,6 +20,8 @@ object Utils {
         "Fashion",
         "Girlfriends"
     )
+
+    // Array of category icons
     val categoryIcons = arrayOf(
         R.drawable.ic_phone,
         R.drawable.baseline_electrical_services_24,
@@ -30,17 +33,20 @@ object Utils {
         R.drawable.baseline_girl_24
     )
 
-    fun getTimestamp() : Long{
+    // Function to get the current timestamp in milliseconds
+    fun getTimestamp(): Long {
         return System.currentTimeMillis()
     }
 
-    fun toast(context: Context, message: String){
+    // Function to display a short toast message
+    fun toast(context: Context, message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-    fun formatTimestampDate(timestamp : Long) : String{
+    // Function to format a timestamp into a date string (dd/MM/yyyy)
+    fun formatTimestampDate(timestamp: Long): String {
         val calendar = Calendar.getInstance(Locale.ENGLISH)
         calendar.timeInMillis = timestamp
-        return android.text.format.DateFormat.format("dd/MM/yyyy",calendar).toString()
+        return android.text.format.DateFormat.format("dd/MM/yyyy", calendar).toString()
     }
 }

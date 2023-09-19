@@ -29,21 +29,27 @@ class VerifyAccountActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verify_account)
 
+        // Initialize Retrofit API instance
         val retrofit = RetrofitInstance.getRetrofitInstance()
         authApi = retrofit.create(AuthApi::class.java)
         progressDialog = ProgressDialog(this)
 
+        // Initialize UI elements
         codeEditText = findViewById(R.id.newPasswordEt)
         submitButton = findViewById(R.id.submitButtonVerify)
 
+        // Retrieve the email passed from the previous activity
         email = intent.getStringExtra("email") ?: ""
 
+        // Set click listener for the submit button
         submitButton.setOnClickListener {
             val code = codeEditText.text.toString()
+            // Call the verification function with the entered code and email
             verifyAccount(email, code)
         }
     }
 
+    // Function to verify the account with the provided code and email
     private fun verifyAccount(code: String, email:String) {
         progressDialog.show()
 
@@ -81,6 +87,7 @@ class VerifyAccountActivity : AppCompatActivity() {
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 progressDialog.dismiss()
                 val errorMessage = t.message
+                // Handle the failure to make the verification request
                 Toast.makeText(this@VerifyAccountActivity, "Verification Failed: $errorMessage", Toast.LENGTH_LONG).show()
             }
         })

@@ -10,24 +10,27 @@ import com.example.campusolx.R
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Set the content view to the specified layout file
         setContentView(R.layout.activity_splash)
 
-
+        // Hide the action bar if it is present
         supportActionBar?.hide()
 
+        // Set flags to display the activity in full-screen mode
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-        setContentView(R.layout.activity_splash)
 
+        // Create a delayed action using a Handler to navigate to the LoginActivity after 3 seconds
         Handler().postDelayed({
             val i = Intent(
                 this@SplashActivity,
                 LoginActivity::class.java
             )
             startActivity(i)
-            finish()
-        }, 3000)
+            finish() // Finish the current SplashActivity after navigating to the LoginActivity
+        }, 3000) // Delay for 3000 milliseconds (3 seconds) before starting LoginActivity
     }
 }

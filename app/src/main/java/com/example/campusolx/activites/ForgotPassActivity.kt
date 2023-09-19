@@ -20,8 +20,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+// Define ForgotPassActivity for handling password reset requests
 class ForgotPassActivity : AppCompatActivity() {
 
+    // Declare UI elements and variables
     private lateinit var emailEditText: EditText
     private lateinit var submitButton: MaterialButton
     private lateinit var progressDialog: ProgressDialog
@@ -31,13 +33,16 @@ class ForgotPassActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_pass)
 
+        // Hide the action bar
         supportActionBar?.hide()
 
+        // Set flags for fullscreen
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
+        // Initialize UI elements and Retrofit instance
         emailEditText = findViewById(R.id.newPasswordEt2)
         submitButton = findViewById(R.id.submitButtonForgot)
         progressDialog = ProgressDialog(this)
@@ -47,6 +52,7 @@ class ForgotPassActivity : AppCompatActivity() {
         val retrofit = RetrofitInstance.getRetrofitInstance()
         authApi = retrofit.create(AuthApi::class.java)
 
+        // Set click listener for the submit button
         submitButton.setOnClickListener {
             val email = emailEditText.text.toString().trim()
             if (isValidEmail(email)) {
@@ -57,11 +63,13 @@ class ForgotPassActivity : AppCompatActivity() {
         }
     }
 
+    // Function to validate the email format
     private fun isValidEmail(email: String): Boolean {
         val pattern = Patterns.EMAIL_ADDRESS
         return pattern.matcher(email).matches()
     }
 
+    // Function to send a forgot password request
     private fun sendForgotPasswordRequest(email: String) {
         progressDialog.show()
 
@@ -71,12 +79,14 @@ class ForgotPassActivity : AppCompatActivity() {
                 progressDialog.dismiss()
 
                 if (response.isSuccessful) {
+                    // Password reset request successful, navigate to ResetPasswordActivity
                     Toast.makeText(this@ForgotPassActivity, "Forgot Password Request Successful", Toast.LENGTH_LONG).show()
                     val intent = Intent(this@ForgotPassActivity, ResetPasswordActivity::class.java)
                     intent.putExtra("email", email) // Pass email as extra data
                     startActivity(intent)
                     finish()
-                } else{
+                } else {
+                    // Handle password reset request failure and display an error message
                     val errorBody = response.errorBody()?.string()
                     val errorMessage = if (errorBody.isNullOrEmpty()) {
                         "Unknown error occurred"

@@ -21,29 +21,43 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+// Define the RegisterActivity class
 class RegisterActivity : AppCompatActivity() {
 
+    // Declare variables and UI elements
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var progressDialog: ProgressDialog
     private lateinit var authApi: AuthApi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Initialize the view using the layout defined in ActivityRegisterBinding
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Hide the action bar if it is present
         supportActionBar?.hide()
-        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+        // Set night mode to dark
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+        // Set flags to display the activity in full-screen mode
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
+
+        // Initialize a ProgressDialog for later use
         progressDialog = ProgressDialog(this)
         progressDialog.setTitle("Please Wait...")
         progressDialog.setCanceledOnTouchOutside(true)
 
+        // Initialize Retrofit API instance
         val retrofit = RetrofitInstance.getRetrofitInstance()
         authApi = retrofit.create(AuthApi::class.java)
 
+        // Set click listeners for UI elements
         binding.imageView3.setOnClickListener {
             onBackPressed()
         }
@@ -52,6 +66,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    // Function to validate user registration data
     private fun validateData() {
         val name = binding.userName.text.toString().trim()
         val rollNo = binding.enrollNo.text.toString().trim()
@@ -87,10 +102,12 @@ class RegisterActivity : AppCompatActivity() {
             binding.registerPassword.error = "Enter a valid password"
             binding.registerPassword.requestFocus()
         } else {
+            // If data is valid, register the user
             registerUser(name, rollNo, semester, branch, contact, email, password, upiId)
         }
     }
 
+    // Function to register the user with provided data
     private fun registerUser(
         name: String,
         rollNo: String,
@@ -101,20 +118,22 @@ class RegisterActivity : AppCompatActivity() {
         password: String,
         upiId: String
     ) {
-        RegisterLoadingUtils.showDialog(this,true)
+        // Show a loading dialog while registering
+        RegisterLoadingUtils.showDialog(this, true)
 
         val request = RegisterRequest(name, rollNo, semester.toInt(), upiId, branch, contact, email, password)
         authApi.register(request).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                // Hide the loading dialog
                 RegisterLoadingUtils.hideDialog()
 
                 if (response.isSuccessful) {
                     // Registration successful, handle the response as needed
                     Toast.makeText(this@RegisterActivity, "Registration Successful", Toast.LENGTH_LONG).show()
 
-                    // Transition to VerifyAccountActivity
+                    // Transition to VerifyAccountActivity and pass email as extra data
                     val intent = Intent(this@RegisterActivity, VerifyAccountActivity::class.java)
-                    intent.putExtra("email", email) // Pass email as extra data
+                    intent.putExtra("email", email)
                     startActivity(intent)
                     finishAffinity()
                 } else {
@@ -138,6 +157,7 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
+                // Hide the loading dialog and show an error message
                 RegisterLoadingUtils.hideDialog()
                 val errorMessage = t.message
                 Toast.makeText(this@RegisterActivity, "Registration Failed: $errorMessage", Toast.LENGTH_LONG).show()

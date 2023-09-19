@@ -21,6 +21,7 @@ import retrofit2.Response
 
 class ResetPasswordActivity : AppCompatActivity() {
 
+    // Declare UI elements and variables
     private lateinit var currentPasswordEditText: EditText
     private lateinit var newPasswordEditText: EditText
     private lateinit var submitButton: MaterialButton
@@ -31,13 +32,16 @@ class ResetPasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reset_password)
 
+        // Hide the action bar if it is present
         supportActionBar?.hide()
 
+        // Set flags to display the activity in full-screen mode
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
+        // Initialize UI elements and the Retrofit API instance
         currentPasswordEditText = findViewById(R.id.currentPasswordEt3)
         newPasswordEditText = findViewById(R.id.newPasswordEt3)
         submitButton = findViewById(R.id.submitButton3)
@@ -48,13 +52,17 @@ class ResetPasswordActivity : AppCompatActivity() {
         val retrofit = RetrofitInstance.getRetrofitInstance()
         authApi = retrofit.create(AuthApi::class.java)
 
+        // Retrieve the email passed from the previous activity
         val email = intent.getStringExtra("email") ?: ""
 
+        // Set a click listener for the submit button
         submitButton.setOnClickListener {
             val currentPassword = currentPasswordEditText.text.toString().trim()
             val newPassword = newPasswordEditText.text.toString().trim()
 
+            // Check if both current and new passwords are not empty
             if (currentPassword.isNotEmpty() && newPassword.isNotEmpty()) {
+                // Call the resetPassword function with email, current password, and new password
                 resetPassword(email, currentPassword, newPassword)
             } else {
                 Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show()
@@ -62,6 +70,7 @@ class ResetPasswordActivity : AppCompatActivity() {
         }
     }
 
+    // Function to reset the password with the provided email, current password, and new password
     private fun resetPassword(email: String, currentPassword: String, newPassword: String) {
         progressDialog.show()
 
@@ -101,6 +110,7 @@ class ResetPasswordActivity : AppCompatActivity() {
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 progressDialog.dismiss()
                 val errorMessage = t.message
+                // Handle the failure to make the password reset request
                 Toast.makeText(this@ResetPasswordActivity, "Password Reset Failed: $errorMessage", Toast.LENGTH_LONG).show()
             }
         })
