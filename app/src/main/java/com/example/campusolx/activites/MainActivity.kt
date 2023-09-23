@@ -18,6 +18,7 @@ import com.example.campusolx.fragments.MyAdsFragment
 import com.example.campusolx.R
 import com.example.campusolx.fragments.SettingsFragment
 import com.example.campusolx.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 // Define the MainActivity class
@@ -77,12 +78,12 @@ class MainActivity : AppCompatActivity() {
             if(selectedTab!=1){
                 showHomeFragment()
                 binding.settingstext.visibility= View.GONE
-                binding.plustext.visibility = View.GONE
+//                binding.plustext.visibility = View.GONE
                 binding.myaddstext.visibility=View.GONE
                 binding.profiletext.visibility=View.GONE
 
                 binding.settingimage.setImageResource(R.drawable.settingnormal)
-                binding.plusimage.setImageResource(R.drawable.normalplus)
+//                binding.plusimage.setImageResource(R.drawable.normalplus)
                 binding.myadsimage.setImageResource(R.drawable.myaddnormal)
                 binding.profileimage.setImageResource(R.drawable.person)
 
@@ -123,12 +124,12 @@ class MainActivity : AppCompatActivity() {
             if(selectedTab!=2){
                 showSettingsFragment()
                 binding.hometext.visibility= View.GONE
-                binding.plustext.visibility = View.GONE
+//                binding.plustext.visibility = View.GONE
                 binding.myaddstext.visibility=View.GONE
                 binding.profiletext.visibility=View.GONE
 
                 binding.homeImage.setImageResource(R.drawable.ic_home_normal)
-                binding.plusimage.setImageResource(R.drawable.normalplus)
+//                binding.plusimage.setImageResource(R.drawable.normalplus)
                 binding.myadsimage.setImageResource(R.drawable.myaddnormal)
                 binding.profileimage.setImageResource(R.drawable.person)
 
@@ -183,8 +184,8 @@ class MainActivity : AppCompatActivity() {
                 binding.myadsss.setBackgroundColor(ContextCompat.getColor(this, R.color.white_transparent))
                 binding.profilelayout.setBackgroundColor(ContextCompat.getColor(this, R.color.white_transparent))
 
-                binding.plustext.visibility = View.VISIBLE
-                binding.plusimage.setImageResource(R.drawable.add_button)
+//                binding.plustext.visibility = View.VISIBLE
+//                binding.plusimage.setImageResource(R.drawable.add_button)
                 val customDrawable = ContextCompat.getDrawable(this, R.drawable.round_back_plus)
                 binding.pluslayout.background = customDrawable
                 val scaleXAnimation = ScaleAnimation(
@@ -216,12 +217,12 @@ class MainActivity : AppCompatActivity() {
             if(selectedTab!=4){
                 showMyAdsFragment()
                 binding.settingstext.visibility= View.GONE
-                binding.plustext.visibility = View.GONE
+//                binding.plustext.visibility = View.GONE
                 binding.hometext.visibility=View.GONE
                 binding.profiletext.visibility=View.GONE
 
                 binding.settingimage.setImageResource(R.drawable.settingnormal)
-                binding.plusimage.setImageResource(R.drawable.normalplus)
+//                binding.plusimage.setImageResource(R.drawable.normalplus)
                 binding.homeImage.setImageResource(R.drawable.ic_home_normal)
                 binding.profileimage.setImageResource(R.drawable.person)
 
@@ -262,12 +263,12 @@ class MainActivity : AppCompatActivity() {
             if(selectedTab!=5){
                 showAccountFragment()
                 binding.settingstext.visibility= View.GONE
-                binding.plustext.visibility = View.GONE
+//                binding.plustext.visibility = View.GONE
                 binding.myaddstext.visibility=View.GONE
                 binding.hometext.visibility=View.GONE
 
                 binding.settingimage.setImageResource(R.drawable.settingnormal)
-                binding.plusimage.setImageResource(R.drawable.normalplus)
+//                binding.plusimage.setImageResource(R.drawable.normalplus)
                 binding.myadsimage.setImageResource(R.drawable.myaddnormal)
                 binding.homeImage.setImageResource(R.drawable.ic_home_normal)
 
