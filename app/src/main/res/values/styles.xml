@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+<!--    <style name="AppTheme" parent="Theme.MaterialComponents">-->
+<!--        <item name="" type=""-->
     <style name="ImageStyle_CIrcle">
         <item name = "cornerSize">50%</item>
         <item name="cornerFamily">rounded</item>
