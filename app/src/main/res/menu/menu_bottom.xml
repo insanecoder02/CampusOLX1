@@ -3,7 +3,7 @@
 
     <item android:id="@+id/menu_home"
         android:title="Home"
-        android:icon="@drawable/ic_home"/>
+        android:icon="@drawable/home_logo"/>
     <item android:id="@+id/menu_settings"
         android:title="Settings"
         android:icon="@drawable/ic_baseline_settings_24" />
@@ -16,7 +16,7 @@
         android:title="My Ads" />
     <item android:id="@+id/menu_account"
         android:title="Account"
-        android:icon="@drawable/ic_person"/>
+        android:icon="@drawable/user_logo"/>
 
 
 </menu>
