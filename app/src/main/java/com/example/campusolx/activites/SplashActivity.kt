@@ -27,7 +27,7 @@ class SplashActivity : AppCompatActivity() {
         Handler().postDelayed({
             val i = Intent(
                 this@SplashActivity,
-                LoginActivity::class.java
+                MainActivity2::class.java
             )
             startActivity(i)
             finish() // Finish the current SplashActivity after navigating to the LoginActivity

@@ -60,6 +60,9 @@
             android:exported="true" />
         <activity
             android:name=".activites.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activites.MainActivity2"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
