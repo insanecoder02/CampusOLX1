@@ -5,16 +5,21 @@ import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
 import android.util.Log
 import android.view.Menu
+import android.view.View
 import android.view.WindowManager
 import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.text.HtmlCompat
 import com.bumptech.glide.Glide
 import com.example.campusolx.R
 import com.example.campusolx.utils.Utils
@@ -43,10 +48,18 @@ class ProfileEditActivity : AppCompatActivity() {
 
         // Initialize the view using the layout defined in ActivityProfileEditBinding
         binding = ActivityProfileEditBinding.inflate(layoutInflater)
+
+        window.decorView.systemUiVisibility = (
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                )
+        window.statusBarColor = Color.TRANSPARENT
         setContentView(binding.root)
 
         // Hide the action bar if it is present
-        supportActionBar?.hide()
+//        supportActionBar?.hide()
+
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         // Set flags to display the activity in full-screen mode
         window.setFlags(
@@ -58,11 +71,32 @@ class ProfileEditActivity : AppCompatActivity() {
         val retrofit = RetrofitInstance.getRetrofitInstance()
         authApi = retrofit.create(AuthApi::class.java)
 
+//        val accessToken = intent.getStringExtra("accessToken")
+        val name = intent.getStringExtra("name")
+        val enrollmentNo = intent.getStringExtra("enrollmentNo")
+//        val semester = intent.getIntExtra("semester", 0)
+//        val branch = intent.getStringExtra("branch")
+        val contact = intent.getStringExtra("contact")
+//        val upiId = intent.getStringExtra("upiId")
+        val email = intent.getStringExtra("email")
+//        val userId = intent.getStringExtra("userId")
+        val profilePictureUrl = intent.getStringExtra("profilePictureUrl")
+
+        binding.nameEt.text = Editable.Factory.getInstance().newEditable(name)
+        binding.emailEt.text= Editable.Factory.getInstance().newEditable(email)
+        binding.phoneNumberEt.text= Editable.Factory.getInstance().newEditable(contact)
+        binding.rollEt.text= Editable.Factory.getInstance().newEditable(enrollmentNo)
+
+        Glide.with(this)
+            .load(profilePictureUrl)
+            .placeholder(R.drawable.i2)
+            .into(binding.shapeableImageView)
+
         // Set click listeners for UI elements
-        binding.toolBarBackBtn.setOnClickListener {
-            onBackPressed()
-        }
-        binding.profileImagePickFab.setOnClickListener {
+//        binding.toolBarBackBtn.setOnClickListener {
+//            onBackPressed()
+//        }
+        binding.imagePicker.setOnClickListener {
             imagePickDialog()
         }
         binding.updateBtn.setOnClickListener {
@@ -70,7 +104,7 @@ class ProfileEditActivity : AppCompatActivity() {
         }
 
         // Retrieve user data from SharedPreferences
-        val sharedPreference = getSharedPreferences("Account_Details", Context.MODE_PRIVATE)
+        val sharedPreference = getSharedPreferences("Account_Details", MODE_PRIVATE)
         accessToken = "Bearer " + sharedPreference.getString("accessToken", "") ?: ""
         userId = sharedPreference.getString("userId", "") ?: ""
     }
@@ -102,6 +136,7 @@ class ProfileEditActivity : AppCompatActivity() {
             uploadProfilePictureToFirebase()
         } else {
             updateUser()
+//            startActivity(Intent(this,req))
         }
     }
 
@@ -176,7 +211,7 @@ class ProfileEditActivity : AppCompatActivity() {
 
     // Function to display an image pick dialog
     private fun imagePickDialog() {
-        val popupMenu = PopupMenu(this, binding.profileImagePickFab)
+        val popupMenu = PopupMenu(this, binding.changeImage)
         popupMenu.menu.add(Menu.NONE, 1, 1, "Camera")
         popupMenu.menu.add(Menu.NONE, 2, 2, "Gallery")
         popupMenu.show()
@@ -257,7 +292,7 @@ class ProfileEditActivity : AppCompatActivity() {
                     Glide.with(this)
                         .load(imageUri)
                         .placeholder(R.drawable.ic_person)
-                        .into(binding.profileTv)
+                        .into(binding.shapeableImageView)
                 } catch (e: Exception) {
                     Log.e(TAG, "cameraActivityResultLauncher", e)
                 }
@@ -276,7 +311,7 @@ class ProfileEditActivity : AppCompatActivity() {
                     Glide.with(this)
                         .load(imageUri)
                         .placeholder(R.drawable.ic_person)
-                        .into(binding.profileTv)
+                        .into(binding.shapeableImageView)
                 } catch (e: java.lang.Exception) {
                     Log.e(TAG, "galleryActivityResultLauncher", e)
                 }

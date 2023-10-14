@@ -40,7 +40,7 @@ class RegisterActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         // Set night mode to dark
-        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         // Set flags to display the activity in full-screen mode
         window.setFlags(

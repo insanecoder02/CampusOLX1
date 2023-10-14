@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.campusolx.interfaces.AuthApi
 import com.example.campusolx.R
 import com.example.campusolx.RetrofitInstance
@@ -28,6 +29,8 @@ class VerifyAccountActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verify_account)
+
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         // Initialize Retrofit API instance
         val retrofit = RetrofitInstance.getRetrofitInstance()
