@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.example.campusolx.R
 import com.example.campusolx.activites.ForgotPassActivity
 import com.example.campusolx.activites.ProfileEditActivity
 import com.example.campusolx.databinding.FragmentAccountBinding
@@ -31,7 +32,6 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set the account information in the views
         binding.nameTvAcc.text = account.name
         binding.rollNoTvAcc.text = account.enrollmentNo
         binding.semesterTvAcc.text = account.semester.toString()
@@ -39,14 +39,19 @@ class AccountFragment : Fragment() {
         binding.ContactTvAcc.text = account.contact
         binding.EmailTvAcc.text = account.email
 
-        // Set profile picture if available
-        account.profilePictureUrl?.let { profilePictureUrl ->
-            // Load the image using your preferred image loading library
-            // For example:
-            Glide.with(requireContext())
-                .load(profilePictureUrl)
-                .into(binding.profileTvAcc)
-        }
+
+        binding.delteaccontImageView.setImageResource(R.drawable.fi_user_x)
+        binding.verfiyAccountIMageVidwe.setImageResource(R.drawable.fi_unlock)
+        binding.changePasswordImageView.setImageResource(R.drawable.fi_edit_3)
+        binding.editProfileImageView.setImageResource(R.drawable.fi_user)
+        binding.logoutImageView.setImageResource(R.drawable.logout_svgrepo_com)
+
+//        account.profilePictureUrl?.let { profilePictureUrl ->
+//            Glide.with(requireContext())
+//                .load(profilePictureUrl)
+//                .placeholder(R.drawable.i2)
+//                .into(binding.profileTvAcc)
+//        }
 
         // Set click listeners for edit profile and change password
         binding.editProfileCvAcc.setOnClickListener {
