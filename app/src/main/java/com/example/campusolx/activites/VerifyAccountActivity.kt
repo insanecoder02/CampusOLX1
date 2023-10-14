@@ -37,8 +37,15 @@ class VerifyAccountActivity : AppCompatActivity() {
         authApi = retrofit.create(AuthApi::class.java)
         progressDialog = ProgressDialog(this)
 
+        val d1 = findViewById<EditText>(R.id.digit1)
+        val d2 = findViewById<EditText>(R.id.digit2)
+        val d3 = findViewById<EditText>(R.id.digit3)
+        val d4 = findViewById<EditText>(R.id.digit4)
+        val d5 = findViewById<EditText>(R.id.digit5)
+        val d6 = findViewById<EditText>(R.id.digit6)
+        val alpha : String  = d1.text.toString() + d2.text.toString() + d3.text.toString() + d4.text.toString() + d5.text.toString() + d6.text.toString()
         // Initialize UI elements
-        codeEditText = findViewById(R.id.newPasswordEt)
+//        codeEditText = findViewById(R.id.newPasswordEt)
         submitButton = findViewById(R.id.submitButtonVerify)
 
         // Retrieve the email passed from the previous activity
@@ -46,7 +53,7 @@ class VerifyAccountActivity : AppCompatActivity() {
 
         // Set click listener for the submit button
         submitButton.setOnClickListener {
-            val code = codeEditText.text.toString()
+            val code = alpha
             // Call the verification function with the entered code and email
             verifyAccount(email, code)
         }

@@ -32,25 +32,25 @@
 
 
     <LinearLayout
+        android:id="@+id/enterModeSwitchLinearLayout"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:orientation="horizontal"
+        android:layout_marginTop="19dp"
         app:layout_constraintEnd_toEndOf="@id/rightGuide"
         app:layout_constraintHorizontal_bias="0.134"
         app:layout_constraintStart_toStartOf="@id/leftGuide"
-        tools:layout_editor_absoluteY="97dp"
-        android:clipToPadding="false">
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
 
         <Button
             android:id="@+id/loginButt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
-            android:backgroundTint="#03A168"
+            android:backgroundTint="#00C27C"
             android:elevation="4dp"
             android:text="Log in"
             android:textSize="10sp"
-            app:cornerRadius="12dp" />
+            app:cornerRadius="8dp" />
 
         <Button
             android:id="@+id/registerButt"
@@ -59,12 +59,13 @@
             android:layout_marginEnd="5dp"
             android:backgroundTint="@color/white"
             android:elevation="20dp"
-            android:textColor="#03A168"
             android:text="register"
+            android:textColor="#00C27C"
             android:textSize="10sp"
-            app:cornerRadius="12dp" />
+            app:cornerRadius="8dp" />
 
     </LinearLayout>
+
 
     <TextView
         android:layout_width="0dp"
@@ -138,7 +139,7 @@
             android:id="@+id/loginButton"
             android:layout_width="300dp"
             android:layout_height="60dp"
-            android:backgroundTint="#03A168"
+            android:backgroundTint="#00C27C"
             android:text="@string/log_in"
             app:cornerRadius="12dp"
             app:layout_constraintBottom_toBottomOf="parent"

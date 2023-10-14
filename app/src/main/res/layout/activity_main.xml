@@ -29,290 +29,54 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/gray"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity">
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottomAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:fabCradleVerticalOffset="0dp"
-            android:layout_gravity="bottom">
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomNavigationView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                app:menu="@menu/menu_bottom"/>
-
-        </com.google.android.material.bottomappbar.BottomAppBar>
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/transparent"
+        app:labelVisibilityMode="labeled"
+        app:itemIconTint="@color/App_colour"
+        app:itemTextColor="@color/App_colour"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_bottom" >
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="0dp"
+            android:contentDescription="addSell"
             android:src="@drawable/add_button"
-            app:layout_anchor="@id/bottomAppBar"
-            android:layout_above="@+id/fragmentsFl"
-            app:elevation="16dp"/>
-
-        <FrameLayout
-            android:id="@+id/fragmentsFl"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="60dp"
+            app:backgroundTint="@color/App_colour"
+            app:layout_constraintBottom_toBottomOf="@id/bottomNavigationView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="50dp"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_title"
-            app:layout_constraintVertical_bias="1.0">
+            app:rippleColor="#7CA0EA" />
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-        </FrameLayout>
+    <FrameLayout
+        android:id="@+id/fragmentsFl"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-<!--    <FrameLayout-->
-<!--        android:id="@+id/fragmentsFl"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        android:layout_marginBottom="60dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="1.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/toolbar_title"-->
-<!--        app:layout_constraintVertical_bias="1.0">-->
-
-<!--    </FrameLayout>-->
-
-<!--    <FrameLayout-->
-<!--        android:id="@+id/fragmentsFl"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="0dp"-->
-<!--        app:layout_constraintBottom_toTopOf="@id/bottomAppBar"-->
-<!--        android:layout_marginBottom="16dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="1.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/toolbar_title"-->
-<!--        app:layout_constraintVertical_bias="1.0"-->
-<!--        tools:ignore="NotSibling">-->
-<!--</FrameLayout>-->
-
-
-    <!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--        android:id="@+id/bottomNavigationView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:backgroundTint="@android:color/transparent"-->
-<!--        app:labelVisibilityMode="labeled"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:menu="@menu/menu_bottom">-->
-
-<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--            android:id="@+id/button"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center_horizontal|bottom"-->
-<!--            android:layout_marginBottom="0dp"-->
-<!--            android:contentDescription="addSell"-->
-<!--            android:src="@drawable/add_button"-->
-<!--            app:backgroundTint="@color/app_theme"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/bottomNavigationView"-->
-
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:rippleColor="#7CA0EA" />-->
-<!--    </com.google.android.material.bottomnavigation.BottomNavigationView>-->
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/pluslayout"-->
-<!--        android:layout_width="56dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="16dp"-->
-<!--        android:backgroundTint="@color/plus"-->
-<!--        android:elevation="10dp"-->
-<!--        android:src="@drawable/add_button"-->
-<!--        app:fabSize="normal"-->
-<!--        app:layout_constraintBottom_toTopOf="@id/boxo"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"/>-->
-
-<!--    <LinearLayout-->
-<!--        android:id="@+id/boxo"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="#FBFAFB"-->
-<!--        android:elevation="10dp"-->
-<!--        android:gravity="center"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:paddingStart="20dp"-->
-<!--        android:paddingTop="15dp"-->
-<!--        android:paddingEnd="20dp"-->
-<!--        android:paddingBottom="15dp"-->
-<!--        android:weightSum="4"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent">-->
-
-<!--        <LinearLayout-->
-<!--            android:id="@+id/homee"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:background="@drawable/round_back_home"-->
-<!--            android:gravity="center"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:paddingStart="5dp">-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/homeImage"-->
-<!--                android:layout_width="30dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:adjustViewBounds="true"-->
-<!--                android:src="@drawable/ic_home" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/hometext"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="10dp"-->
-<!--                android:text="Home"-->
-<!--                android:textColor="@color/home"-->
-<!--                android:textSize="14sp"-->
-<!--                android:textStyle="bold" />-->
-
-<!--        </LinearLayout>-->
-
-<!--        <LinearLayout-->
-<!--            android:id="@+id/settting"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:background="@color/white_transparent"-->
-<!--            android:gravity="center"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:paddingStart="5dp">-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/settingimage"-->
-<!--                android:layout_width="30dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:adjustViewBounds="true"-->
-<!--                android:src="@drawable/ic_baseline_settings_24" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/settingstext"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="10dp"-->
-<!--                android:text="Settings"-->
-<!--                android:textColor="@color/home"-->
-<!--                android:textSize="14sp"-->
-<!--                android:textStyle="bold"-->
-<!--                android:visibility="gone" />-->
-
-<!--        </LinearLayout>-->
-
-<!--        <LinearLayout-->
-<!--            android:id="@+id/myadsss"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:background="@color/white_transparent"-->
-<!--            android:gravity="center"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:paddingStart="5dp">-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/myadsimage"-->
-<!--                android:layout_width="30dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:adjustViewBounds="true"-->
-<!--                android:src="@drawable/ic_baseline_favorite_24" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/myaddstext"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="10dp"-->
-<!--                android:text="Myads"-->
-<!--                android:textColor="@color/home"-->
-<!--                android:textSize="14sp"-->
-<!--                android:textStyle="bold"-->
-<!--                android:visibility="gone" />-->
-<!--        </LinearLayout>-->
-
-<!--        <LinearLayout-->
-<!--            android:id="@+id/profilelayout"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:background="@color/white_transparent"-->
-<!--            android:gravity="center"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:paddingStart="5dp">-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/profileimage"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:adjustViewBounds="true"-->
-<!--                android:src="@drawable/ic_person" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/profiletext"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="10dp"-->
-<!--                android:text="Account"-->
-<!--                android:textColor="@color/home"-->
-<!--                android:textSize="14sp"-->
-<!--                android:textStyle="bold"-->
-<!--                android:visibility="gone" />-->
-<!--        </LinearLayout>-->
-
-<!--        <LinearLayout-->
-<!--            android:id="@+id/pluslayout"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:background="@color/white_transparent"-->
-<!--            android:gravity="center"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:paddingStart="5dp">-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/plusimage"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:adjustViewBounds="true"-->
-<!--                android:src="@drawable/add_button" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/plustext"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="10dp"-->
-<!--                android:layout_marginEnd="5dp"-->
-<!--                android:text="Add"-->
-<!--                android:textColor="@color/plus"-->
-<!--                android:textSize="14sp"-->
-<!--                android:textStyle="bold"-->
-<!--                android:visibility="gone" />-->
-
-
-<!--        </LinearLayout>-->
-<!--    </LinearLayout>-->
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,12 +16,13 @@
     <color name="white_transparent">#00FFFFFF</color>
     <color name="background_color">#438BCE</color>
 
-    <color name="home">#0D47A1</color>
-    <color name="settings">#6A6868</color>
-    <color name="Myads">#DD09A9</color>
-    <color name="plus">#00ACFF</color>
-    <color name="account">#5E35B1</color>
+    <color name="home">#00C27C</color>
+    <color name="settings">#00C27C</color>
+    <color name="Myads">#00C27C</color>
+    <color name="plus">#00C27C</color>
+    <color name="account">#00C27C</color>
 
+    <color name="App_colour">#00C27C</color>
 
 <!--    <color name="home_20">#330D47A1</color>-->
 <!--    <color name="settings_20">#336A6868</color>-->

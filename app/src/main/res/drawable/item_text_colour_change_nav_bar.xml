@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/color/menu_item_background_selector.xml -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background color when the item is selected -->
+    <item android:state_selected="true" android:drawable="@color/App_colour" />
+
+    <!-- Default background color (when the item is not selected) -->
+    <item android:drawable="#484C52" />
+</selector>

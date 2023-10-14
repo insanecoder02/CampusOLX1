@@ -10,6 +10,7 @@ import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.WindowManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.campusolx.RetrofitInstance
@@ -52,57 +53,22 @@ class MainActivity2 : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-        // Initialize a progress dialog for loading
         progressDialog = ProgressDialog(this)
         progressDialog.setTitle("Please Wait...")
         progressDialog.setCanceledOnTouchOutside(true)
-
-        // Initialize Retrofit instance and AuthApi interface
         val retrofit = RetrofitInstance.getRetrofitInstance()
         authApi = retrofit.create(AuthApi::class.java)
 
-        var isLoginScreen = true // Initially, assume the login screen is active
-
-        binding.loginButt.setOnClickListener {
-            if (!isLoginScreen) {
-                // Switch to the login screen
-                binding.loginConstraint.visibility = View.VISIBLE
-                binding.registerConstraint.visibility = View.GONE
-
-                // Update button colors and text colors
-                binding.loginButt.setBackgroundColor(Color.parseColor("#03A168"))
-                binding.registerButt.setBackgroundColor(Color.parseColor("#EFEDED"))
-                binding.loginButt.setTextColor(Color.WHITE)
-                binding.registerButt.setTextColor(Color.parseColor("#03A168"))
-
-                isLoginScreen = true
-            }
-        }
-
-        binding.registerButt.setOnClickListener {
-            if (isLoginScreen) {
-                // Switch to the registration screen
-                binding.loginConstraint.visibility = View.GONE
-                binding.registerConstraint.visibility = View.VISIBLE
-
-                // Update button colors and text colors
-                binding.loginButt.setBackgroundColor(Color.parseColor("#EFEDED"))
-                binding.registerButt.setBackgroundColor(Color.parseColor("#03A168"))
-                binding.loginButt.setTextColor(Color.parseColor("#03A168"))
-                binding.registerButt.setTextColor(Color.WHITE)
-
-                isLoginScreen = false
-            }
-        }
+        var isLoginScreen = true
         binding.forgotPassword.setOnClickListener {
             startActivity(Intent(this, ForgotPassActivity::class.java))
         }
         binding.loginButton.setOnClickListener {
             validateData()
         }
-//        binding.registerButton.setOnClickListener {
-//            validateDataForRegistration()
-//        }
+        binding.reg.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
     }
     private var email = ""
     private var password = ""
@@ -169,8 +135,8 @@ class MainActivity2 : AppCompatActivity() {
                             editor.putString("userId", userId)
                             editor.putString("profilePictureUrl", profilePictureUrl)
 
-                            editor.apply();
-
+                            editor.apply()
+1
                             // Redirect to the MainActivity upon successful login
                             val intent = Intent(this@MainActivity2, ProfileEditActivity::class.java)
                             intent.putExtra("name", name)
@@ -216,5 +182,4 @@ class MainActivity2 : AppCompatActivity() {
                     }
                 })
             }
-
 }
