@@ -24,7 +24,16 @@
 
     <color name="App_colour">#00C27C</color>
 
-<!--    <color name="home_20">#330D47A1</color>-->
+
+    <color name="selecor">
+    <selector xmlns:android="http://schemas.android.com/apk/res/android">
+        <item android:state_checked="true" android:color="@color/App_colour" /> <!-- Text color for selected item -->
+        <item android:color="#484C52" /> <!-- Text color for unselected items -->
+    </selector>
+    </color>
+
+
+    <!--    <color name="home_20">#330D47A1</color>-->
 <!--    <color name="settings_20">#336A6868</color>-->
 <!--    <color name="Myads_20">#33DD09A9</color>-->
 <!--    <color name="plus_20">#3300ACFF</color>-->

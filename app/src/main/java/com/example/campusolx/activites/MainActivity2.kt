@@ -138,7 +138,7 @@ class MainActivity2 : AppCompatActivity() {
                             editor.apply()
 1
                             // Redirect to the MainActivity upon successful login
-                            val intent = Intent(this@MainActivity2, ProfileEditActivity::class.java)
+                            val intent = Intent(this@MainActivity2, MainActivity::class.java)
                             intent.putExtra("name", name)
                             intent.putExtra("enrollmentNo", enrollmentNo)
                             intent.putExtra("contact", contact)

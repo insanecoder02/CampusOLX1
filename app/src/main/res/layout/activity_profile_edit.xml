@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/b1"
-    android:id="@+id/linearLayout3"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activites.ProfileEditActivity">
+    android:background="@color/white_transparent">
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/b3"
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".activites.ProfileEditActivity">
+
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftGuide"
@@ -25,29 +35,30 @@
         app:layout_constraintGuide_percent="0.96" />
 
     <TextView
+        android:id="@+id/textView6"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:text="Edit Profile"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:drawableStart="@drawable/baseline_arrow_back_24"
-        android:textSize="20sp"
         android:layout_marginTop="10dp"
+        android:drawableStart="@drawable/baseline_arrow_back_24"
+        android:gravity="center"
+        android:text="Edit Profile"
         android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/rightGuide"
         app:layout_constraintStart_toStartOf="@id/leftGuide"
-        app:layout_constraintEnd_toEndOf="@id/rightGuide"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RelativeLayout
         android:id="@+id/changeImage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toStartOf="@+id/rightGuide"
-        app:layout_constraintStart_toStartOf="@+id/leftGuide">
+        app:layout_constraintStart_toStartOf="@+id/leftGuide"
+        app:layout_constraintTop_toBottomOf="@+id/textView6">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/shapeableImageView"
@@ -65,12 +76,12 @@
             android:id="@+id/imagePicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_alignBaseline="@id/shapeableImageView"
             android:layout_alignEnd="@id/shapeableImageView"
+            android:layout_alignBottom="@id/shapeableImageView"
+            android:layout_centerHorizontal="true"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/group_62"
-            android:layout_alignBottom="@id/shapeableImageView"/>
+            android:src="@drawable/group_62" />
 
 
     </RelativeLayout>
@@ -100,6 +111,8 @@
 
             <EditText
                 android:id="@+id/nameEt"
+                android:maxLines="1"
+                android:maxLength="24"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName" />
@@ -204,6 +217,7 @@
             app:backgroundTint="#00C27C"
             android:layout_marginTop="30dp"
             android:minHeight="30dp"
+            android:layout_marginBottom="60dp"
             android:text="Update"
             app:cornerRadius="8dp" />
     </RelativeLayout>
@@ -319,3 +333,4 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
+</ScrollView>

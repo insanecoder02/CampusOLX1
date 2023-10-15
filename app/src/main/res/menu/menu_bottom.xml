@@ -3,7 +3,6 @@
 
     <item android:id="@+id/menu_home"
         android:title="Home"
-        android:titleTextAppearance="@style/MenuItemTextAppearance"
         android:icon="@drawable/home_logo"/>
     <item android:id="@+id/menu_settings"
         android:title="Settings"

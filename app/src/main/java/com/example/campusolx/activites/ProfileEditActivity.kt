@@ -57,7 +57,7 @@ class ProfileEditActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Hide the action bar if it is present
-//        supportActionBar?.hide()
+        supportActionBar?.hide()
 
         getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
@@ -82,20 +82,25 @@ class ProfileEditActivity : AppCompatActivity() {
 //        val userId = intent.getStringExtra("userId")
         val profilePictureUrl = intent.getStringExtra("profilePictureUrl")
 
-        binding.nameEt.text = Editable.Factory.getInstance().newEditable(name)
-        binding.emailEt.text= Editable.Factory.getInstance().newEditable(email)
-        binding.phoneNumberEt.text= Editable.Factory.getInstance().newEditable(contact)
-        binding.rollEt.text= Editable.Factory.getInstance().newEditable(enrollmentNo)
+        if (name != null) {
+            binding.nameEt.text = Editable.Factory.getInstance().newEditable(name)
+        }
+        if (email != null) {
+            binding.emailEt.text = Editable.Factory.getInstance().newEditable(email)
+        }
+        if (contact != null) {
+            binding.phoneNumberEt.text = Editable.Factory.getInstance().newEditable(contact)
+        }
+        if (enrollmentNo != null) {
+            binding.rollEt.text = Editable.Factory.getInstance().newEditable(enrollmentNo)
+        }
+
 
         Glide.with(this)
             .load(profilePictureUrl)
             .placeholder(R.drawable.i2)
             .into(binding.shapeableImageView)
 
-        // Set click listeners for UI elements
-//        binding.toolBarBackBtn.setOnClickListener {
-//            onBackPressed()
-//        }
         binding.imagePicker.setOnClickListener {
             imagePickDialog()
         }
@@ -120,7 +125,6 @@ class ProfileEditActivity : AppCompatActivity() {
     private var profilePicture = ""
 
     private fun validateData() {
-        // Retrieve user data from EditText fields or SharedPreferences if not changed
         val sharedPreferences = getSharedPreferences("Account_Details", Context.MODE_PRIVATE)
         name = (binding.nameEt.text.toString().trim().takeIf { it.isNotBlank() } ?: sharedPreferences.getString("name", "")) as String
         rollNo = (binding.rollEt.text.toString().trim().takeIf { it.isNotBlank() } ?: sharedPreferences.getString("enrollmentNo", "")) as String

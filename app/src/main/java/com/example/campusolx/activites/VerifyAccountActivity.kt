@@ -71,7 +71,7 @@ class VerifyAccountActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     // Verification successful, handle the response as needed
                     Toast.makeText(this@VerifyAccountActivity, "Account Verified", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this@VerifyAccountActivity, LoginActivity::class.java)
+                    val intent = Intent(this@VerifyAccountActivity, MainActivity2::class.java)
                     startActivity(intent)
                     finishAffinity()
                 } else {

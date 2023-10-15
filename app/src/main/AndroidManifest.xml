@@ -58,9 +58,7 @@
         <activity
             android:name=".activites.RegisterActivity"
             android:exported="true" />
-        <activity
-            android:name=".activites.LoginActivity"
-            android:exported="false" />
+
         <activity
             android:name=".activites.MainActivity2"
             android:exported="true">
