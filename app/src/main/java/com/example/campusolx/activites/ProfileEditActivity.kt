@@ -28,6 +28,7 @@ import com.example.campusolx.dataclass.User
 import com.example.campusolx.dataclass.UserUpdateRequest
 import com.example.campusolx.interfaces.AuthApi
 import com.example.campusolx.RetrofitInstance
+import com.example.campusolx.fragments.AccountFragment
 import com.google.firebase.storage.FirebaseStorage
 import retrofit2.Call
 import retrofit2.Callback
@@ -106,6 +107,9 @@ class ProfileEditActivity : AppCompatActivity() {
         }
         binding.updateBtn.setOnClickListener {
             validateData()
+        }
+        binding.backButtonEditProfile.setOnClickListener{
+            finish()
         }
 
         // Retrieve user data from SharedPreferences

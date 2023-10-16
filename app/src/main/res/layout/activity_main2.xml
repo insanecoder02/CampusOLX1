@@ -11,12 +11,13 @@
         android:id="@+id/imageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="30dp"
+        android:paddingEnd="10dp"
         app:layout_constraintEnd_toEndOf="@id/rightGuide"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/leftGuide"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon" />
+        app:srcCompat="@drawable/logo2_removebg_preview" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftGuide"
@@ -48,8 +49,8 @@
         android:id="@+id/loginText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="Let's get you Loged In!!"
+        android:layout_marginTop="16dp"
+        android:text="Let's get you Logged In!!"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -62,6 +63,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:textSize="15sp"
         android:text="Enter your infomation below"
         app:layout_constraintEnd_toStartOf="@+id/rightGuide"
         app:layout_constraintStart_toStartOf="@+id/leftGuide"
@@ -145,6 +147,21 @@
         app:layout_constraintEnd_toStartOf="@+id/reg"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/leftGuide" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="152dp"
+        android:layout_height="92dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/dosis_extrabold"
+        android:lineSpacingExtra="-10dp"
+        android:text="Campus Olx"
+        android:textColor="@color/black"
+        android:textSize="42sp"
+        app:layout_constraintEnd_toStartOf="@+id/rightGuide"
+        app:layout_constraintHorizontal_bias="0.008"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!--    </LinearLayout>-->
 

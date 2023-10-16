@@ -34,9 +34,12 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.96" />
 
-    <TextView
+
+
+    <LinearLayout
         android:id="@+id/textView6"
         android:layout_width="0dp"
+        android:orientation="horizontal"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:drawableStart="@drawable/baseline_arrow_back_24"
@@ -47,7 +50,28 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/rightGuide"
         app:layout_constraintStart_toStartOf="@id/leftGuide"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/backButtonEditProfile"
+            android:layout_width="36dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/baseline_arrow_back_24"/>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Edit Profile"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="20sp"
+            android:paddingTop="3dp"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/changeImage"
@@ -124,7 +148,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/nameTil"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             app:boxStrokeColor="#00C27C"
             android:hint="Roll Number"
             app:hintTextColor="#00C27C"
@@ -147,7 +171,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rollTil"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:hint="Email"
             app:boxCornerRadiusBottomEnd="8dp"
             app:boxCornerRadiusBottomStart="8dp"
@@ -169,7 +193,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/emailTil"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="12dp">
 
             <com.hbb20.CountryCodePicker
                 android:id="@+id/countryCodePicker"
@@ -215,9 +239,9 @@
             android:layout_height="50dp"
             android:layout_below="@id/phoneInputRL"
             app:backgroundTint="#00C27C"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="32dp"
             android:minHeight="30dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="90dp"
             android:text="Update"
             app:cornerRadius="8dp" />
     </RelativeLayout>
