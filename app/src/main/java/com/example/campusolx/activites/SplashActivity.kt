@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.campusolx.R
 
 class SplashActivity : AppCompatActivity() {
@@ -17,6 +18,7 @@ class SplashActivity : AppCompatActivity() {
         // Hide the action bar if it is present
         supportActionBar?.hide()
 
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         // Set flags to display the activity in full-screen mode
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -27,7 +29,7 @@ class SplashActivity : AppCompatActivity() {
         Handler().postDelayed({
             val i = Intent(
                 this@SplashActivity,
-                LoginActivity::class.java
+                MainActivity2::class.java
             )
             startActivity(i)
             finish() // Finish the current SplashActivity after navigating to the LoginActivity

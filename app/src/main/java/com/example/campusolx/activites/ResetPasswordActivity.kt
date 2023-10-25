@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.campusolx.interfaces.AuthApi
 import com.example.campusolx.R
 import com.example.campusolx.dataclass.ResetPasswordRequest
@@ -34,6 +35,8 @@ class ResetPasswordActivity : AppCompatActivity() {
 
         // Hide the action bar if it is present
         supportActionBar?.hide()
+
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         // Set flags to display the activity in full-screen mode
         window.setFlags(
@@ -84,7 +87,7 @@ class ResetPasswordActivity : AppCompatActivity() {
                     Toast.makeText(this@ResetPasswordActivity, "Password Reset Successful", Toast.LENGTH_LONG).show()
 
                     // Transition to LoginActivity
-                    val intent = Intent(this@ResetPasswordActivity, LoginActivity::class.java)
+                    val intent = Intent(this@ResetPasswordActivity, MainActivity2::class.java)
                     startActivity(intent)
                     finishAffinity()
                 } else {

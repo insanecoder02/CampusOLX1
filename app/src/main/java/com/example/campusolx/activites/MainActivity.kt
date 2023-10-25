@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         )
 
         // Set click listener for bottom navigation items
+        binding.bottomNavigationView.background = null
+        binding.bottomNavigationView.menu.getItem(2).isEnabled = false
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu_home -> {
@@ -73,7 +75,6 @@ class MainActivity : AppCompatActivity() {
     // Function to show the HomeFragment
     private fun showHomeFragment() {
         // Set the toolbar title
-        binding.toolbarTitle.text = "Home"
         val fragment = HomeFragment()
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(binding.fragmentsFl.id, fragment, "HomeFragment")
@@ -83,7 +84,6 @@ class MainActivity : AppCompatActivity() {
     // Function to show the AccountFragment
     private fun showAccountFragment() {
         // Set the toolbar title
-        binding.toolbarTitle.text = "Account"
         val fragment = AccountFragment()
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(binding.fragmentsFl.id, fragment, "AccountFragment")
@@ -93,8 +93,7 @@ class MainActivity : AppCompatActivity() {
     // Function to show the MyAdsFragment
     private fun showMyAdsFragment() {
         // Set the toolbar title
-        binding.toolbarTitle.text = "My Ads"
-        val fragment = MyAdsFragment()
+         val fragment = MyAdsFragment()
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(binding.fragmentsFl.id, fragment, "MyAdsFragment")
         fragmentTransaction.commit()
@@ -103,7 +102,6 @@ class MainActivity : AppCompatActivity() {
     // Function to show the SettingsFragment
     private fun showSettingsFragment() {
         // Set the toolbar title
-        binding.toolbarTitle.text = "Settings"
         val fragment = SettingsFragment()
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(binding.fragmentsFl.id, fragment, "SettingsFragment")

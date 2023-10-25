@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.campusolx.interfaces.AuthApi
 import com.example.campusolx.R
 import com.example.campusolx.RetrofitInstance
@@ -29,13 +30,22 @@ class VerifyAccountActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verify_account)
 
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
         // Initialize Retrofit API instance
         val retrofit = RetrofitInstance.getRetrofitInstance()
         authApi = retrofit.create(AuthApi::class.java)
         progressDialog = ProgressDialog(this)
 
+        val d1 = findViewById<EditText>(R.id.digit1)
+        val d2 = findViewById<EditText>(R.id.digit2)
+        val d3 = findViewById<EditText>(R.id.digit3)
+        val d4 = findViewById<EditText>(R.id.digit4)
+        val d5 = findViewById<EditText>(R.id.digit5)
+        val d6 = findViewById<EditText>(R.id.digit6)
+        val alpha : String  = d1.text.toString() + d2.text.toString() + d3.text.toString() + d4.text.toString() + d5.text.toString() + d6.text.toString()
         // Initialize UI elements
-        codeEditText = findViewById(R.id.newPasswordEt)
+//        codeEditText = findViewById(R.id.newPasswordEt)
         submitButton = findViewById(R.id.submitButtonVerify)
 
         // Retrieve the email passed from the previous activity
@@ -43,7 +53,7 @@ class VerifyAccountActivity : AppCompatActivity() {
 
         // Set click listener for the submit button
         submitButton.setOnClickListener {
-            val code = codeEditText.text.toString()
+            val code = alpha
             // Call the verification function with the entered code and email
             verifyAccount(email, code)
         }
@@ -61,7 +71,7 @@ class VerifyAccountActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     // Verification successful, handle the response as needed
                     Toast.makeText(this@VerifyAccountActivity, "Account Verified", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this@VerifyAccountActivity, LoginActivity::class.java)
+                    val intent = Intent(this@VerifyAccountActivity, MainActivity2::class.java)
                     startActivity(intent)
                     finishAffinity()
                 } else {
