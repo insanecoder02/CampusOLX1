@@ -19,6 +19,7 @@ import android.view.WindowManager
 import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.text.HtmlCompat
 import com.bumptech.glide.Glide
 import com.example.campusolx.R
@@ -28,7 +29,9 @@ import com.example.campusolx.dataclass.User
 import com.example.campusolx.dataclass.UserUpdateRequest
 import com.example.campusolx.interfaces.AuthApi
 import com.example.campusolx.RetrofitInstance
+import com.example.campusolx.dataclass.Account
 import com.example.campusolx.fragments.AccountFragment
+import com.example.campusolx.utils.AdLoader
 import com.google.firebase.storage.FirebaseStorage
 import retrofit2.Call
 import retrofit2.Callback
@@ -43,6 +46,8 @@ class ProfileEditActivity : AppCompatActivity() {
     private lateinit var authApi: AuthApi
     private lateinit var accessToken: String
     private lateinit var userId: String
+
+//    private val account: Account by lazy { getAccountData() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,15 +77,10 @@ class ProfileEditActivity : AppCompatActivity() {
         val retrofit = RetrofitInstance.getRetrofitInstance()
         authApi = retrofit.create(AuthApi::class.java)
 
-//        val accessToken = intent.getStringExtra("accessToken")
         val name = intent.getStringExtra("name")
         val enrollmentNo = intent.getStringExtra("enrollmentNo")
-//        val semester = intent.getIntExtra("semester", 0)
-//        val branch = intent.getStringExtra("branch")
         val contact = intent.getStringExtra("contact")
-//        val upiId = intent.getStringExtra("upiId")
         val email = intent.getStringExtra("email")
-//        val userId = intent.getStringExtra("userId")
         val profilePictureUrl = intent.getStringExtra("profilePictureUrl")
 
         if (name != null) {
@@ -117,6 +117,7 @@ class ProfileEditActivity : AppCompatActivity() {
         accessToken = "Bearer " + sharedPreference.getString("accessToken", "") ?: ""
         userId = sharedPreference.getString("userId", "") ?: ""
     }
+
 
     // Declare variables to store user data
     private var name = ""
@@ -325,4 +326,16 @@ class ProfileEditActivity : AppCompatActivity() {
                 }
             }
         }
+
+//    private fun getAccountData(): Account {
+//        val sharedPreferences = this@ProfileEditActivity.getSharedPreferences("Account_Details" , Context.MODE_PRIVATE)
+////        val sharedPreferences = requireContext().getSharedPreferences("Account_Details", Context.MODE_PRIVATE)
+//        return Account(
+//            sharedPreferences.getString("name", null),
+//            sharedPreferences.getString("enrollmentNo", null),
+//            sharedPreferences.getString("email", null),
+//            sharedPreferences.getString("contact", null),
+//            sharedPreferences.getString("profilePictureUrl", null)
+//        )
+//    }
 }

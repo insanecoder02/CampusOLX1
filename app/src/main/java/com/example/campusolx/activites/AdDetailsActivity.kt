@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.bumptech.glide.Glide
 import com.example.campusolx.RetrofitInstance
 import com.example.campusolx.databinding.ActivityAdDetailsBinding
@@ -26,6 +27,9 @@ class AdDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAdDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
 
         val productId = intent.getStringExtra("product_id") ?: ""
 
@@ -60,6 +64,10 @@ class AdDetailsActivity : AppCompatActivity() {
                 showToast("Network request failed. Please try again.")
             }
         })
+
+        binding.toolBarBackBtn.setOnClickListener{
+//            finish()
+        }
     }
 
     private fun fetchUserDetails(userId: String) {

@@ -11,7 +11,6 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
@@ -20,6 +19,7 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.campusolx.RetrofitInstance
 import com.example.campusolx.databinding.ActivityAdCreateBinding
@@ -28,7 +28,6 @@ import com.example.campusolx.dataclass.Product
 import com.example.campusolx.interfaces.ProductApi
 import com.example.campusolx.models.ModelImagePicked
 import com.example.campusolx.utils.Utils
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import retrofit2.Call
@@ -54,6 +53,9 @@ class AdCreateActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
@@ -78,6 +80,10 @@ class AdCreateActivity : AppCompatActivity() {
 
         binding.postAdBtn.setOnClickListener {
             postAd()
+        }
+
+        binding.toolBarBackBtn.setOnClickListener{
+            finish()
         }
     }
 

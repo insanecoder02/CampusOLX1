@@ -10,30 +10,27 @@ import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.WindowManager
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.campusolx.RetrofitInstance
-import com.example.campusolx.databinding.ActivityMain2Binding
+import com.example.campusolx.databinding.ActivityLoginBinding
 import com.example.campusolx.dataclass.AuthTokenResponse
 import com.example.campusolx.dataclass.LoginRequest
-import com.example.campusolx.dataclass.RegisterRequest
 import com.example.campusolx.interfaces.AuthApi
 import com.example.campusolx.utils.AdLoader
-import com.example.campusolx.utils.RegisterLoadingUtils
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity2 : AppCompatActivity() {
-    private lateinit var binding: ActivityMain2Binding
+class LoginActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityLoginBinding
     private lateinit var progressDialog: ProgressDialog
     private lateinit var authApi: AuthApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMain2Binding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
 
         window.decorView.systemUiVisibility = (
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
@@ -61,7 +58,9 @@ class MainActivity2 : AppCompatActivity() {
 
         var isLoginScreen = true
         binding.forgotPassword.setOnClickListener {
-            startActivity(Intent(this, ForgotPassActivity::class.java))
+            val intent = Intent(this, ForgotPassActivity::class.java)
+            startActivity(intent)
+//            intent.putExtra()
         }
         binding.loginButton.setOnClickListener {
             validateData()
@@ -136,14 +135,9 @@ class MainActivity2 : AppCompatActivity() {
                             editor.putString("profilePictureUrl", profilePictureUrl)
 
                             editor.apply()
-1
+
                             // Redirect to the MainActivity upon successful login
-                            val intent = Intent(this@MainActivity2, MainActivity::class.java)
-                            intent.putExtra("name", name)
-                            intent.putExtra("enrollmentNo", enrollmentNo)
-                            intent.putExtra("contact", contact)
-                            intent.putExtra("email", email)
-                            intent.putExtra("profilePictureUrl", profilePictureUrl)
+                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
                             startActivity(intent)
                             finishAffinity()
                         } else {
@@ -163,7 +157,7 @@ class MainActivity2 : AppCompatActivity() {
                                 Log.e("LoginActivity", errorBody)
                             }
                             Toast.makeText(
-                                this@MainActivity2,
+                                this@LoginActivity,
                                 "Unsuccessful: $errorMessage",
                                 Toast.LENGTH_LONG
                             ).show()
@@ -175,7 +169,7 @@ class MainActivity2 : AppCompatActivity() {
                         AdLoader.hideDialog()
                         val errorMessage = t.message
                         Toast.makeText(
-                            this@MainActivity2,
+                            this@LoginActivity,
                             "Unsuccessful: $errorMessage",
                             Toast.LENGTH_LONG
                         ).show()

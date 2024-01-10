@@ -8,7 +8,9 @@ import android.util.Log
 import android.util.Patterns
 import android.view.WindowManager
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.campusolx.interfaces.AuthApi
 import com.example.campusolx.dataclass.ForgotPasswordRequest
 import com.example.campusolx.R
@@ -28,10 +30,16 @@ class ForgotPassActivity : AppCompatActivity() {
     private lateinit var submitButton: MaterialButton
     private lateinit var progressDialog: ProgressDialog
     private lateinit var authApi: AuthApi
+    private lateinit var backButton : ImageView
+//    private val binding : ActivityForgotPassBinding by lazy{
+//        ActivityForgotPassBinding.inflate(layoutInflater)
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_pass)
+
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         // Hide the action bar
         supportActionBar?.hide()
@@ -45,6 +53,7 @@ class ForgotPassActivity : AppCompatActivity() {
         // Initialize UI elements and Retrofit instance
         emailEditText = findViewById(R.id.newPasswordEt2)
         submitButton = findViewById(R.id.submitButtonForgot)
+        backButton = findViewById(R.id.toolBarBackBtn)
         progressDialog = ProgressDialog(this)
         progressDialog.setTitle("Please Wait...")
         progressDialog.setCanceledOnTouchOutside(true)
@@ -61,6 +70,16 @@ class ForgotPassActivity : AppCompatActivity() {
                 emailEditText.error = "Invalid Email"
             }
         }
+
+        backButton.setOnClickListener{
+            finish()
+        }
+//        Glide.with(this)
+//            .load(profilePictureUrl)
+//            .placeholder(R.drawable.i2)
+//            .into(binding.profileTv)
+
+
     }
 
     // Function to validate the email format

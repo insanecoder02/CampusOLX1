@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.example.campusolx.interfaces.AuthApi
 import com.example.campusolx.R
 import com.example.campusolx.RetrofitInstance
+import com.example.campusolx.databinding.ActivityVerifyAccountBinding
 import com.example.campusolx.dataclass.VerifyRequest
 import com.google.android.material.button.MaterialButton
 import org.json.JSONException
@@ -23,12 +24,15 @@ class VerifyAccountActivity : AppCompatActivity() {
     private lateinit var authApi: AuthApi
     private lateinit var progressDialog: ProgressDialog
     private lateinit var codeEditText: EditText
+    private lateinit var binding : ActivityVerifyAccountBinding
     private lateinit var submitButton: MaterialButton
     private lateinit var email: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_verify_account)
+
+        binding = ActivityVerifyAccountBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
@@ -37,25 +41,23 @@ class VerifyAccountActivity : AppCompatActivity() {
         authApi = retrofit.create(AuthApi::class.java)
         progressDialog = ProgressDialog(this)
 
-        val d1 = findViewById<EditText>(R.id.digit1)
-        val d2 = findViewById<EditText>(R.id.digit2)
-        val d3 = findViewById<EditText>(R.id.digit3)
-        val d4 = findViewById<EditText>(R.id.digit4)
-        val d5 = findViewById<EditText>(R.id.digit5)
-        val d6 = findViewById<EditText>(R.id.digit6)
-        val alpha : String  = d1.text.toString() + d2.text.toString() + d3.text.toString() + d4.text.toString() + d5.text.toString() + d6.text.toString()
+        val alpha : String  = binding.digit1.text.toString() + binding.digit2.text.toString() + binding.digit3.text.toString() + binding.digit4.text.toString() + binding.digit5.text.toString() + binding.digit6.text.toString()
         // Initialize UI elements
 //        codeEditText = findViewById(R.id.newPasswordEt)
-        submitButton = findViewById(R.id.submitButtonVerify)
+//        submitButton = findViewById(R.id.submitButtonVerify)
 
         // Retrieve the email passed from the previous activity
         email = intent.getStringExtra("email") ?: ""
 
         // Set click listener for the submit button
-        submitButton.setOnClickListener {
+        binding.submitButtonVerify.setOnClickListener {
             val code = alpha
             // Call the verification function with the entered code and email
             verifyAccount(email, code)
+        }
+
+        binding.toolBarBackBtn.setOnClickListener{
+            finish()
         }
     }
 
@@ -71,7 +73,7 @@ class VerifyAccountActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     // Verification successful, handle the response as needed
                     Toast.makeText(this@VerifyAccountActivity, "Account Verified", Toast.LENGTH_LONG).show()
-                    val intent = Intent(this@VerifyAccountActivity, MainActivity2::class.java)
+                    val intent = Intent(this@VerifyAccountActivity, LoginActivity::class.java)
                     startActivity(intent)
                     finishAffinity()
                 } else {

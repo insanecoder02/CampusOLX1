@@ -39,24 +39,30 @@ class AccountFragment : Fragment() {
         binding.ContactTvAcc.text = account.contact
         binding.EmailTvAcc.text = account.email
 
-
         binding.delteaccontImageView.setImageResource(R.drawable.fi_user_x)
         binding.verfiyAccountIMageVidwe.setImageResource(R.drawable.fi_unlock)
         binding.changePasswordImageView.setImageResource(R.drawable.fi_edit_3)
         binding.editProfileImageView.setImageResource(R.drawable.fi_user)
         binding.logoutImageView.setImageResource(R.drawable.logout_svgrepo_com)
 
-//        account.profilePictureUrl?.let { profilePictureUrl ->
-//            Glide.with(requireContext())
-//                .load(profilePictureUrl)
-//                .placeholder(R.drawable.i2)
-//                .into(binding.profileTvAcc)
-//        }
-
-        // Set click listeners for edit profile and change password
-        binding.editProfileCvAcc.setOnClickListener {
-            startActivity(Intent(requireContext(), ProfileEditActivity::class.java))
+        account.profilePictureUrl?.let { profilePictureUrl ->
+            Glide.with(requireContext())
+                .load(profilePictureUrl)
+                .placeholder(R.drawable.i2)
+                .into(binding.profileTvAcc)
         }
+
+//         Set click listeners for edit profile and change password
+        binding.editProfileCvAcc.setOnClickListener {
+            val intent = Intent(requireContext(), ProfileEditActivity::class.java)
+            intent.putExtra("name", account.name)
+            intent.putExtra("enrollmentNo", account.enrollmentNo)
+            intent.putExtra("email", account.email)
+            intent.putExtra("contact", account.contact)
+            intent.putExtra("profilePictureUrl", account.profilePictureUrl)
+            startActivity(intent)
+        }
+
         binding.changePasswordCvAcc.setOnClickListener {
             startActivity(Intent(requireContext(), ForgotPassActivity::class.java))
         }

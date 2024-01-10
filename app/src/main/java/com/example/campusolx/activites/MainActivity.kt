@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.campusolx.fragments.AccountFragment
 import com.example.campusolx.fragments.HomeFragment
 import com.example.campusolx.fragments.MyAdsFragment
@@ -22,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         // Initialize the view using the layout defined in ActivityMainBinding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         // Hide the action bar if it is present
         supportActionBar?.hide()

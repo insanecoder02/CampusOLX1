@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.lottie.utils.Utils
 import com.example.campusolx.R
@@ -34,7 +35,9 @@ class HomeFragment : Fragment(), AdapterAd.OnAdClickListener {
     private lateinit var mContext: Context
     private lateinit var productApi: ProductApi
     private lateinit var adapterAd: AdapterAd
+    private lateinit var adapterCategory: AdapterCategory
     private var adArrayList: ArrayList<ModelAd> = ArrayList()
+    private var adCategoryList: ArrayList<ModelCategory> = ArrayList()
     private lateinit var accessToken: String
 
     override fun onAttach(context: Context) {
@@ -63,7 +66,7 @@ class HomeFragment : Fragment(), AdapterAd.OnAdClickListener {
 
         // Setup RecyclerView and Adapter
         adapterAd = AdapterAd(mContext, adArrayList)
-        binding.adsRv.layoutManager = LinearLayoutManager(mContext)
+        binding.adsRv.layoutManager = GridLayoutManager(mContext,2)
         binding.adsRv.adapter = adapterAd
 
         // Set the listener for click events
@@ -112,6 +115,11 @@ class HomeFragment : Fragment(), AdapterAd.OnAdClickListener {
             override fun onCategoryClick(modelCategory: ModelCategory) {
             }
         })
+
+        binding.categoriesRv.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
+        binding.categoriesRv.adapter = adapterCategory
+
+
     }
 
     private fun fetchProducts() {

@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".fragments.HomeFragment"
-    >
+    tools:context=".fragments.HomeFragment">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -34,11 +33,11 @@
         android:textColor="@color/gray"
         android:textSize="20sp"
         android:textStyle="bold" />
+
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <androidx.recyclerview.widget.RecyclerView
-
+    s<androidx.recyclerview.widget.RecyclerView
         android:id="@+id/categoriesRv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

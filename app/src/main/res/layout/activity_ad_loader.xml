@@ -10,9 +10,9 @@
         android:id="@+id/loading_bar"
         android:layout_width="71dp"
         android:layout_height="70dp"
-
-        android:layout_marginStart="160dp"
         android:layout_marginTop="616dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"

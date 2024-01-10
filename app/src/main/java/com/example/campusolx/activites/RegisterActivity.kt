@@ -58,7 +58,7 @@ class RegisterActivity : AppCompatActivity() {
         authApi = retrofit.create(AuthApi::class.java)
 
         // Set click listeners for UI elements
-        binding.imageView3.setOnClickListener {
+        binding.backbutt.setOnClickListener {
             onBackPressed()
         }
         binding.registerButton.setOnClickListener {

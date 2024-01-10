@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.campusolx.interfaces.AuthApi
@@ -27,6 +28,7 @@ class ResetPasswordActivity : AppCompatActivity() {
     private lateinit var newPasswordEditText: EditText
     private lateinit var submitButton: MaterialButton
     private lateinit var progressDialog: ProgressDialog
+    private lateinit var backButt : ImageButton
     private lateinit var authApi: AuthApi
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +49,7 @@ class ResetPasswordActivity : AppCompatActivity() {
         // Initialize UI elements and the Retrofit API instance
         currentPasswordEditText = findViewById(R.id.currentPasswordEt3)
         newPasswordEditText = findViewById(R.id.newPasswordEt3)
+        backButt = findViewById(R.id.toolBarBackBtn)
         submitButton = findViewById(R.id.submitButton3)
         progressDialog = ProgressDialog(this)
         progressDialog.setTitle("Please Wait...")
@@ -71,6 +74,10 @@ class ResetPasswordActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show()
             }
         }
+
+        backButt.setOnClickListener{
+            finish()
+        }
     }
 
     // Function to reset the password with the provided email, current password, and new password
@@ -87,7 +94,7 @@ class ResetPasswordActivity : AppCompatActivity() {
                     Toast.makeText(this@ResetPasswordActivity, "Password Reset Successful", Toast.LENGTH_LONG).show()
 
                     // Transition to LoginActivity
-                    val intent = Intent(this@ResetPasswordActivity, MainActivity2::class.java)
+                    val intent = Intent(this@ResetPasswordActivity, LoginActivity::class.java)
                     startActivity(intent)
                     finishAffinity()
                 } else {
