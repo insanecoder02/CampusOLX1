@@ -56,10 +56,10 @@ class AdCreateActivity : AppCompatActivity() {
         getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
+//        window.setFlags(
+//            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//            WindowManager.LayoutParams.FLAG_FULLSCREEN
+//        )
 
         progressDialog = ProgressDialog(this)
         progressDialog.setTitle("Please Wait")

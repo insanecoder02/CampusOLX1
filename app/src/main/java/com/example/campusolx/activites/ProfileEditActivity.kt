@@ -55,11 +55,11 @@ class ProfileEditActivity : AppCompatActivity() {
         // Initialize the view using the layout defined in ActivityProfileEditBinding
         binding = ActivityProfileEditBinding.inflate(layoutInflater)
 
-        window.decorView.systemUiVisibility = (
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                )
-        window.statusBarColor = Color.TRANSPARENT
+//        window.decorView.systemUiVisibility = (
+//                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+//                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                )
+//        window.statusBarColor = Color.TRANSPARENT
         setContentView(binding.root)
 
         // Hide the action bar if it is present
@@ -68,10 +68,10 @@ class ProfileEditActivity : AppCompatActivity() {
         getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         // Set flags to display the activity in full-screen mode
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
+//        window.setFlags(
+//            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//            WindowManager.LayoutParams.FLAG_FULLSCREEN
+//        )
 
         // Initialize Retrofit API instance
         val retrofit = RetrofitInstance.getRetrofitInstance()

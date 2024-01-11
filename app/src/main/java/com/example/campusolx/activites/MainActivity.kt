@@ -3,7 +3,6 @@ package com.example.campusolx.activites
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.campusolx.fragments.AccountFragment
 import com.example.campusolx.fragments.HomeFragment
@@ -28,12 +27,6 @@ class MainActivity : AppCompatActivity() {
 
         // Hide the action bar if it is present
         supportActionBar?.hide()
-
-        // Set flags to display the activity in full-screen mode
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
 
         // Set click listener for bottom navigation items
         binding.bottomNavigationView.background = null

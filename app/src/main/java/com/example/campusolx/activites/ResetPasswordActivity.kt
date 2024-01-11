@@ -41,10 +41,10 @@ class ResetPasswordActivity : AppCompatActivity() {
         getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         // Set flags to display the activity in full-screen mode
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
+//        window.setFlags(
+//            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//            WindowManager.LayoutParams.FLAG_FULLSCREEN
+//        )
 
         // Initialize UI elements and the Retrofit API instance
         currentPasswordEditText = findViewById(R.id.currentPasswordEt3)

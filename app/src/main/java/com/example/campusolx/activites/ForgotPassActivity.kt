@@ -45,10 +45,10 @@ class ForgotPassActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         // Set flags for fullscreen
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
+//        window.setFlags(
+//            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//            WindowManager.LayoutParams.FLAG_FULLSCREEN
+//        )
 
         // Initialize UI elements and Retrofit instance
         emailEditText = findViewById(R.id.newPasswordEt2)

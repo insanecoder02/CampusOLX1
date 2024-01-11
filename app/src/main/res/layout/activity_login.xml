@@ -88,6 +88,9 @@
         <EditText
             android:id="@+id/login_email"
             android:layout_width="match_parent"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
             android:layout_height="50dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -111,7 +114,10 @@
 
         <EditText
             android:id="@+id/login_password"
+            android:maxLines="1"
             android:layout_width="match_parent"
+            android:inputType="textPassword"
+            android:ems="10"
             android:layout_height="50dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
