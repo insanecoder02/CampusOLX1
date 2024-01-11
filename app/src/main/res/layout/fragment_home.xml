@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".fragments.HomeFragment">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/searchCv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/searchCv"
         app:cardCornerRadius="5dp"
         app:cardUseCompatPadding="true">
+
         <EditText
-            android:paddingTop="20dp"
             android:id="@+id/searchEt"
-            android:drawableStart="@drawable/baseline_search_24"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:drawableStart="@drawable/baseline_search_24"
+            android:drawablePadding="10dp"
             android:hint="Search"
             android:padding="10dp"
-            android:drawablePadding="10dp"/>
+            android:paddingTop="20dp" />
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
@@ -34,28 +35,29 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    s<androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/categoriesRv"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="40dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/row_category" />
+        android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@id/categoriesRv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/adsRv"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/row_ad"/>
-</RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/categoriesRv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="40dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/row_category" />
 
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/adsRv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_below="@id/categoriesRv"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/row_ad" />
+    </RelativeLayout>
 
 
 </LinearLayout>

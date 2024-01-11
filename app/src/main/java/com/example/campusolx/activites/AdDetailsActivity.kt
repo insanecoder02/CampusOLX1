@@ -65,9 +65,9 @@ class AdDetailsActivity : AppCompatActivity() {
             }
         })
 
-        binding.toolBarBackBtn.setOnClickListener{
+//        binding.toolBarBackBtn.setOnClickListener{
 //            finish()
-        }
+//        }
     }
 
     private fun fetchUserDetails(userId: String) {

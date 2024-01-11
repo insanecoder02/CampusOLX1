@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activites.ForgotPassActivity">
 
     <androidx.constraintlayout.widget.Guideline
@@ -12,14 +12,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05"/>
+        app:layout_constraintGuide_percent="0.05" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/rightGuide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.95"/>
+        app:layout_constraintGuide_percent="0.95" />
 
     <RelativeLayout
         android:id="@+id/toolBarRL"
@@ -34,78 +34,85 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_back"
+            android:layout_marginStart="5dp"
             android:background="@android:color/transparent"
             android:padding="10dp"
-            android:layout_marginStart="5dp"
+            android:src="@drawable/ic_back"
             app:tint="@color/gray" />
+
         <TextView
             android:id="@+id/toolbarTitleTv"
+            style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Change Password"
             android:layout_centerInParent="true"
-            style="@style/TextAppearance.MaterialComponents.Body1"/>
+            android:text="Change Password" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/gray"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true"
+            android:background="@color/gray" />
     </RelativeLayout>
 
     <ScrollView
         android:id="@+id/scroller"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/leftGuide"
-        app:layout_constraintEnd_toEndOf="@id/rightGuide"
         android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@id/rightGuide"
+        app:layout_constraintStart_toStartOf="@id/leftGuide"
         app:layout_constraintTop_toBottomOf="@+id/toolBarRL">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <RelativeLayout
                 android:id="@+id/profileRL"
                 android:layout_width="120dp"
-                android:layout_centerHorizontal="true"
-                android:layout_height="120dp">
+                android:layout_height="120dp"
+                android:layout_centerHorizontal="true">
+
                 <ImageView
                     android:id="@+id/profileTv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/i2"
                     android:background="@color/gray"
                     android:scaleType="centerCrop"
-                    app:shapeAppearanceOverlay="@style/ImageStyle_CIrcle"/>
+                    android:src="@drawable/i2"
+                    app:shapeAppearanceOverlay="@style/ImageStyle_CIrcle" />
             </RelativeLayout>
+
             <TextView
-                style="@style/TextAppearance.MaterialComponents.Caption"
-                android:gravity="center"
-                android:layout_marginTop="30dp"
                 android:id="@+id/forgotPassText"
-                android:layout_below="@id/profileRL"
+                style="@style/TextAppearance.MaterialComponents.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="To change the password, you must verify it is really you by entering your current password. Your new password should be different from the current one."/>
+                android:layout_below="@id/profileRL"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:text="To change the password, you must verify it is really you by entering your current password. Your new password should be different from the current one." />
+
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:id="@+id/currentPasswordTil2"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/forgotPassText"
                 android:layout_marginTop="30dp"
                 android:hint="Email ID"
-                app:startIconDrawable="@drawable/pass_icon"
-                app:boxCornerRadiusBottomStart="8dp"
                 app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusTopStart="8dp"
-                app:passwordToggleEnabled="true">
+                app:passwordToggleEnabled="true"
+                app:startIconDrawable="@drawable/pass_icon">
 
                 <EditText
                     android:id="@+id/newPasswordEt2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </RelativeLayout>
@@ -119,7 +126,7 @@
         android:minHeight="50dp"
         android:text="SUBMIT"
         app:cornerRadius="8dp"
-        app:layout_constraintStart_toStartOf="@id/leftGuide"
         app:layout_constraintEnd_toEndOf="@id/rightGuide"
-        app:layout_constraintTop_toBottomOf="@id/scroller"/>
+        app:layout_constraintStart_toStartOf="@id/leftGuide"
+        app:layout_constraintTop_toBottomOf="@id/scroller" />
 </androidx.constraintlayout.widget.ConstraintLayout>

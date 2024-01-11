@@ -45,7 +45,7 @@ class AdapterAd(private val context: Context, private val adArrayList: List<Mode
 
         // Set ad details to the ViewHolder's views
         holder.titleTv.text = title
-        holder.descriptionTv.text = description
+//        holder.descriptionTv.text = description
         holder.priceTv.text = price
         holder.dateTv.text = formattedDate
 
@@ -90,7 +90,7 @@ class AdapterAd(private val context: Context, private val adArrayList: List<Mode
     inner class HolderAd(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var imageTv = binding.imageTv
         var titleTv = binding.titleTv
-        var descriptionTv = binding.descriptionTv
+//        var descriptionTv = binding.descriptionTv
         var priceTv = binding.priceTv
         var dateTv = binding.dateTv
     }
