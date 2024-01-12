@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/root"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activites.ForgotPassActivity">
@@ -106,12 +107,13 @@
                 app:boxCornerRadiusBottomStart="8dp"
                 app:boxCornerRadiusTopEnd="8dp"
                 app:boxCornerRadiusTopStart="8dp"
-                app:passwordToggleEnabled="true"
                 app:startIconDrawable="@drawable/pass_icon">
 
                 <EditText
                     android:id="@+id/newPasswordEt2"
                     android:layout_width="match_parent"
+                    android:inputType="textEmailAddress"
+                    android:ems="10"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -61,12 +61,13 @@ class HomeFragment : Fragment(), AdapterAd.OnAdClickListener {
         productApi = retrofit.create(ProductApi::class.java)
 
         // Get the access token from shared preferences
-        val sharedPreference = mContext.getSharedPreferences("Account_Details", Context.MODE_PRIVATE)
+        val sharedPreference =
+            mContext.getSharedPreferences("Account_Details", Context.MODE_PRIVATE)
         accessToken = "Bearer " + sharedPreference.getString("accessToken", "") ?: ""
 
         // Setup RecyclerView and Adapter
         adapterAd = AdapterAd(mContext, adArrayList)
-        binding.adsRv.layoutManager = GridLayoutManager(mContext,2)
+        binding.adsRv.layoutManager = GridLayoutManager(mContext, 2)
         binding.adsRv.adapter = adapterAd
 
         // Set the listener for click events
@@ -83,7 +84,7 @@ class HomeFragment : Fragment(), AdapterAd.OnAdClickListener {
         startActivity(intent)
     }
 
-    private fun loadCategories(){
+    private fun loadCategories() {
 
         val categories = arrayOf(
             "Coolers",
@@ -107,16 +108,18 @@ class HomeFragment : Fragment(), AdapterAd.OnAdClickListener {
         )
 
         val categoryArrayList = ArrayList<ModelCategory>()
-        for(i in 0 until categories.size){
+        for (i in 0 until categories.size) {
             val modelCategory = ModelCategory(categories[i], categoryIcons[i])
             categoryArrayList.add(modelCategory)
         }
-        val adapterCategory = AdapterCategory(mContext, categoryArrayList, object: RvListenerCategory{
-            override fun onCategoryClick(modelCategory: ModelCategory) {
-            }
-        })
+        val adapterCategory =
+            AdapterCategory(mContext, categoryArrayList, object : RvListenerCategory {
+                override fun onCategoryClick(modelCategory: ModelCategory) {
+                }
+            })
 
-        binding.categoriesRv.layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
+        binding.categoriesRv.layoutManager =
+            LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
         binding.categoriesRv.adapter = adapterCategory
 
 
@@ -171,7 +174,11 @@ class HomeFragment : Fragment(), AdapterAd.OnAdClickListener {
                 // Show an error message or handle the failure
                 // For example, you can display a toast message with the failure
                 Log.e("Fetch", "Failed to fetch products: ${t.message}")
-                Toast.makeText(context, "Failed to fetch products: ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    "Failed to fetch products: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }

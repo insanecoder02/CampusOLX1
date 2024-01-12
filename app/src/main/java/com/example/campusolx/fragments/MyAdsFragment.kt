@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.campusolx.RetrofitInstance
@@ -56,7 +57,7 @@ class MyAdsFragment : Fragment() {
 
         // Setup RecyclerView and Adapter
         adapterAd = AdapterAd(mContext, adArrayList)
-        binding.adsRv.layoutManager = LinearLayoutManager(mContext)
+        binding.adsRv.layoutManager = GridLayoutManager(mContext, 2)
         binding.adsRv.adapter = adapterAd
 
         // Fetch and display the products of the current user
@@ -66,7 +67,8 @@ class MyAdsFragment : Fragment() {
     private fun fetchMyAds() {
         // Get the user ID from shared preferences (assuming it's stored there)
         com.example.campusolx.utils.AdLoader.showDialog(mContext, isCancelable = true)
-        val sharedPreference = mContext.getSharedPreferences("Account_Details", Context.MODE_PRIVATE)
+        val sharedPreference =
+            mContext.getSharedPreferences("Account_Details", Context.MODE_PRIVATE)
         val userId = sharedPreference.getString("userId", "") ?: ""
 
         val call = productApi.getAllProductsOfUser(accessToken, userId)

@@ -279,7 +279,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/poppins_medium"
-        android:text="Gaurav Chhetri"
+        android:text="Name"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="16sp"
@@ -291,7 +291,7 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ife2022004@iiita.ac.in"
+        android:text="Email"
         app:layout_constraintEnd_toStartOf="@+id/rightGuide"
         app:layout_constraintStart_toStartOf="@+id/leftGuide"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />

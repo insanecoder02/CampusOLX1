@@ -1,12 +1,14 @@
 package com.example.campusolx.activites
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
-import android.view.WindowManager
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -30,25 +32,24 @@ class ForgotPassActivity : AppCompatActivity() {
     private lateinit var submitButton: MaterialButton
     private lateinit var progressDialog: ProgressDialog
     private lateinit var authApi: AuthApi
-    private lateinit var backButton : ImageView
-//    private val binding : ActivityForgotPassBinding by lazy{
-//        ActivityForgotPassBinding.inflate(layoutInflater)
-//    }
+    private lateinit var backButton: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_pass)
 
+        val rootLayout = findViewById<View>(R.id.root)
+
+
+        rootLayout.setOnTouchListener { _, _ ->
+            hideKeyboard()
+            false
+        }
+
         getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         // Hide the action bar
         supportActionBar?.hide()
-
-        // Set flags for fullscreen
-//        window.setFlags(
-//            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//            WindowManager.LayoutParams.FLAG_FULLSCREEN
-//        )
 
         // Initialize UI elements and Retrofit instance
         emailEditText = findViewById(R.id.newPasswordEt2)
@@ -71,15 +72,15 @@ class ForgotPassActivity : AppCompatActivity() {
             }
         }
 
-        backButton.setOnClickListener{
+        backButton.setOnClickListener {
             finish()
         }
-//        Glide.with(this)
-//            .load(profilePictureUrl)
-//            .placeholder(R.drawable.i2)
-//            .into(binding.profileTv)
 
+    }
 
+    private fun hideKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 
     // Function to validate the email format
@@ -99,7 +100,11 @@ class ForgotPassActivity : AppCompatActivity() {
 
                 if (response.isSuccessful) {
                     // Password reset request successful, navigate to ResetPasswordActivity
-                    Toast.makeText(this@ForgotPassActivity, "Forgot Password Request Successful", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@ForgotPassActivity,
+                        "Forgot Password Request Successful",
+                        Toast.LENGTH_LONG
+                    ).show()
                     val intent = Intent(this@ForgotPassActivity, ResetPasswordActivity::class.java)
                     intent.putExtra("email", email) // Pass email as extra data
                     startActivity(intent)
@@ -120,14 +125,22 @@ class ForgotPassActivity : AppCompatActivity() {
                     if (errorBody != null) {
                         Log.e("ForgotPassActivity", errorBody)
                     }
-                    Toast.makeText(this@ForgotPassActivity, "Forgot Password Request Failed: $errorMessage", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@ForgotPassActivity,
+                        errorMessage,
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 progressDialog.dismiss()
                 val errorMessage = t.message
-                Toast.makeText(this@ForgotPassActivity, "Forgot Password Request Failed: $errorMessage", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this@ForgotPassActivity,
+                    t.localizedMessage,
+                    Toast.LENGTH_LONG
+                ).show()
             }
         })
     }

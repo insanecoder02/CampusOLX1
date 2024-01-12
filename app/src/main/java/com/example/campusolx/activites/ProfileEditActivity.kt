@@ -51,29 +51,13 @@ class ProfileEditActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Initialize the view using the layout defined in ActivityProfileEditBinding
         binding = ActivityProfileEditBinding.inflate(layoutInflater)
-
-//        window.decorView.systemUiVisibility = (
-//                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-//                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-//                )
-//        window.statusBarColor = Color.TRANSPARENT
         setContentView(binding.root)
 
-        // Hide the action bar if it is present
         supportActionBar?.hide()
 
         getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-        // Set flags to display the activity in full-screen mode
-//        window.setFlags(
-//            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//            WindowManager.LayoutParams.FLAG_FULLSCREEN
-//        )
-
-        // Initialize Retrofit API instance
         val retrofit = RetrofitInstance.getRetrofitInstance()
         authApi = retrofit.create(AuthApi::class.java)
 
@@ -118,8 +102,6 @@ class ProfileEditActivity : AppCompatActivity() {
         userId = sharedPreference.getString("userId", "") ?: ""
     }
 
-
-    // Declare variables to store user data
     private var name = ""
     private var rollNo = ""
     private var email = ""

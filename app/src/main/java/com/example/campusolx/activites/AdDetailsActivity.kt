@@ -65,9 +65,9 @@ class AdDetailsActivity : AppCompatActivity() {
             }
         })
 
-//        binding.toolBarBackBtn.setOnClickListener{
-//            finish()
-//        }
+        binding.toolBarBackBtn.setOnClickListener {
+            finish()
+        }
     }
 
     private fun fetchUserDetails(userId: String) {
@@ -119,9 +119,12 @@ class AdDetailsActivity : AppCompatActivity() {
             val firstImageUrl = product.images[0]
             // You may use an image loading library like Glide, Picasso, or Coil to load the image into the ImageView.
             // Here, I'll show you how to use Glide to load the image.
-            Glide.with(this)
-                .load(firstImageUrl)
-                .into(binding.imageSliderVp)
+
+            if (!isDestroyed) {
+                Glide.with(this@AdDetailsActivity)
+                    .load(firstImageUrl)
+                    .into(binding.imageSliderVp)
+            }
         }
     }
 

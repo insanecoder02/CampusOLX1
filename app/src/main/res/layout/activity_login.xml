@@ -82,7 +82,6 @@
         app:layout_constraintEnd_toStartOf="@+id/rightGuide"
         app:layout_constraintStart_toStartOf="@+id/leftGuide"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:passwordToggleEnabled="true"
         app:startIconDrawable="@drawable/email_icon">
 
         <EditText

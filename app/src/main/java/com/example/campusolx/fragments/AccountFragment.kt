@@ -39,6 +39,9 @@ class AccountFragment : Fragment() {
         binding.ContactTvAcc.text = account.contact
         binding.EmailTvAcc.text = account.email
 
+        binding.textView4.text = account.name
+        binding.textView5.text = account.email
+
         binding.delteaccontImageView.setImageResource(R.drawable.fi_user_x)
         binding.verfiyAccountIMageVidwe.setImageResource(R.drawable.fi_unlock)
         binding.changePasswordImageView.setImageResource(R.drawable.fi_edit_3)
